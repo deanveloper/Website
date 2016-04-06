@@ -1,6 +1,6 @@
 body {
 	background: url("http://i.imgur.com/vtXUwrI.png");
-	background-size: 100%;
+	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	font-family: "Proxima Nova";
