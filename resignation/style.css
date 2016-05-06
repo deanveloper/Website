@@ -1,22 +1,20 @@
 body {
-	background: url("http://i.imgur.com/vtXUwrI.png");
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	font-family: 'Lato', sans-serif;
-	font-size: 125%;
+    background-size: cover;
+    background: url("http://i.imgur.com/vtXUwrI.png") no-repeat fixed;
+    font-family: 'Lato', sans-serif;
+    font-size: 125%;
 }
 
 #paperLookinThing {
-	text-align: justify;
-	background-color: white;
-	box-shadow: 10px 10px 30px #000;
-	width: 750px;
-	padding: 50px;
-	margin: 100px auto 100px auto;
+    text-align: justify;
+    background-color: white;
+    box-shadow: 10px 10px 30px #000;
+    width: 750px;
+    padding: 50px;
+    margin: 100px auto 100px auto;
 }
 
 h1 {
-	text-align: center;
-	font-size: 225%;
+    text-align: center;
+    font-size: 225%;
 }
