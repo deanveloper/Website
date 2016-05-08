@@ -1,3 +1,8 @@
+html, body {
+    margin: 0; height: 100%;
+    overflow: hidden;
+}
+
 main {
     background: url("../images/SidneyAndMe.jpeg") no-repeat center 85%;
     background-size: cover;
