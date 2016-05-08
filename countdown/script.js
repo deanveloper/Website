@@ -11,5 +11,5 @@ function update() {
 
 window.onload = function () {
     update();
-    setInterval(update, 200)
+    setInterval(update, 50)
 };
