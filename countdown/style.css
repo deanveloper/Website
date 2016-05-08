@@ -5,10 +5,6 @@ html, body {
     overflow: hidden;
 }
 
-body {
-    position: relative;
-}
-
 main {
     background: url("../images/SidneyAndMe.jpeg") no-repeat center 85%;
     background-size: cover;
