@@ -1,5 +1,6 @@
 main {
-    background-color: whitesmoke;
+    background: url("../images/SidneyAndMe.jpeg") no-repeat center 85%;
+    background-size: cover;
     position: absolute;
     margin: 0;
     padding: 0;
@@ -10,8 +11,11 @@ main {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-content: flex-end;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    font-family: 'Lato', sans-serif;
+    color: white;
 }
 
 ul {
@@ -22,17 +26,19 @@ ul {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-end;
+    align-content: flex-end;
     height: 125px;
 }
 
 li {
     text-align: center;
     margin: 10px;
-    padding: 0;
+    padding: 10px;
     width: 100px;
     border-radius: 15%;
 
-    background-color: white;
+    background-color: rgba(0, 0, 0, .55);
 
     display: flex;
     flex-direction: column;
@@ -44,4 +50,13 @@ li {
 p {
     margin: 0;
     padding: 0;
+}
+
+.unit {
+    font-size: 1.25em;
+}
+
+.num {
+    font-size: 2em;
+    font-weight: 400;
 }

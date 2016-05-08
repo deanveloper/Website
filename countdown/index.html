@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Countdown</title>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato"/>
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
 <main>
     <ul>
-        <li id="months"><p class="num">0</p><p class="unit">months</p></li>
-        <li id="weeks"><p class="num">0</p><p class="unit">weeks</p></li>
-        <li id="days"><p class="num">0</p><p class="unit">days</p></li>
-        <li id="hours"><p class="num">0</p><p class="unit">hours</p></li>
-        <li id="minutes"><p class="num">0</p><p class="unit">minutes</p></li>
-        <li id="seconds"><p class="num">0</p><p class="unit">seconds</p></li>
+        <li><p id="weeks" class="num">loading...</p><p class="unit">weeks</p></li>
+        <li><p id="days" class="num">loading...</p><p class="unit">days</p></li>
+        <li><p id="hours" class="num">loading...</p><p class="unit">hours</p></li>
+        <li><p id="minutes" class="num">loading...</p><p class="unit">minutes</p></li>
+        <li><p id="seconds" class="num">loading...</p><p class="unit">seconds</p></li>
     </ul>
 </main>
+<script type="text/javascript" src="xdate.js"></script>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
