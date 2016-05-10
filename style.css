@@ -1,5 +1,5 @@
-#background {
-    background-image: radial-gradient(ellipse farthest-corner at center, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, .25) 100%);
+body {
+    background-color: dodgerblue;
 
     display: block;
     position: fixed;
@@ -10,14 +10,30 @@
     z-index: -1;
 }
 
+#background {
+    background-color: cornflowerblue;
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 33%;
+    left: 0;
+    top: 67%;
+}
+
 main {
-    text-align: center;
-    margin: 10%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    top: 33%;
+    left: 0;
+    height: 66%;
+    width: 100%;
     font-family: 'Open Sans', sans-serif;
     font-size: 2em;
 }
 
 main * {
+    text-align: center;
     margin: 0;
     padding: 0;
 }
@@ -45,7 +61,12 @@ a {
     filter: drop-shadow(0 0 10px #555);
 }
 
+#mainList {
+    bottom: 67%;
+}
+
 #links {
+    top: 67%;
     display: inline-block;
     margin-top: 50px
 }
@@ -54,15 +75,14 @@ a {
     display: inline-block;
     margin: 0px 20px;
     opacity: 0.5;
-    filter: none;
-    padding: 0px;
 
     transition: all 0.5s ease-in-out;
+
+    background-blend-mode: multiply;
 }
 
 #links li:hover {
     opacity: 1;
-    filter: drop-shadow(3px 3px 3px #AAA);
 
     transition: all 0.5s ease-in-out;
 }

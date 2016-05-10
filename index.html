@@ -6,7 +6,7 @@
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div id="background"><!-- Apply Gradient --></div>
+<div id="background"><!-- Apply other background color --></div>
 <main>
     <ul id="mainList">
         <li><img id="me" src="images/me.jpg"></li>
@@ -36,5 +36,18 @@
         </li>
     </ul>
 </main>
+
+<svg height="0" xmlns="http://www.w3.org/2000/svg">
+    <filter id="drop-shadow">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="4"></feGaussianBlur>
+        <feOffset dx="12" dy="12" result="offsetblur"></feOffset>
+        <feFlood flood-color="rgba(0,0,0,0.5)"></feFlood>
+        <feComposite in2="offsetblur" operator="in"></feComposite>
+        <feMerge>
+            <feMergeNode></feMergeNode>
+            <feMergeNode in="SourceGraphic"></feMergeNode>
+        </feMerge>
+    </filter>
+</svg>
 </body>
 </html>
