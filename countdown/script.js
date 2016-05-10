@@ -11,5 +11,13 @@ function update() {
 
 window.onload = function () {
     update();
-    setInterval(update, 50)
+    setInterval(update, 50);
+};
+
+document.ontouchstart = function(e){
+    e.preventDefault();
+};
+
+document.ontouchmove = function(e){
+    e.preventDefault();
 };
