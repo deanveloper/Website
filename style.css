@@ -21,12 +21,12 @@ body {
 }
 
 main {
-    position: relative;
+    position: absolute;
     margin: 0;
     padding: 0;
-    top: 33%;
+    top: 0;
     left: 0;
-    height: 66%;
+    height: 100%;
     width: 100%;
     font-family: 'Open Sans', sans-serif;
     font-size: 2em;
@@ -58,17 +58,23 @@ a {
 #me {
     width: 200px;
     border-radius: 50%;
+    -webkit-filter: drop-shadow(0 0 10px #555);
     filter: drop-shadow(0 0 10px #555);
 }
 
 #mainList {
-    bottom: 67%;
+    position: absolute;
+    bottom: 33%;
+    width: 100%;
+    margin-bottom: 10px
 }
 
 #links {
+    position: absolute;
     top: 67%;
     display: inline-block;
-    margin-top: 50px
+    margin-top: 10px;
+    width: 100%;
 }
 
 #links li {
