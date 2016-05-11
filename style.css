@@ -101,6 +101,17 @@ a {
     font-size: 5vw;
 }
 
+#links {
+    position: absolute;
+    top: 67%;
+    width: 75%;
+    padding: 0 12.5%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
 @media all and (min-width: 750px) {
     #title > h1 {
         font-size: 45px;
@@ -108,17 +119,10 @@ a {
     #subtitle > h2 {
         font-size: 38px;
     }
-}
-
-#links {
-    position: absolute;
-    top: 67%;
-    width: 60%;
-    padding: 0 20%;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: nowrap;
+    #links {
+        width: 563px;
+        padding: 0 calc((100% - 563px) / 2)
+    }
 }
 
 #links li {
