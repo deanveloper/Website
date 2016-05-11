@@ -37,6 +37,7 @@ main * {
     text-align: center;
     margin: 0;
     padding: 0;
+    white-space: nowrap;
 }
 
 ul {
@@ -48,29 +49,17 @@ a {
     color: inherit;
 }
 
-#title {
-    font-weight: 700;
-    font-size: 6vw;
-}
-
-#subtitle {
-    font-weight: 400;
-    font-size: 5vw;
-}
-
-#me {
-    width: 17%;
-    border: 7px solid whitesmoke;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-}
-
 #mainList {
     position: absolute;
     bottom: 33%;
     width: 100%;
-    margin-bottom: 5%;
+    padding: 0;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    align-items: center;
 
     -webkit-animation: fadein 1s ease-in; /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 1s ease-in; /* Firefox < 16 */
@@ -79,12 +68,54 @@ a {
     animation: fadein 1s ease-in;
 }
 
+#me {
+    flex: 0 0 auto;
+}
+
+#me > img {
+    width: 17vw;
+    max-width: 100px;
+    border: 5px solid whitesmoke;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+
+#title {
+    flex: 1 1 auto;
+    max-width: 75%;
+}
+
+#title > h1 {
+    font-weight: 700;
+    font-size: 6vw;
+}
+
+#subtitle {
+    flex: 1 1 auto;
+    max-width: 75%;
+}
+
+#subtitle > h2 {
+    font-weight: 400;
+    font-size: 5vw;
+}
+
+@media all and (min-width: 750px) {
+    #title > h1 {
+        font-size: 45px;
+    }
+    #subtitle > h2 {
+        font-size: 38px;
+    }
+}
+
 #links {
     position: absolute;
     top: 67%;
     width: 60%;
     padding: 0 20%;
-    margin-top: 5%;
+    margin-top: 20px;
     display: flex;
     justify-content: space-around;
     flex-wrap: nowrap;
