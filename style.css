@@ -61,11 +61,11 @@ a {
     justify-content: flex-end;
     align-items: center;
 
-    -webkit-animation: fadein 1s ease-in; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadein 1s ease-in; /* Firefox < 16 */
-    -ms-animation: fadein 1s ease-in; /* Internet Explorer */
-    -o-animation: fadein 1 ease-in; /* Opera < 12.1 */
-    animation: fadein 1s ease-in;
+    -webkit-animation: fadein .75s ease-in; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein .75s ease-in; /* Firefox < 16 */
+    -ms-animation: fadein .75s ease-in; /* Internet Explorer */
+    -o-animation: fadein .75s ease-in; /* Opera < 12.1 */
+    animation: fadein .75s ease-in;
 }
 
 #me {
@@ -133,15 +133,15 @@ a {
     flex-grow: 1;
     flex-shrink: 1;
 
-    transition: all 0.5s ease-in-out;
+    transition: all 0.25s ease-in-out;
 
     background-blend-mode: multiply;
 
-    -webkit-animation: fadeinhalf 1s ease-in; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadeinhalf 1s ease-in; /* Firefox < 16 */
-    -ms-animation: fadeinhalf 1s ease-in; /* Internet Explorer */
-    -o-animation: fadeinhalf 1s ease-in; /* Opera < 12.1 */
-    animation: fadeinhalf 1s ease-in;
+    -webkit-animation: fadeinhalf .75s ease-in; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadeinhalf .75s ease-in; /* Firefox < 16 */
+    -ms-animation: fadeinhalf .75s ease-in; /* Internet Explorer */
+    -o-animation: fadeinhalf .75s ease-in; /* Opera < 12.1 */
+    animation: fadeinhalf .75s ease-in;
 }
 
 #links li:hover {
@@ -153,14 +153,14 @@ a {
 #links li p {
     color: rgba(0,0,0,0);
 
-    transition: all 0.5s ease-in-out;
+    transition: all 0.25s ease-in-out;
     font-size: 3vw;
 }
 
 #links li:hover p {
     color: rgba(0,0,0,1);
 
-    transition: all 0.5s ease-in-out;
+    transition: all 0.25s ease-in-out;
 }
 
 #links img {
