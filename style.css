@@ -112,19 +112,6 @@ a {
     flex-wrap: nowrap;
 }
 
-@media all and (min-width: 750px) {
-    #title > h1 {
-        font-size: 45px;
-    }
-    #subtitle > h2 {
-        font-size: 38px;
-    }
-    #links {
-        width: 563px;
-        padding: 0 calc((100% - 563px) / 2)
-    }
-}
-
 #links li {
     display: inline-block;
     width: 20%;
@@ -167,6 +154,22 @@ a {
     position: relative;
     max-width: 100px;
     width: 100%;
+}
+
+@media all and (min-width: 750px) {
+    #title > h1 {
+        font-size: 45px;
+    }
+    #subtitle > h2 {
+        font-size: 38px;
+    }
+    #links {
+        width: 563px;
+        padding: 0 calc((100% - 563px) / 2);
+    }
+    #links li p {
+        font-size: 23px;
+    }
 }
 
 @keyframes fadein {
