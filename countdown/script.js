@@ -1,4 +1,4 @@
-var targetDate = new XDate(2016, 6, 29); //month is 0-based
+var targetDate = new XDate(2016, 11, 30); //month is 0-based
 
 function update() {
     var now = new XDate();
