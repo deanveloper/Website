@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <meta charset="UTF-8">
+    <title>Base 64 Util</title>
+    <script src="script.js"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="title"><h1>Easy Base64 Encoder</h1><p>goes both directions!</p></div>
+    <div id="converter">
+        <div class="textbox">
+            <div class="header"><h2>Text</h2></div>
+            <div class="entry"><textarea id="text" title="Text" onkeyup="textEventHandler();"></textarea></div>
+        </div>
+        <div class="textbox">
+            <div class="header"><h2>Base64</h2></div>
+            <div class="entry"><textarea id="base64" title="Base64" onkeyup="base64EventHandler();"></textarea></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
