@@ -27,32 +27,34 @@ body {
 
 .textbox {
     width: 50%;
-    max-width: 500px;
     height: 25%;
+    max-width: 500px;
     min-height: 100px;
     max-height: 300px;
     display: table;
     margin: 25px 25px;
-}
-
-.header {
-    display: table-caption;
-    vertical-align: text-top;
-}
-
-.entry {
-    display: table-cell;
+    alignment: center;
 }
 
 h2 {
     margin: 0 0 5px;
+    vertical-align: text-top;
+    display: table-caption;
 }
 
 textarea {
+    margin: 0;
+
+    display: table-cell;
     resize: none;
     width: 100%;
     height: 100%;
     background-color: dodgerblue;
     border: solid royalblue 5px;
-    padding: 10px;
+    padding: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
 }
