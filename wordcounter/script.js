@@ -14,8 +14,6 @@ function updateStats() {
     words.innerHTML = paper.value.split(/\s+/g).filter((it) => !!it.replace(/\W/g, "").toString()).length;
     letters.innerHTML = countSymbols(paper.value.replace(/\W/g, ""));
     characters.innerHTML = countSymbols(paper.value);
-
-    console.log(paper.value.replace(/\W/g, ""));
 }
 
 function countSymbols(string) {
