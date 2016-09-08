@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word Utils</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="../util/autosize.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+<div id="content">
+    <textarea id="paperlookinthing" title="Enter text here" onkeydown="updateStats()" onkeyup="updateStats()"></textarea>
+    <h1 id="header">Some cool stuff about this</h1>
+    <table id="data">
+        <tr>
+            <th>Words</th>
+            <th>Letters</th>
+            <th>Characters</th>
+        </tr>
+        <tr>
+            <td id="words">0</td>
+            <td id="letters">0</td>
+            <td id="characters">0</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

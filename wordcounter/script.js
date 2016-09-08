@@ -1,0 +1,23 @@
+window.onload = function() {
+    autosize(document.querySelector("#paperlookinthing"));
+};
+
+function updateStats() {
+    const paper = document.querySelector("#paperlookinthing");
+    if(!paper.value) {
+        return;
+    }
+    const words = document.querySelector("#words");
+    const letters = document.querySelector("#letters");
+    const characters = document.querySelector("#characters");
+
+    words.innerHTML = paper.value.split(/\s+/g).filter((it) => !!it.replace(/\W/g, "").toString()).length;
+    letters.innerHTML = countSymbols(paper.value.replace(/\W/g, ""));
+    characters.innerHTML = countSymbols(paper.value);
+
+    console.log(paper.value.replace(/\W/g, ""));
+}
+
+function countSymbols(string) {
+    return Array.from(string).length;
+}
