@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    background-color: cornflowerblue;
 }
 
 #wrapper {
@@ -51,4 +52,7 @@ textarea {
     resize: none;
     width: 100%;
     height: 100%;
+    background-color: dodgerblue;
+    border: solid royalblue 5px;
+    padding: 10px;
 }
