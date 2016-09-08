@@ -21,7 +21,7 @@ function textEventHandler() {
     try {
         base64.value = b64EncodeUnicode(text.value);
     } catch (e) {
-        base64.value = "invalid text!"
+        base64.value = "invalid text " + String.fromCodePoint(0x1F61E); // disappointed emoji
     }
 }
 
@@ -29,6 +29,6 @@ function base64EventHandler() {
     try {
         text.value = b64DecodeUnicode(base64.value);
     } catch (e) {
-        text.value = "invalid base64!"
+        text.value = "invalid base64 " + String.fromCodePoint(0x1F61E); // disappointed emoji
     }
 }
