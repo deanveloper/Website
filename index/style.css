@@ -172,6 +172,8 @@ a {
 
     opacity: .5;
     transition: all 0.25s ease-in-out;
+
+    cursor: pointer;
 }
 
 #arrow:hover {
@@ -184,7 +186,30 @@ a {
 }
 
 #utils {
+    text-align: right;
     visibility: hidden;
+    position: fixed;
+    right: 50px;
+    bottom: 100px;
+    opacity: 0;
+    background-color: rgba(255,255,255,.75);
+
+    transition: all .2s ease-in-out;
+}
+
+#utils p {
+    display: inline;
+    vertical-align: middle;
+    font-family: -apple-system, 'Open Sans', sans-serif;
+    font-size: 16px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+#utils img {
+    position: relative;
+    width: 50px;
+    display: inline;
 }
 
 @media all and (min-width: 750px) {
