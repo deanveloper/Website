@@ -156,6 +156,37 @@ a {
     width: 100%;
 }
 
+#arrow {
+    position: fixed;
+    width: 50px;
+    right: 50px;
+    bottom: 50px;
+
+    background-blend-mode: multiply;
+
+    -webkit-animation: fadeinhalf .75s ease-in; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadeinhalf .75s ease-in; /* Firefox < 16 */
+    -ms-animation: fadeinhalf .75s ease-in; /* Internet Explorer */
+    -o-animation: fadeinhalf .75s ease-in; /* Opera < 12.1 */
+    animation: fadeinhalf .75s ease-in;
+
+    opacity: .5;
+    transition: all 0.25s ease-in-out;
+}
+
+#arrow:hover {
+    position: fixed;
+    width: 50px;
+    right: 50px;
+
+    opacity: 1;
+    transition: all 0.25s ease-in-out;
+}
+
+#utils {
+    visibility: hidden;
+}
+
 @media all and (min-width: 750px) {
     #title > h1 {
         font-size: 45px;

@@ -6,7 +6,7 @@ html, body {
 }
 
 main {
-    background: url("../images/SidneyAndMe.jpeg") no-repeat center 85%;
+    background: url("../index/images/SidneyAndMe.jpeg") no-repeat center 85%;
     background-size: cover;
     position: absolute;
     margin: 0;
