@@ -4,7 +4,7 @@ window.onload = function() {
 
 function updateStats() {
     const paper = document.querySelector("#paperlookinthing");
-    if(!paper.value) {
+    if(paper.value === undefined) {
         return;
     }
     const words = document.querySelector("#words");
