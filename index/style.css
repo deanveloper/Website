@@ -210,19 +210,26 @@ a {
     transition: all .25s ease-in-out;
 }
 
+#utils li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 #utils div {
-    display: inline;
+    display: inline-block;
     vertical-align: middle;
+    margin-right: 5px;
     font-family: -apple-system, 'Open Sans', sans-serif;
     font-size: 16px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    top: 50%;
+    transform: translate(0, -50%);
 }
 
 #utils img {
+    display: inline-block;
     position: relative;
     width: 32px;
-    display: inline;
 }
 
 @media all and (min-width: 750px) {
