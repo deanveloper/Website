@@ -1,9 +1,12 @@
 var text;
 var base64;
-window.onload = function () {
+
+window.addEventListener("load", function load(){
+    window.removeEventListener("load", load, false); //remove listener, no longer needed
+
     text = document.getElementById("text");
     base64 = document.getElementById("base64");
-};
+});
 
 function b64EncodeUnicode(str) {
     return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
