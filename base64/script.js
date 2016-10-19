@@ -1,5 +1,5 @@
-var text;
-var base64;
+var text = document.getElementById("text");
+var base64 = document.getElementById("base64");
 
 window.addEventListener("load", function load(){
     window.removeEventListener("load", load, false); //remove listener, no longer needed
