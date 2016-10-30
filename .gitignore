@@ -1,2 +1,4 @@
 .idea
-deanveloper.github.io.iml
+node_modules/
+package.json
+.babelrc

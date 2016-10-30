@@ -1,5 +1,7 @@
+import * as autosize from "/util/autosize.min.js";
+
 window.onload = function() {
-    autosize(document.querySelector("#paperlookinthing"));
+    autosize.autosize(document.querySelector("#paperlookinthing"));
 };
 
 function updateStats() {
