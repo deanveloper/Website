@@ -1,4 +1,2 @@
-.idea
-node_modules/
-package.json
-.babelrc
+# Created by .ignore support plugin (hsz.mobi)
+.idea/

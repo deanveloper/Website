@@ -1,9 +1,7 @@
 var text = document.getElementById("text");
 var base64 = document.getElementById("base64");
 
-window.addEventListener("load", function load(){
-    window.removeEventListener("load", load, false); //remove listener, no longer needed
-
+window.addEventListener("load", () => {
     text = document.getElementById("text");
     base64 = document.getElementById("base64");
 });
