@@ -35,14 +35,6 @@ function walk(p) {
                         .pipe(fs.createWriteStream(path.join(path.dirname(f), "bundle.js")));
                 }
             });
-
-        files
-            .map((f) => path.join(p, f))
-            .filter((f) => fs.statSync(f).isFile())
-            .filter((f) => f.endsWith(".jsx"))
-            .forEach((f) => {
-                const dir = path.dirname(f).replace("GithubPagesES6", "Website");
-            });
     });
 }
 
