@@ -26,12 +26,14 @@ function walk(p) {
         files
             .map((f) => path.join(p, f))
             .filter((f) => fs.statSync(f).isFile())
-            .filter((f) => !f.endsWith(".jsx"))
             .forEach((f) => {
-                const dir = path.dirname(f).replace("GithubPagesES6", "Website");
-                fs.mkdir(dir, () => {
-                    fs.createReadStream(f).pipe(fs.createWriteStream(path.join(dir, path.basename(f))));
-                });
+                if(f.endsWith(".jsx")) {
+                    browserify(f)
+                        .transform("babelify", {presets: ["es2015"]})
+                        .transform("uglifyify", {global: true})
+                        .bundle()
+                        .pipe(fs.createWriteStream(path.join(path.dirname(f), "bundle.js")));
+                }
             });
 
         files
@@ -40,11 +42,6 @@ function walk(p) {
             .filter((f) => f.endsWith(".jsx"))
             .forEach((f) => {
                 const dir = path.dirname(f).replace("GithubPagesES6", "Website");
-                browserify(f)
-                    .transform("babelify", {presets: ["es2015"]})
-                    .transform("uglifyify", {global: true})
-                    .bundle()
-                    .pipe(fs.createWriteStream(path.join(dir, "bundle.js")));
             });
     });
 }
