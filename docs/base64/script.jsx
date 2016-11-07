@@ -1,7 +1,7 @@
-var text = document.getElementById("text");
-var base64 = document.getElementById("base64");
+var text;
+var base64;
 
-window.addEventListener("load", () => {
+function init() {
     text = document.getElementById("text");
     base64 = document.getElementById("base64");
     text.addEventListener("keydown", textEventHandler);
@@ -10,7 +10,13 @@ window.addEventListener("load", () => {
     base64.addEventListener("keydown", base64EventHandler);
     base64.addEventListener("keyup", base64EventHandler);
     base64.addEventListener("input", base64EventHandler);
-});
+}
+
+if (document.readyState === "complete") {
+    init();
+} else {
+    window.addEventListener("load", init);
+}
 
 
 function b64EncodeUnicode(str) {
