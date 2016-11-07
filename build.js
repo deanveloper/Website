@@ -32,7 +32,7 @@ function walk(p) {
                         .transform("babelify", {presets: ["es2015"]})
                         .transform("uglifyify", {global: true})
                         .bundle()
-                        .pipe(fs.createWriteStream(path.join(path.dirname(f), "bundle.js")));
+                        .pipe(fs.createWriteStream(path.join(path.dirname(f), "bundle.min.js")));
                 }
             });
     });

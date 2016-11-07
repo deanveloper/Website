@@ -9,10 +9,10 @@ function update() {
     document.getElementById("seconds").innerHTML = Math.floor(now.diffSeconds(targetDate) % 60).toString();
 }
 
-window.onload = function () {
+window.addEventListener("load", () => {
     update();
     setInterval(update, 100);
-};
+});
 
 document.ontouchstart = function(e){
     e.preventDefault();
