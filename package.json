@@ -24,5 +24,8 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.1",
     "uglifyify": "^3.0.4"
+  },
+  "dependencies": {
+    "autosize": "^3.0.18"
   }
 }

@@ -1,14 +1,24 @@
-import * as auto from "../util/autosize.min";
+const autosize = require("autosize");
 
-auto.autosize(document.querySelector("#paperlookinthing"));
+var paperLookinThing;
 
-window.addEventListener("load", () => {
-    auto.autosize(document.querySelector("#paperlookinthing"));
-});
+function init() {
+    paperLookinThing = document.querySelector("#paperlookinthing");
+    autosize(paperLookinThing);
+    paperLookinThing.addEventListener("keydown", updateStats);
+    paperLookinThing.addEventListener("keyup", updateStats);
+    paperLookinThing.addEventListener("input", updateStats);
+}
+
+if (document.readyState === "complete") {
+    init()
+} else {
+    window.addEventListener("load", init);
+}
 
 function updateStats() {
     const paper = document.querySelector("#paperlookinthing");
-    if(paper.value === undefined) {
+    if (paper.value === undefined) {
         return;
     }
     const words = document.querySelector("#words");
