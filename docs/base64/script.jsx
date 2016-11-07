@@ -2,8 +2,9 @@ var text;
 var base64;
 
 function init() {
-    text = document.getElementById("text");
-    base64 = document.getElementById("base64");
+    text = document.querySelector("#text");
+    base64 = document.querySelector("#base64");
+
     text.addEventListener("keydown", textEventHandler);
     text.addEventListener("keyup", textEventHandler);
     text.addEventListener("input", textEventHandler);
