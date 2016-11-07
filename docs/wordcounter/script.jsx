@@ -1,9 +1,9 @@
-import * as autosize from "../util/autosize.min";
+import * as auto from "../util/autosize.min";
 
-autosize.autosize(document.querySelector("#paperlookinthing"));
+auto.autosize(document.querySelector("#paperlookinthing"));
 
 window.addEventListener("load", () => {
-    autosize.autosize(document.querySelector("#paperlookinthing"));
+    auto.autosize(document.querySelector("#paperlookinthing"));
 });
 
 function updateStats() {
