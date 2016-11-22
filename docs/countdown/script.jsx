@@ -29,6 +29,7 @@ function update() {
 window.addEventListener("load", () => {
     update();
     setInterval(update, 100);
+    document.querySelector("#date").innerHTML = targetDate.format("dddd, MMMM Do YYYY")
 });
 
 document.ontouchstart = function (e) {
