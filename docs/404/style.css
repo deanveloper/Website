@@ -1,0 +1,78 @@
+
+#game {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+    font-family: Terminal, monospace;
+    cursor: default;
+}
+
+#messageBox {
+    position: absolute;
+    top: 80%;
+    left: 2%;
+    border: 4px double black;
+    width: 63%;
+    height: 16%;
+    text-align: left;
+    padding-left: 3px;
+}
+
+#optionsBox {
+    position: absolute;
+    top: 80%;
+    left: 69%;
+    width: 27%;
+    height: 16%;
+    text-align: left;
+    padding-left: 0px;
+}
+
+#options {
+    top: 1%;
+    left: 1%;
+    position: relative;
+    text-align: right;
+    height: 98%;
+    width: 98%;
+    font-size: 75%;
+}
+
+#tl {
+    position: absolute;
+    vertical-align: middle;
+    top: 0px;
+    left: 0px;
+    width: 50%;
+    height: 50%;
+}
+
+#tr {
+    position: absolute;
+    vertical-align: middle;
+    top: 0px;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+}
+
+#bl {
+    position: absolute;
+    vertical-align: middle;
+    top: 50%;
+    left: 0px;
+    width: 50%;
+    height: 50%;
+}
+
+#br {
+    position: absolute;
+    vertical-align: middle;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+}
