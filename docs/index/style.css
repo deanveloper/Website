@@ -201,12 +201,12 @@ a {
 #utils li {
     padding: 5px;
 
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     transition: all .25s ease-in-out;
 }
 
 #utils li:hover {
-    background-color: rgba(0,0,0,.25);
+    background-color: rgba(0, 0, 0, .25);
     transition: all .25s ease-in-out;
 }
 

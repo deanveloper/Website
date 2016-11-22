@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    background-color: #6FD2C3/*F0D1F7*/;
+    background-color: #6FD2C3 /*F0D1F7*/;
 }
 
 #wrapper {
@@ -49,8 +49,8 @@ textarea {
     resize: none;
     width: 100%;
     height: 100%;
-    background-color: #8CE8C3/*F1B7EC*/;
-    border: solid #40A681/*EA9DD0*/ 5px;
+    background-color: #8CE8C3 /*F1B7EC*/;
+    border: solid #40A681 /*EA9DD0*/ 5px;
     padding: 5px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

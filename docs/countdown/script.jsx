@@ -1,7 +1,7 @@
-var targetDate = new XDate(2016, 11, 30); //month is 0-based
+const targetDate = new XDate(2016, 11, 30); //month is 0-based
 
 function update() {
-    var now = new XDate();
+    const now = new XDate();
     document.getElementById("weeks").innerHTML = Math.floor(now.diffWeeks(targetDate)).toString();
     document.getElementById("days").innerHTML = Math.floor(now.diffDays(targetDate) % 7).toString();
     document.getElementById("hours").innerHTML = Math.floor(now.diffHours(targetDate) % 24).toString();
@@ -14,10 +14,10 @@ window.addEventListener("load", () => {
     setInterval(update, 100);
 });
 
-document.ontouchstart = function(e){
+document.ontouchstart = function (e) {
     e.preventDefault();
 };
 
-document.ontouchmove = function(e){
+document.ontouchmove = function (e) {
     e.preventDefault();
 };

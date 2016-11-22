@@ -20,9 +20,9 @@ body {
     width: 85%; /* fallback for browsers which do not support calc */
     width: calc(100% - 30px);
     border: 0;
-    -webkit-box-shadow: 10px 10px rgba(0,0,0,0.5);
-    -moz-box-shadow: 10px 10px rgba(0,0,0,0.5);
-    box-shadow: 10px 10px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
     font-family: 'Open Sans', sans-serif;
 
     overflow: hidden;
