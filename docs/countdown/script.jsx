@@ -26,7 +26,7 @@ function update() {
     document.getElementById("seconds").innerHTML = Math.abs(seconds).toString();
 }
 
-window.addEventListener("load", () => {
+window.addEventListener("DOMContentLoaded", () => {
     update();
     setInterval(update, 100);
     document.querySelector("#date").innerHTML = targetDate.format("dddd, MMMM Do YYYY")
