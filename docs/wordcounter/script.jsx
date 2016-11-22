@@ -1,6 +1,6 @@
 const autosize = require("autosize");
 
-var paperLookinThing;
+let paperLookinThing;
 
 function init() {
     paperLookinThing = document.querySelector("#paperlookinthing");
