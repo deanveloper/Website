@@ -1,5 +1,5 @@
 import Move from "./Move";
-import {pokeMessage, clearMenu} from "../../script";
+import {pokeMessage} from "../../script";
 
 export default class Teleport extends Move {
     constructor() {

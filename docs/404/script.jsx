@@ -10,7 +10,7 @@ window.addEventListener("load", () => {
     bl = document.getElementById("bl");
     br = document.getElementById("br");
 
-    for(const elem of [tl, tr, bl, br]) {
+    for (const elem of [tl, tr, bl, br]) {
         elem.addEventListener("click", mouseClicked);
         elem.addEventListener("mouseover", mousedOver);
         elem.addEventListener("mouseout", mouseOut);
@@ -64,28 +64,28 @@ function mouseOut(data) {
 
 function mouseClicked(data) {
     const string = data.innerHTML.substring(1);
-    if (string === "FIGHT") {
-        pokeMessage("What would you like to do?", "Teleport", "Heal Pulse", "----", "----");
-    }
-    if (string === "PKMN") {
-        pokeMessage(
-            "This is your only pokemon!",
-            document.getElementById("tl").innerHTML,
-            document.getElementById("tr").innerHTML,
-            document.getElementById("bl").innerHTML,
-            document.getElementById("br").innerHTML
-        );
+    switch (string) {
+        case "FIGHT":
+            pokeMessage("What would you like to do?", "Teleport", "Heal Pulse", "----", "----");
+            break;
+        case "PKMN":
+            pokeMessage("This is your only pokemon!", () => {});
+            break;
+        case "BAG":
+            // TODO: IMPLEMENT POKEBALLS
+            break;
+        case "RUN":
+            pokeMessage("Got away safely!", clearMenu);
+            break;
+        default:
+            currentPokemon.click(string)
     }
     if (string === "BAG") {
         // TODO: IMPLEMENT POKEBALLS
     }
     if (string === "RUN") {
-        pokeMessage("Got away safely!", clearMenu);
     }
     if (string === "Teleport") {
         pokeMessage("Gallade used Teleport!", clearMenu);
-    }
-    if (string === "Heal Pulse") {
-        pokeMessage("Gallade used Heal Pulse!", clearMenu);
     }
 }

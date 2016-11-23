@@ -24,5 +24,6 @@ export default class Pokemon {
 }
 
 export const PokemonEnum = {
-    GALLADE: new Pokemon("Gallade", [Moves.TELEPORT])
+    FRIENDLY: new Pokemon("Gallade", [Moves.TELEPORT]),
+    ENEMY: new Pokemon("404", [])
 };
