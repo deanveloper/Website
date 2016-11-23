@@ -30,7 +30,7 @@ function walk(p) {
                 if (f.endsWith("script.js")) {
                     browserify(f)
                         .transform("babelify", {presets: ["es2015"]})
-                        .transform("uglifyify", {global: true})
+                        //.transform("uglifyify", {global: true})
                         .bundle()
                         .pipe(fs.createWriteStream(path.join(path.dirname(f), "bundle.min.js")));
                 }

@@ -17,13 +17,9 @@ class Pokemon {
             }
         }
     }
-
-    damage() {
-
-    }
 }
 
 export const PokemonEnum = {
-    FRIENDLY: new Pokemon("Gallade", [Moves.TELEPORT]),
+    FRIENDLY: new Pokemon("Gallade", [Moves.TELEPORT, Moves.NOTHING, Moves.NOTHING, Moves.NOTHING]),
     ENEMY: new Pokemon("404", [])
 };

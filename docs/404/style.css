@@ -45,9 +45,9 @@
 }
 
 .menuItem {
-    position: absolute;
+    position: relative;
     vertical-align: middle;
-    width: 25%;
+    width: 50%;
     height: 50%
 }
 

@@ -6,16 +6,17 @@ export let bl;
 export let br;
 
 window.addEventListener("load", () => {
-    pokeMessage("A wild 404 appeared!", "FIGHT", "PKMN", "BAG", "RUN");
     tl = document.getElementById("tl");
     tr = document.getElementById("tr");
     bl = document.getElementById("bl");
     br = document.getElementById("br");
 
+    pokeMessage("A wild 404 appeared!", () => mainMenu("FIGHT", "PKMN", "BAG", "RUN"));
+
     for (const elem of [tl, tr, bl, br]) {
-        elem.addEventListener("click", mouseClicked);
-        elem.addEventListener("mouseover", mousedOver);
-        elem.addEventListener("mouseout", mouseOut);
+        elem.addEventListener("click", () => mouseClicked(elem));
+        elem.addEventListener("mouseover", () => mousedOver(elem));
+        elem.addEventListener("mouseout", () => mouseOut(elem));
     }
 
     for (const id of ["#friendlyPlatform", "#enemyPlatform"]) {
@@ -37,7 +38,7 @@ export function pokeMessage(string, callback) {
     clearMenu();
     const interval = window.setInterval(() => {
         if (counter < string.length) {
-            div.textContent += string[counter];
+            div.innerHTML += string[counter];
             counter++;
         } else {
             clearInterval(interval);
@@ -81,7 +82,7 @@ function mouseClicked(data) {
     const string = data.innerHTML.substring(1);
     switch (string) {
         case "FIGHT":
-            pokeMessage("What would you like to do?", "Teleport", "Heal Pulse", "----", "----");
+            pokeMessage("What would you like to do?", () => mainMenu(...PokemonEnum.FRIENDLY.moves));
             break;
         case "PKMN":
             pokeMessage("This is your only pokemon!", () => {});
@@ -94,8 +95,5 @@ function mouseClicked(data) {
             break;
         default:
             PokemonEnum.FRIENDLY.use(string)
-    }
-    if (string === "Teleport") {
-        pokeMessage("Gallade used Teleport!", clearMenu);
     }
 }

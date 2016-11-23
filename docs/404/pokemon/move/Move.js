@@ -4,17 +4,15 @@ class Move {
     constructor(name) {
         console.assert(typeof name === "string", "name must be a string!");
         this.name = name;
-
-        if (this.constructor === Move) {
-            throw new TypeError("Can not construct abstract class.");
-        }
     }
 
     use() {
-        pokeMessage("You used Teleport!", () => {
-            this.playAnimation();
-            window.setTimeout(this.onUse, 1000);
-        });
+        if(this !== Moves.NOTHING) {
+            pokeMessage("You used " + this.name + "!", () => {
+                this.playAnimation();
+                window.setTimeout(this.onUse, 1000);
+            });
+        }
     }
 
     /**
@@ -26,6 +24,25 @@ class Move {
 
     onUse() {
         console.warn("onUse called from superclass");
+    }
+
+    toString() {
+        return this.name;
+    }
+}
+
+class Nothing extends Move {
+
+    constructor() {
+        super("-----")
+    }
+
+    playAnimation() {
+
+    }
+
+    onUse() {
+
     }
 }
 
@@ -39,11 +56,9 @@ class Teleport extends Move {
     }
 
     onUse() {
-        pokeMessage("You used Teleport!", () => {
-            pokeMessage("You teleported to the main page!", () => {
-                window.setTimeout(redirToMain, 3000)
-            })
-        });
+        pokeMessage("You teleported to the main page!", () => {
+            window.setTimeout(redirToMain, 2000)
+        })
     }
 }
 
@@ -64,6 +79,7 @@ class Slash extends Move {
 }
 
 export const Moves = {
-    TELEPORT: Teleport(),
-    SLASH: Slash()
+    NOTHING: new Nothing(),
+    TELEPORT: new Teleport(),
+    SLASH: new Slash()
 };
