@@ -27,7 +27,7 @@ function walk(p) {
             .map((f) => path.join(p, f))
             .filter((f) => fs.statSync(f).isFile())
             .forEach((f) => {
-                if (f.endsWith("script.jsx")) {
+                if (f.endsWith("script.js")) {
                     browserify(f)
                         .transform("babelify", {presets: ["es2015"]})
                         .transform("uglifyify", {global: true})
