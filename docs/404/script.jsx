@@ -1,4 +1,5 @@
 import {PokemonEnum} from "./pokemon/Pokemon";
+
 export let tl;
 export let tr;
 export let bl;
@@ -15,6 +16,15 @@ window.addEventListener("load", () => {
         elem.addEventListener("click", mouseClicked);
         elem.addEventListener("mouseover", mousedOver);
         elem.addEventListener("mouseout", mouseOut);
+    }
+
+    for (const id of ["#friendlyPlatform", "#enemyPlatform"]) {
+        const elem = document.querySelector(id);
+        const ctx = elem.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(elem.width / 2, elem.height / 2, elem.height / 2, 0, 2 * Math.PI);
+        ctx.scale(elem.width / elem.height, 1);
+        ctx.stroke();
     }
 });
 

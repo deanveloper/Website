@@ -1,6 +1,6 @@
 import {Moves} from "move/Move"
 
-export default class Pokemon {
+class Pokemon {
     constructor(name, moves) {
         // Name of the pokemon
         this.name = name;
