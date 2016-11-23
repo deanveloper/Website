@@ -22,7 +22,7 @@ function walk(p) {
                 walk(f)
             });
 
-        // make all necessary directories and copy all non-jsx files to the new folder
+        // browserify all jsx files in this directory
         files
             .map((f) => path.join(p, f))
             .filter((f) => fs.statSync(f).isFile())

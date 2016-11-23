@@ -55,6 +55,10 @@ export function clearMenu() {
     mainMenu("", "", "", "")
 }
 
+export function redirToMain() {
+    window.location.replace('https://www.deanveloper.com')
+}
+
 function mousedOver(data) {
     if (data.innerHTML !== "") data.innerHTML = "\u25B8" + data.innerHTML;
 }
@@ -80,11 +84,6 @@ function mouseClicked(data) {
             break;
         default:
             PokemonEnum.FRIENDLY.use(string)
-    }
-    if (string === "BAG") {
-        // TODO: IMPLEMENT POKEBALLS
-    }
-    if (string === "RUN") {
     }
     if (string === "Teleport") {
         pokeMessage("Gallade used Teleport!", clearMenu);
