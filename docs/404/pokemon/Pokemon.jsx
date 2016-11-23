@@ -9,10 +9,10 @@ export default class Pokemon {
         this.moves = moves;
     }
 
-    click(moveString) {
+    use(moveString) {
         for (const move of this.moves) {
             if (moveString === move.name) {
-                move.click();
+                move.use();
                 break;
             }
         }

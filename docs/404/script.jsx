@@ -1,3 +1,4 @@
+import {PokemonEnum} from "./pokemon/Pokemon";
 export let tl;
 export let tr;
 export let bl;
@@ -78,7 +79,7 @@ function mouseClicked(data) {
             pokeMessage("Got away safely!", clearMenu);
             break;
         default:
-            currentPokemon.click(string)
+            PokemonEnum.FRIENDLY.use(string)
     }
     if (string === "BAG") {
         // TODO: IMPLEMENT POKEBALLS
