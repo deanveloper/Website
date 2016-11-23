@@ -1,14 +1,26 @@
+import Teleport from "./Teleport";
+
 export default class Move {
-    constructor() {
+    constructor(name) {
+        console.assert(typeof name === "string", "name must be a string!");
+        console.assert(typeof click === "function", "click must be a function!");
+
+        this.name = name;
         if (this.constructor === Move) {
             throw new TypeError("Can not construct abstract class.");
-        }
-        if (this.click === Move.prototype.click) {
-            throw new TypeError("Please implement abstract method foo.");
         }
     }
 
     click() {
-        throw new TypeError("Do not call abstract method foo from child.");
     }
+
+    static noMove = class extends Move {
+        constructor() {
+            super("-----")
+        }
+    };
 }
+
+export const Moves = {
+    TELEPORT: Teleport()
+};

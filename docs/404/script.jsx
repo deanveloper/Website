@@ -1,8 +1,23 @@
+export let tl;
+export let tr;
+export let bl;
+export let br;
+
 window.addEventListener("load", () => {
     pokeMessage("A wild 404 appeared!", "FIGHT", "PKMN", "BAG", "RUN");
+    tl = document.getElementById("tl");
+    tr = document.getElementById("tr");
+    bl = document.getElementById("bl");
+    br = document.getElementById("br");
+
+    for(const elem of [tl, tr, bl, br]) {
+        elem.addEventListener("click", mouseClicked);
+        elem.addEventListener("mouseover", mousedOver);
+        elem.addEventListener("mouseout", mouseOut);
+    }
 });
 
-function pokeMessage(string, tl, tr, bl, br) {
+export function pokeMessage(string, callback) {
     let counter = 0;
     const div = document.querySelector("#messageBox");
     div.textContent = "";
@@ -15,16 +30,12 @@ function pokeMessage(string, tl, tr, bl, br) {
             counter++;
         } else {
             clearInterval(interval);
-            mainMenu(tl, tr, bl, br);
+            callback()
         }
     }, 50);
 }
 
-function mainMenu(tltext, trtext, bltext, brtext) {
-    const tl = document.getElementById("tl");
-    const tr = document.getElementById("tr");
-    const bl = document.getElementById("bl");
-    const br = document.getElementById("br");
+export function mainMenu(tltext, trtext, bltext, brtext) {
     const box = document.getElementById("optionsBox");
     if (tltext !== "") {
         box.style.display = "block";
@@ -39,11 +50,8 @@ function mainMenu(tltext, trtext, bltext, brtext) {
     br.innerHTML = brtext;
 }
 
-function clearMenu() {
-    document.getElementById("tl").innerHTML = "";
-    document.getElementById("tr").innerHTML = "";
-    document.getElementById("bl").innerHTML = "";
-    document.getElementById("br").innerHTML = "";
+export function clearMenu() {
+    mainMenu("", "", "", "")
 }
 
 function mousedOver(data) {
@@ -72,12 +80,12 @@ function mouseClicked(data) {
         // TODO: IMPLEMENT POKEBALLS
     }
     if (string === "RUN") {
-        pokeMessage("Got away safely!", "", "", "", "");
+        pokeMessage("Got away safely!", clearMenu);
     }
     if (string === "Teleport") {
-        pokeMessage("Gallade used Teleport!", "", "", "", "");
+        pokeMessage("Gallade used Teleport!", clearMenu);
     }
     if (string === "Heal Pulse") {
-        pokeMessage("Gallade used Heal Pulse!", "", "", "", "");
+        pokeMessage("Gallade used Heal Pulse!", clearMenu);
     }
 }

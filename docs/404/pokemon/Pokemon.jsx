@@ -1,4 +1,4 @@
-import Move from "move/Move"
+import {Moves} from "move/Move"
 
 export default class Pokemon {
     constructor(name, moves) {
@@ -17,4 +17,12 @@ export default class Pokemon {
             }
         }
     }
+
+    damage() {
+
+    }
 }
+
+export const PokemonEnum = {
+    GALLADE: new Pokemon("Gallade", [Moves.TELEPORT])
+};
