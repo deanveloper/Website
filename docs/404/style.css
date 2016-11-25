@@ -2,13 +2,7 @@
     background-color: white;
 }
 
-#game {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    border: 1px solid black;
-    width: 500px;
-    height: 500px;
+body {
     font-family: Terminal, monospace;
     cursor: default;
 }
@@ -41,7 +35,19 @@
     text-align: right;
     height: 98%;
     width: 98%;
-    font-size: 75%;
+    font-size: 100%;
+}
+
+#ePlat {
+    position: absolute;
+    top: 100px;
+    right: -10px;
+}
+
+#fPlat {
+    position: absolute;
+    bottom: 90px;
+    left: -10px;
 }
 
 .menuItem {

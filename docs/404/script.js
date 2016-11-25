@@ -19,12 +19,11 @@ window.addEventListener("load", () => {
         elem.addEventListener("mouseout", () => mouseOut(elem));
     }
 
-    for (const id of ["#friendlyPlatform", "#enemyPlatform"]) {
+    for (const id of ["#fPlat", "#ePlat"]) {
         const elem = document.querySelector(id);
         const ctx = elem.getContext("2d");
         ctx.beginPath();
-        ctx.arc(elem.width / 2, elem.height / 2, elem.height / 2, 0, 2 * Math.PI);
-        ctx.scale(elem.width / elem.height, 1);
+        ctx.ellipse(elem.width / 2, elem.height / 2, elem.width / 2, elem.height / 2, 0, 0, 2 * Math.PI);
         ctx.stroke();
     }
 });
@@ -71,7 +70,7 @@ export function clearMenu() {
 }
 
 export function redirToMain() {
-    window.location.replace('https://www.deanveloper.com')
+    window.location.href = 'https://www.deanveloper.com'
 }
 
 function mousedOver(data) {
