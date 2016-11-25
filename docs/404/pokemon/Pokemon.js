@@ -12,7 +12,7 @@ class Pokemon {
     use(moveString) {
         for (const move of this.moves) {
             if (moveString === move.name) {
-                move.use();
+                move.use(this);
                 break;
             }
         }

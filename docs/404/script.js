@@ -11,7 +11,7 @@ window.addEventListener("load", () => {
     bl = document.getElementById("bl");
     br = document.getElementById("br");
 
-    pokeMessage("A wild 404 appeared!", () => mainMenu("FIGHT", "PKMN", "BAG", "RUN"));
+    pokeMessage("A wild 404 appeared!", () => mainMenu());
 
     for (const elem of [tl, tr, bl, br]) {
         elem.addEventListener("click", () => mouseClicked(elem));
@@ -42,14 +42,17 @@ export function pokeMessage(string, callback) {
             counter++;
         } else {
             clearInterval(interval);
-            callback()
+            window.setTimeout(callback, 1500);
         }
     }, 50);
 }
 
 export function mainMenu(tltext, trtext, bltext, brtext) {
+    if(tltext === undefined) {
+        mainMenu("FIGHT", "PKMN", "BAG", "RUN")
+    }
     const box = document.getElementById("optionsBox");
-    if (tltext !== "") {
+    if (tltext !== "" || tltext === undefined) {
         box.style.display = "block";
         box.style.border = "4px double black";
         box.style.left = "52%";

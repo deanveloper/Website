@@ -1,4 +1,5 @@
-import {pokeMessage, redirToMain} from "../../script";
+import {pokeMessage, redirToMain, mainMenu} from "../../script";
+import {PokemonEnum} from "../Pokemon";
 
 class Move {
     constructor(name) {
@@ -6,24 +7,16 @@ class Move {
         this.name = name;
     }
 
-    use() {
+    use(pokemon) {
         if(this !== Moves.NOTHING) {
-            pokeMessage("You used " + this.name + "!", () => {
-                this.playAnimation();
+            pokeMessage(pokemon.name + " used " + this.name + "!", () => {
                 window.setTimeout(this.onUse, 1000);
             });
         }
     }
 
-    /**
-     * Play a 1 second animation
-     */
-    playAnimation() {
-        console.warn("playAnimation called from superclass");
-    }
-
     onUse() {
-        console.warn("onUse called from superclass");
+        console.warn("onUse not overridden");
     }
 
     toString() {
@@ -37,10 +30,6 @@ class Nothing extends Move {
         super("-----")
     }
 
-    playAnimation() {
-
-    }
-
     onUse() {
 
     }
@@ -51,14 +40,8 @@ class Teleport extends Move {
         super("Teleport")
     }
 
-    playAnimation() {
-
-    }
-
     onUse() {
-        pokeMessage("You teleported to the main page!", () => {
-            window.setTimeout(redirToMain, 2000)
-        })
+        pokeMessage("You were teleported to the main page!", redirToMain)
     }
 }
 
@@ -67,19 +50,50 @@ class Slash extends Move {
         super("Slash")
     }
 
-    playAnimation() {
+    use() {
+        const msg = "But it " +  (Math.random() < .5 ? "missed!" : "failed!");
+        pokeMessage(msg, () => (Math.random() < .75 ? Moves.FILE : Moves.REDIRECT).use(PokemonEnum.ENEMY))
+    }
+}
 
+class File extends Move {
+
+    constructor() {
+        super("File");
+        this.counter = 0;
     }
 
     use() {
-        pokeMessage("You used Slash!", () => {
+        switch (this.counter) {
+            case 0:
+                pokeMessage("It was not found!", mainMenu);
+                break;
+            case 1:
+                pokeMessage("It was still not found...", mainMenu);
+                break;
+            default:
+                pokeMessage("The pokemon is corrupt! Redirecting to main page...", redirToMain);
+                break;
+        }
 
-        });
+        this.counter++;
+    }
+}
+
+class Redirect extends Move {
+    constructor() {
+        super("Redirect");
+    }
+
+    use() {
+        pokeMessage("You were redirected to the main page!", redirToMain);
     }
 }
 
 export const Moves = {
     NOTHING: new Nothing(),
     TELEPORT: new Teleport(),
-    SLASH: new Slash()
+    SLASH: new Slash(),
+    FILE: new File(),
+    REDIRECT: new Redirect()
 };
