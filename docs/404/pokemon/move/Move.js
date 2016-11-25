@@ -4,6 +4,7 @@ import {PokemonEnum} from "../Pokemon";
 class Move {
     constructor(name) {
         console.assert(typeof name === "string", "name must be a string!");
+        console.assert(this.use === Move.prototype.use);
         this.name = name;
     }
 
@@ -50,9 +51,9 @@ class Slash extends Move {
         super("Slash")
     }
 
-    use() {
+    onUse() {
         const msg = "But it " +  (Math.random() < .5 ? "missed!" : "failed!");
-        pokeMessage(msg, () => (Math.random() < .75 ? Moves.FILE : Moves.REDIRECT).use(PokemonEnum.ENEMY))
+        pokeMessage(msg, () => (Math.random() < .8 ? Moves.FILE : Moves.REDIRECT).use(PokemonEnum.ENEMY))
     }
 }
 
@@ -60,10 +61,13 @@ class File extends Move {
 
     constructor() {
         super("File");
-        this.counter = 0;
     }
 
-    use() {
+    onUse() {
+        if(!this.counter) {
+            this.counter = 0;
+        }
+
         switch (this.counter) {
             case 0:
                 pokeMessage("It was not found!", mainMenu);
@@ -71,8 +75,11 @@ class File extends Move {
             case 1:
                 pokeMessage("It was still not found...", mainMenu);
                 break;
+            case 2:
+                pokeMessage("The pokemon could not be found! Fleeing from battle...", redirToMain);
+                break;
             default:
-                pokeMessage("The pokemon is corrupt! Redirecting to main page...", redirToMain);
+                pokeMessage("You should never see this message... counter is " + this.counter, redirToMain);
                 break;
         }
 
@@ -85,7 +92,7 @@ class Redirect extends Move {
         super("Redirect");
     }
 
-    use() {
+    onUse() {
         pokeMessage("You were redirected to the main page!", redirToMain);
     }
 }

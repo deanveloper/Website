@@ -20,6 +20,6 @@ class Pokemon {
 }
 
 export const PokemonEnum = {
-    FRIENDLY: new Pokemon("Gallade", [Moves.TELEPORT, Moves.NOTHING, Moves.NOTHING, Moves.NOTHING]),
-    ENEMY: new Pokemon("404", [])
+    FRIENDLY: new Pokemon("Gallade", [Moves.TELEPORT, Moves.SLASH, Moves.NOTHING, Moves.NOTHING]),
+    ENEMY: new Pokemon("404", [Moves.FILE, Moves.REDIRECT, Moves.NOTHING, Moves.NOTHING])
 };

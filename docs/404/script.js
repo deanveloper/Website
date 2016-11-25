@@ -11,6 +11,15 @@ window.addEventListener("load", () => {
     bl = document.getElementById("bl");
     br = document.getElementById("br");
 
+    const audio = document.querySelector("audio");
+    audio.volume = .5;
+
+    window.setInterval(() => {
+        if (audio.currentTime >= 10) {
+            audio.currentTime = 9;
+        }
+    }, 10);
+
     pokeMessage("A wild 404 appeared!", () => mainMenu());
 
     for (const elem of [tl, tr, bl, br]) {
@@ -41,7 +50,7 @@ export function pokeMessage(string, callback) {
             counter++;
         } else {
             clearInterval(interval);
-            window.setTimeout(callback, 1500);
+            window.setTimeout(callback, 1000);
         }
     }, 50);
 }
@@ -70,7 +79,7 @@ export function clearMenu() {
 }
 
 export function redirToMain() {
-    window.location.href = 'https://www.deanveloper.com'
+    window.top.location.href = 'https://www.deanveloper.com'
 }
 
 function mousedOver(data) {
@@ -88,13 +97,13 @@ function mouseClicked(data) {
             pokeMessage("What would you like to do?", () => mainMenu(...PokemonEnum.FRIENDLY.moves));
             break;
         case "PKMN":
-            pokeMessage("This is your only pokemon!", () => {});
+            pokeMessage("This is your only pokemon!", mainMenu);
             break;
         case "BAG":
             // TODO: IMPLEMENT POKEBALLS
             break;
         case "RUN":
-            pokeMessage("Got away safely!", clearMenu);
+            pokeMessage("Got away safely!", redirToMain);
             break;
         default:
             PokemonEnum.FRIENDLY.use(string)
