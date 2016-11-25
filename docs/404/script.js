@@ -49,7 +49,8 @@ export function pokeMessage(string, callback) {
 
 export function mainMenu(tltext, trtext, bltext, brtext) {
     if(tltext === undefined) {
-        mainMenu("FIGHT", "PKMN", "BAG", "RUN")
+        mainMenu("FIGHT", "PKMN", "BAG", "RUN");
+        return;
     }
     const box = document.getElementById("optionsBox");
     if (tltext !== "" || tltext === undefined) {
