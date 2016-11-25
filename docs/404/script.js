@@ -15,8 +15,8 @@ window.addEventListener("load", () => {
     audio.volume = .5;
 
     window.setInterval(() => {
-        if (audio.currentTime >= 45) {
-            audio.currentTime = 14;
+        if (audio.currentTime >= 50.5) {
+            audio.currentTime = 13.95;
         }
     }, 10);
 
@@ -56,7 +56,7 @@ export function pokeMessage(string, callback) {
 }
 
 export function mainMenu(tltext, trtext, bltext, brtext) {
-    if(tltext === undefined) {
+    if (tltext === undefined) {
         mainMenu("FIGHT", "PKMN", "BAG", "RUN");
         return;
     }
