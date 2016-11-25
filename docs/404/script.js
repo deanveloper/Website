@@ -15,8 +15,8 @@ window.addEventListener("load", () => {
     audio.volume = .5;
 
     window.setInterval(() => {
-        if (audio.currentTime >= 10) {
-            audio.currentTime = 9;
+        if (audio.currentTime >= 45) {
+            audio.currentTime = 14;
         }
     }, 10);
 
