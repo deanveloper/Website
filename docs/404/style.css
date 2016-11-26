@@ -9,21 +9,28 @@ body {
 
 #messageBox {
     position: absolute;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     top: 80%;
     left: 2%;
     border: 4px double black;
-    width: 63%;
-    height: 16%;
+    width: 96%;
+    height: 18%;
     text-align: left;
-    padding-left: 3px;
+    padding: 5px;
 }
 
 #optionsBox {
     position: absolute;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     top: 80%;
-    left: 69%;
-    width: 27%;
-    height: 16%;
+    right: 2%;
+    width: 47%;
+    height: 18%;
+    border: 4px double black;
     text-align: left;
     padding-left: 0;
 }

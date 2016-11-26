@@ -12,7 +12,7 @@ window.addEventListener("load", () => {
     br = document.getElementById("br");
 
     const audio = document.querySelector("audio");
-    audio.volume = .5;
+    audio.volume = .25;
 
     window.setInterval(() => {
         if (audio.currentTime >= 50.5) {
@@ -41,7 +41,7 @@ export function pokeMessage(string, callback) {
     let counter = 0;
     const div = document.querySelector("#messageBox");
     div.textContent = "";
-    div.style.width = "94%";
+    div.style.width = "96%";
     document.getElementById("optionsBox").style.display = "none";
     clearMenu();
     const interval = window.setInterval(() => {
@@ -60,13 +60,9 @@ export function mainMenu(tltext, trtext, bltext, brtext) {
         mainMenu("FIGHT", "PKMN", "BAG", "RUN");
         return;
     }
-    const box = document.getElementById("optionsBox");
     if (tltext !== "" || tltext === undefined) {
-        box.style.display = "block";
-        box.style.border = "4px double black";
-        box.style.left = "52%";
-        box.style.width = "46%";
-        document.getElementById("messageBox").style.width = "46%";
+        document.getElementById("optionsBox").style.display = "block";
+        document.getElementById("messageBox").style.width = "47%";
     }
     tl.innerHTML = tltext;
     tr.innerHTML = trtext;
@@ -83,15 +79,15 @@ export function redirToMain() {
 }
 
 function mousedOver(data) {
-    if (data.innerHTML !== "") data.innerHTML = "\u25B8" + data.innerHTML;
+    if (data.innerHTML !== "") data.innerHTML = "&gt; " + data.innerHTML;
 }
 
 function mouseOut(data) {
-    if (data.innerHTML[0] === "\u25B8") data.innerHTML = data.innerHTML.substring(1);
+    if (data.innerHTML.substring(0,5) === "&gt; ") data.innerHTML = data.innerHTML.substring(5);
 }
 
 function mouseClicked(data) {
-    const string = data.innerHTML.substring(1);
+    const string = data.innerHTML.substring(5);
     switch (string) {
         case "FIGHT":
             pokeMessage("What would you like to do?", () => mainMenu(...PokemonEnum.FRIENDLY.moves));
