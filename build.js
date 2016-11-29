@@ -22,12 +22,12 @@ function walk(p) {
                 walk(f)
             });
 
-        // make all necessary directories and copy all non-jsx files to the new folder
+        // browserify all jsx files in this directory
         files
             .map((f) => path.join(p, f))
             .filter((f) => fs.statSync(f).isFile())
             .forEach((f) => {
-                if (f.endsWith(".jsx")) {
+                if (f.endsWith("script.js")) {
                     browserify(f)
                         .transform("babelify", {presets: ["es2015"]})
                         .transform("uglifyify", {global: true})
