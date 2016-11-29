@@ -20,7 +20,15 @@ window.addEventListener("load", () => {
         }
     }, 10);
 
-    pokeMessage("A wild 404 appeared!", () => mainMenu());
+    setTimeout(() => {
+        document.querySelector("#enemy").style.left = "350px";
+        pokeMessage("A wild 404 appeared!", () => {
+            document.querySelector("#friendly").style.right = "250px";
+            pokeMessage("Go, ABRA!", () => {
+                mainMenu()
+            })
+        });
+    }, 500);
 
     for (const elem of [tl, tr, bl, br]) {
         elem.addEventListener("click", () => mouseClicked(elem));
@@ -83,7 +91,7 @@ function mousedOver(data) {
 }
 
 function mouseOut(data) {
-    if (data.innerHTML.substring(0,5) === "&gt; ") data.innerHTML = data.innerHTML.substring(5);
+    if (data.innerHTML.substring(0, 5) === "&gt; ") data.innerHTML = data.innerHTML.substring(5);
 }
 
 function mouseClicked(data) {
@@ -96,6 +104,7 @@ function mouseClicked(data) {
             pokeMessage("This is your only pokemon!", mainMenu);
             break;
         case "BAG":
+            pokeMessage("This is a future feature!", mainMenu);
             // TODO: IMPLEMENT POKEBALLS
             break;
         case "RUN":
