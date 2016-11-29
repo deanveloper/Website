@@ -11,10 +11,6 @@ $(document).ready(() => {
     icons.tools = new Icon("wrench", 2, "https://www.deanveloper.com/tools", "Tools [Coming Soon]");
 });
 
-function animateHover(icon) {
-
-}
-
 class Icon {
     constructor(type, list, link, tooltip) {
         $("#items" + list)
