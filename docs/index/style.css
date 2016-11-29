@@ -45,7 +45,7 @@ body {
 
     cursor: pointer;
 
-    transition: .5s ease-in-out;
+    transition: .25s ease-out;
 
     -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
@@ -62,13 +62,51 @@ body {
     transform: rotate(360deg);
 }
 
+.icon:active {
+    -webkit-transform: scale(.9, .9);
+    -moz-transform: scale(.9, .9);
+    -ms-transform: scale(.9, .9);
+    -o-transform: scale(.9, .9);
+    transform: scale(.9, .9);
+}
+
+.tooltip {
+    display: inline-block;
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+    white-space: nowrap;
+
+    top: 100%;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+
+    position: absolute;
+    z-index: 1;
+}
+
+.icon:hover + .tooltip {
+    visibility: visible;
+}
+
 i {
     display: block;
     padding: auto;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50);
+    -ms-transform: translate(-50%, -50);
+    -o-transform: translate(-50%, -50);
+    transform: translate(-50%, -50);
 }
 
 ul {
@@ -81,4 +119,5 @@ ul {
 li {
     display: inline-block;
     padding: 10px;
+    position: relative;
 }
