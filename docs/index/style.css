@@ -6,6 +6,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #202020;
+
+    text-align: center;
 }
 
 #me {
@@ -15,7 +17,9 @@ body {
     -moz-border-radius: 50%;
     border-radius: 50%;
 
-    width: 125px;
+    width: 100px;
+
+    margin-top: 50px;
 }
 
 .text {
@@ -38,6 +42,8 @@ body {
     margin: 0;
 
     background-color: greenyellow;
+
+    cursor: pointer;
 
     transition: .5s ease-in-out;
 
@@ -66,7 +72,13 @@ i {
 }
 
 ul {
+    display: inline-block;
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+li {
+    display: inline-block;
+    padding: 10px;
 }
