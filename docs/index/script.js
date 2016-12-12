@@ -7,7 +7,7 @@ $(document).ready(() => {
     icons.twitter = new Icon("twitter", 1, "https://twitter.com/Deanveloper", "Twitter");
     icons.donate = new Icon("dollar", 1, "https://paypal.me/Dean98", "Donate");
     icons.email = new Icon("address-card-o", 2, "mailto:dean@deanveloper.com", "Email");
-    icons.blog = new Icon("file-text-o", 2, "https://blog.deanveloper.com", "Blog [Coming Soon]");
+    icons.blog = new Icon("file-text-o", 2, "https://blog.deanveloper.com", "Blog");
     icons.tools = new Icon("wrench", 2, "https://www.deanveloper.com/tools", "Tools [Coming Soon]");
 });
 
