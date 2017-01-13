@@ -44,7 +44,7 @@ fs.readFile(ourFile, function (err, fileData) {
             // function to add links to <head>
             const addLink = (toAdd, rel, href, size) => add("link", toAdd, {rel: rel, href: href, size: size});
             // function to add meta to <head>
-            const addMeta = (toAdd, name, content) => add("link", toAdd, {rel: rel, href: href, size: size});
+            const addMeta = (toAdd, name, content) => add("link", toAdd, {name: name, content: content});
 
             if (!meta.favicon) {
                 meta.favicon = {};
