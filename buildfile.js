@@ -105,7 +105,7 @@ fs.readFile(ourFilePath, function (err, fileData) {
         })
     }
 
-    if (path.extname(ourFilePath) === ".js" && path.basename(ourFilePath) !== "bundle.min.js") {
+    if (path.basename(ourFilePath) === "script.js") {
         browserify(ourFilePath)
             .transform("babelify", {presets: ["es2015"]})
             .transform("uglifyify", {global: true})
