@@ -27,12 +27,26 @@ export function buildFile(absPath) {
                 .transform("babelify", {presets: ["es2015"]})
                 .transform("uglifyify", {global: true})
                 .bundle()
-                .pipe(fs.createWriteStream(getOutputName(absPath)))
-        } else if (path.extname(absPath) === ".css") {
+                .pipe(fs.createWriteStream(getOutputName(absPath)));
+        } else if (isNeeded(absPath)) {
             fs.createReadStream(absPath).pipe(fs.createWriteStream(getOutputName(absPath)));
         }
         // else do nothing
     });
+}
+
+function isNeeded(absPath) {
+
+    const neededFileExts = [
+        ".css", ".png", ".ogg", ".svg", ".jpg", ".jpeg", ".mp4", ".otf", ".oet", ".ttf", ".woff", ".woff2", ".less",
+        ".scss"
+    ];
+
+    const neededFiles = [
+        "manifest.json", "browserconfig.xml", "sitemap.xml", "CNAME"
+    ];
+
+    return neededFileExts.includes(path.extname(absPath)) || neededFiles.includes(path.basename(absPath));
 }
 
 function dealWithHtml(absPath, fileData) {
