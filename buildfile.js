@@ -6,6 +6,7 @@ const async = require("async");
 const browserify = require("browserify");
 const path = require("path");
 const cheerio = require("cheerio");
+const mkdirp = require("mkdirp");
 
 buildFile(process.argv[2]);
 
@@ -145,6 +146,12 @@ function getOutputName(ourFilePath) {
             break;
         }
     }
+
+    mkdirp(path.dirname(ourFilePath), (e) => {
+        if(e) {
+            console.log(e)
+        }
+    });
 
     return path.join(...split);
 }
