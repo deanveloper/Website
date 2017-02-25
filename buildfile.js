@@ -22,15 +22,14 @@ export function buildFile(absPath) {
         // If our file is an HTML file, parse the meta file and add onto our html file!
         if (path.extname(absPath) === ".html") {
             dealWithHtml(absPath, fileData);
-        }
-
-        if (path.basename(absPath) === "script.js") {
+        } else if (path.basename(absPath) === "script.js") {
             browserify(absPath)
                 .transform("babelify", {presets: ["es2015"]})
                 .transform("uglifyify", {global: true})
                 .bundle()
                 .pipe(fs.createWriteStream(getOutputName()))
         }
+        // else do nothing
     });
 }
 
