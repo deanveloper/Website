@@ -27,7 +27,9 @@ export function buildFile(absPath) {
                 .transform("babelify", {presets: ["es2015"]})
                 .transform("uglifyify", {global: true})
                 .bundle()
-                .pipe(fs.createWriteStream(getOutputName()))
+                .pipe(fs.createWriteStream(getOutputName(absPath)))
+        } else if (path.extname(absPath) === ".css") {
+            fs.createReadStream(absPath).pipe(fs.createWriteStream(getOutputName(absPath)));
         }
         // else do nothing
     });
@@ -114,14 +116,14 @@ function dealWithHtml(absPath, fileData) {
             }
         }
     ], function onComplete() {
-        fs.writeFile(getOutputName(), newFile, (err) => {
+        fs.writeFile(getOutputName(absPath), newFile, (err) => {
             throw err;
         });
     })
 
 }
 
-function getOutputName() {
+function getOutputName(ourFilePath) {
     const split = ourFilePath.split(path.sep);
     for (let i = split.length - 1; i >= 0; i--) {
         if (split[i] === "backend") {
