@@ -55,7 +55,6 @@ function isNeeded(absPath) {
 
 function dealWithHtml(absPath, fileData) {
     let $ = cheerio.load(fileData);
-    let newFile = fileData;
     const metaFile = path.join(path.dirname(absPath), "meta.json");
     const script = path.join(path.dirname(absPath), "script.js");
     const head = $("head");
@@ -69,8 +68,8 @@ function dealWithHtml(absPath, fileData) {
     async.parallel([
         (cb) => {
             if (fs.existsSync(script)) {
-                head.prepend("<script>");
-                head.children().first().attr("src", "script.js", "type", "text/javascript");
+                head.append("<script>");
+                head.children().last().attr("src", "script.js", "type", "text/javascript");
             }
             cb();
         },
