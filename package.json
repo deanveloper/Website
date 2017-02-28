@@ -29,6 +29,7 @@
     "jsdom": "^9.9.1",
     "mkdirp": "^0.5.1",
     "moment": "^2.16.0",
-    "uglifyify": "^3.0.4"
+    "uglifyify": "^3.0.4",
+    "async": "latest"
   }
 }

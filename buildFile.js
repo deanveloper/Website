@@ -6,6 +6,7 @@ const browserify = require("browserify");
 const path = require("path");
 const cheerio = require("cheerio");
 const mkdirp = require("mkdirp");
+const async = require("async");
 module.exports = buildFile;
 
 if (process.argv[2]) {
@@ -65,90 +66,101 @@ function dealWithHtml(absPath, fileData) {
     }
 
     // Add script to HTML file if it exists
-    if (fs.existsSync(script)) {
-        head.prepend("<script>");
-        head.first().attr("src", "script.js", "type", "text/javascript");
-        newFile = $.html();
-    }
-
-    if (fs.existsSync(metaFile)) {
-        fs.readFile(metaFile, function (err, metadata) {
-            if (err) {
-                console.log(err);
-                throw err;
+    async.parallel([
+        (cb) => {
+            if (fs.existsSync(script)) {
+                head.prepend("<script>");
+                head.children().first().attr("src", "script.js", "type", "text/javascript");
             }
-
-            const meta = JSON.parse(metadata);
-
-            // define a function to add tags to head
-            function add(type, _toAdd, def) {
-                head.prepend("<" + type + ">");
-                let elem = head.first();
-                const toAdd = _toAdd ? _toAdd : def;
-                for (const index in toAdd) {
-                    if (toAdd.hasOwnProperty(index)) {
-                        elem.attr(index, toAdd[index]);
+            cb();
+        },
+        (cb) => {
+            if (fs.existsSync(metaFile)) {
+                fs.readFile(metaFile, function (err, metadata) {
+                    if (err) {
+                        console.log(err);
+                        cb(err);
                     }
-                }
-                newFile = $.html();
-            }
 
-            // function to add links to <head>
-            function addLink(toAdd, rel, href, size) {
-                return add("link", toAdd, {
-                    rel: rel,
-                    href: href,
-                    size: size
+                    const meta = JSON.parse(metadata);
+
+                    // define a function to add tags to head
+                    function add(type, toAdd) {
+                        head.prepend(type);
+                        let elem = head.children().first();
+                        for (const index in toAdd) {
+                            if (toAdd.hasOwnProperty(index)) {
+                                elem.attr(index, toAdd[index]);
+                            }
+                        }
+                    }
+
+                    // function to add links to <head>
+                    function addLink(toAdd, rel, defHref, size) {
+                        return add("<link>", {
+                            rel: rel,
+                            href: toAdd ? defHref : size,
+                            size: size
+                        });
+                    }
+
+                    // function to add meta to <head>
+                    function addMeta(toAdd, name, defContent) {
+                        return add("<meta>", {
+                            name: name,
+                            content: toAdd ? toAdd : defContent
+                        });
+                    }
+
+                    if (!meta.favicon) {
+                        meta.favicon = {};
+                    }
+                    if (!meta.card) {
+                        meta.card = {};
+                    }
+
+                    if (!meta.favicon.noFavicon) {
+                        addLink(meta.favicon.apple, "apple-touch-icon", "/favicon/apple-touch-icon.png", "180x180");
+                        addLink(meta.favicon.favlarge, "icon", "/favicon/favicon-32x32.png", "32x32");
+                        addLink(meta.favicon.favsmall, "icon", "/favicon/favicon-16x16.png", "16x16");
+                        addLink(meta.favicon.manifest, "manifest", "/favicon/manifest.json");
+                        addLink(meta.favicon.ico, "rel", "shortcut icon", "href", "/favicon/favicon.ico");
+                        addMeta(meta.favicon.ms, "msapplication-config", "/favicon/browserconfig.xml");
+                        addMeta(meta.favicon.theme, "theme-color", "#ffffff");
+                    }
+
+                    if (!meta.card.noCard) {
+                        addMeta(meta.card.twitterCard, "twitter:card", "summary");
+                        addMeta(meta.card.twitterUser, "twitter:site", "@Deanveloper");
+                        addMeta(meta.card.ogType, "og:type", "website");
+                        addMeta(meta.card.title, "og:title", "Dean Bassett's Website");
+                        addMeta(meta.card.title, "twitter:title", "Dean Bassett's Website");
+                        addMeta(meta.card.description, "og:description", "A place for my little creations.");
+                        addMeta(meta.card.description, "twitter:description", "A place for my little creations.");
+                        addMeta(meta.card.image, "og:image", "https://www.deanveloper.com/favicon/android-chrome-512x512.png");
+                        addMeta(meta.card.image, "twitter:image", "https://www.deanveloper.com/favicon/android-chrome-512x512.png");
+                        addMeta(meta.card.twitterImageAlt, "twitter:image:alt", "Dean Bassett's Website");
+                    }
+
+                    cb();
                 });
+            } else {
+                cb();
             }
-
-            // function to add meta to <head>
-            function addMeta(toAdd, name, content) {
-                return add("meta", toAdd, {
-                    name: name,
-                    content: content
-                });
-            }
-
-            if (!meta.favicon) {
-                meta.favicon = {};
-            }
-            if (!meta.card) {
-                meta.card = {};
-            }
-
-            if (!meta.favicon.noFavicon) {
-                addLink(meta.favicon.apple, "apple-touch-icon", "/favicon/apple-touch-icon.png", "180x180");
-                addLink(meta.favicon.favlarge, "icon", "/favicon/favicon-32x32.png", "32x32");
-                addLink(meta.favicon.favsmall, "icon", "/favicon/favicon-16x16.png", "16x16");
-                addLink(meta.favicon.manifest, "manifest", "/favicon/manifest.json");
-                addLink(meta.favicon.ico, {rel: "shortcut icon", href: "/favicon/favicon.ico"});
-                addMeta(meta.favicon.ms, "msapplication-config", "/favicon/browserconfig.xml");
-                addMeta(meta.favicon.theme, "theme-color", "#ffffff");
-            }
-
-            if (!meta.card.noCard) {
-                addMeta(meta.card.twitterCard, "twitter:card", "summary");
-                addMeta(meta.card.twitterUser, "twitter:site", "@Deanveloper");
-                addMeta(meta.card.ogType, "og:type", "website");
-                addMeta(meta.card.title, "og:title", "Dean Bassett's Website");
-                addMeta(meta.card.title, "twitter:title", "Dean Bassett's Website");
-                addMeta(meta.card.description, "og:description", "A place for my little creations.");
-                addMeta(meta.card.description, "twitter:description", "A place for my little creations.");
-                addMeta(meta.card.image, "og:image", "https://www.deanveloper.com/favicon/android-chrome-512x512.png");
-                addMeta(meta.card.image, "twitter:image", "https://www.deanveloper.com/favicon/android-chrome-512x512.png");
-                addMeta(meta.card.twitterImageAlt, "twitter:image:alt", "Dean Bassett's Website");
-            }
-        })
-    }
-
-    fs.writeFile(getOutputName(absPath), newFile, (err) => {
-        if (err) {
-            console.log("Error writing " + getOutputName(absPath) + ": " + err);
-            throw err;
-        } else {
-            console.log("Wrote to file! File:\n" + newFile)
         }
+    ], (err) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        fs.writeFile(getOutputName(absPath), $.html(), (err) => {
+            if (err) {
+                console.log("Error writing " + getOutputName(absPath) + ": " + err);
+                throw err;
+            } else {
+                console.log("Wrote to " + getOutputName(absPath));
+            }
+        });
     });
 }
 
