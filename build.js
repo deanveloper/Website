@@ -1,8 +1,8 @@
-import {buildFile} from "./buildfile";
 const fs = require("fs");
 const path = require("path");
+const buildFile = require("./buildFile");
 
-// Walk through all files, look for .jsx files and compile them into minified ES5
+// Walk through all files, look for files and do what we need with them
 function walk(p) {
     fs.readdir(p, function (err, files) {
         if (err) {
@@ -18,7 +18,7 @@ function walk(p) {
                 walk(f)
             });
 
-        // run buildfile.js on all files in the directory
+        // run buildFile.js on all files in the directory
         files
             .map((f) => path.join(p, f))
             .filter((f) => fs.statSync(f).isFile())
