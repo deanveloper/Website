@@ -66,7 +66,8 @@ function dealWithHtml(absPath, fileData) {
 
     // Add script to HTML file if it exists
     if (fs.existsSync(script)) {
-        head.prepend("<script>").attr("src", "script.js", "type", "text/javascript");
+        head.prepend("<script>");
+        head.first().attr("src", "script.js", "type", "text/javascript");
         newFile = $.html();
     }
 
@@ -81,24 +82,33 @@ function dealWithHtml(absPath, fileData) {
 
             // define a function to add tags to head
             function add(type, _toAdd, def) {
-                let elem = head.prepend("<" + type + ">");
+                head.prepend("<" + type + ">");
+                let elem = head.first();
                 const toAdd = _toAdd ? _toAdd : def;
                 for (const index in toAdd) {
                     if (toAdd.hasOwnProperty(index)) {
-                        elem = elem.attr(index, toAdd[index]);
+                        elem.attr(index, toAdd[index]);
                     }
                 }
                 newFile = $.html();
             }
 
             // function to add links to <head>
-            const addLink = (toAdd, rel, href, size) => add("link", toAdd, {
-                rel: rel,
-                href: href,
-                size: size
-            });
+            function addLink(toAdd, rel, href, size) {
+                return add("link", toAdd, {
+                    rel: rel,
+                    href: href,
+                    size: size
+                });
+            }
+
             // function to add meta to <head>
-            const addMeta = (toAdd, name, content) => add("link", toAdd, {name: name, content: content});
+            function addMeta(toAdd, name, content) {
+                return add("meta", toAdd, {
+                    name: name,
+                    content: content
+                });
+            }
 
             if (!meta.favicon) {
                 meta.favicon = {};
@@ -136,6 +146,8 @@ function dealWithHtml(absPath, fileData) {
         if (err) {
             console.log("Error writing " + getOutputName(absPath) + ": " + err);
             throw err;
+        } else {
+            console.log("Wrote to file! File:\n" + newFile)
         }
     });
 }
