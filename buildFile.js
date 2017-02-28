@@ -68,8 +68,14 @@ function dealWithHtml(absPath, fileData) {
     async.parallel([
         (cb) => {
             if (fs.existsSync(script)) {
-                head.append("<script>");
-                head.children().last().attr("src", "script.js", "type", "text/javascript");
+                let children = head.filter((index, elem) => {
+                    return $(elem).attr("src") === "script.js";
+                });
+
+                if (!children) {
+                    head.append("<script>");
+                    head.children().last().attr("src", "script.js", "type", "text/javascript");
+                }
             }
             cb();
         },
