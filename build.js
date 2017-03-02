@@ -26,4 +26,4 @@ function walk(p) {
     });
 }
 
-walk(__dirname + "/backend/");
+walk(__dirname + "/pseudobackend/");

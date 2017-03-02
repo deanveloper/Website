@@ -172,7 +172,7 @@ function dealWithHtml(absPath, fileData) {
 function getOutputName(ourFilePath) {
     const split = ourFilePath.split(path.sep);
     for (let i = split.length - 1; i >= 0; i--) {
-        if (split[i] === "backend") {
+        if (split[i] === "pseudobackend") {
             split[i] = "docs";
             break;
         }
