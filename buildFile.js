@@ -68,11 +68,13 @@ function dealWithHtml(absPath, fileData) {
     async.parallel([
         (cb) => {
             if (fs.existsSync(script)) {
+
+                //
                 let children = head.filter((index, elem) => {
                     return $(elem).attr("src") === "script.js";
                 });
 
-                if (!children) {
+                if (children.length === 0) {
                     head.append("<script>");
                     head.children().last().attr("src", "script.js", "type", "text/javascript");
                 }
@@ -147,6 +149,8 @@ function dealWithHtml(absPath, fileData) {
                         addMeta(meta.card.twitterImageAlt, "twitter:image:alt", "Dean Bassett's Website");
                     }
 
+                    add("<meta>", {charset: "UTF-8"});
+
                     cb();
                 });
             } else {
@@ -158,6 +162,7 @@ function dealWithHtml(absPath, fileData) {
             console.log(err);
             throw err;
         }
+
         fs.writeFile(getOutputName(absPath), $.html(), (err) => {
             if (err) {
                 console.log("Error writing " + getOutputName(absPath) + ": " + err);

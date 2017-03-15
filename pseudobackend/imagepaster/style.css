@@ -1,0 +1,59 @@
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #E3CF91;
+    margin: 0;
+    font-family: 'Baloo Bhaina', sans-serif;
+    text-align: center;
+}
+
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    cursor: default;
+}
+
+#image-upload {
+    width: 500px;
+    height: 100px;
+    margin: 50px auto;
+    padding: 0;
+    border: dashed #D28C5F;
+    border-radius: 10px;
+    line-height: 100px;
+}
+
+#image-upload > p {
+    font-size: 30px;
+    font-weight: 700;
+    margin: auto;
+}
+
+#alternative {
+    width: 400px;
+    margin: 50px auto;
+    border: dashed #D28C5F;
+    border-radius: 10px;
+}
+
+#alternative > p {
+    margin: 5px auto 0;
+    font-size: 20px;
+}
+
+#file-input {
+    background-color: #ECE7AB;
+    border: solid #DBB077;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 auto 10px;
+}
+
+#editor {
+
+}

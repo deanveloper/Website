@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Uploader</title>
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina" rel="stylesheet">
+
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div id="image-upload" class="no-select">
+    <p>Paste or drag an image here!</p>
+</div>
+<div id="alternative" class="no-select" onclick="$('#file-input').trigger('click')">
+    <p>Alternatively, click here to upload a file</p>
+</div>
+<input type="file" id="file-input" style="display: none">
+</body>
+</html>
