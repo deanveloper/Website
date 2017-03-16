@@ -39,13 +39,14 @@ function showImage(link) {
         margin: 0
     });
     const img = new Image();
+    $(img).on("load", () => {
+        const canvas = $("<canvas width='" + img.width + "' height='" + img.height + "'>");
+        const ctx = canvas[0].getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        main.append(canvas);
+        body.append(main);
+    });
     img.src = link;
-    img.css({display: "none"});
-    main.append(img);
-
-
-
-    body.append(main);
 }
 
 window.showImage = showImage;
