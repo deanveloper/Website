@@ -69,7 +69,6 @@ function dealWithHtml(absPath, fileData) {
         (cb) => {
             if (fs.existsSync(script)) {
 
-                //
                 let children = head.filter((index, elem) => {
                     return $(elem).attr("src") === "script.js";
                 });

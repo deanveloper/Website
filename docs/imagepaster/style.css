@@ -19,39 +19,28 @@ body {
 }
 
 #image-upload {
-    width: 500px;
-    height: 100px;
+    width: 75%;
+    max-width: 500px;
     margin: 50px auto;
     padding: 0;
+    background-color: #ECE7AB;
     border: dashed #D28C5F;
     border-radius: 10px;
     line-height: 100px;
+    cursor: pointer;
 }
 
-#image-upload > p {
+#title {
     font-size: 30px;
     font-weight: 700;
-    margin: auto;
+    margin: 0;
+    padding: 0;
 }
 
-#alternative {
-    width: 400px;
-    margin: 50px auto;
-    border: dashed #D28C5F;
-    border-radius: 10px;
-}
-
-#alternative > p {
-    margin: 5px auto 0;
+#subtitle {
     font-size: 20px;
-}
-
-#file-input {
-    background-color: #ECE7AB;
-    border: solid #DBB077;
-    border-radius: 10px;
-    padding: 5px;
-    margin: 0 auto 10px;
+    margin: 0;
+    padding: 0;
 }
 
 #editor {

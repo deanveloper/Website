@@ -9,11 +9,9 @@
 </head>
 <body>
 <div id="image-upload" class="no-select">
-    <p>Paste or drag an image here!</p>
+    <p id="title">Paste or drag an image here!</p>
+    <p id="subtitle">Alternatively, click here to upload a file</p>
 </div>
-<div id="alternative" class="no-select" onclick="$('#file-input').trigger('click')">
-    <p>Alternatively, click here to upload a file</p>
-</div>
-<input type="file" id="file-input" style="display: none">
+<input type="file" id="file-input" style="display: none" accept="image/*">
 </body>
 </html>
