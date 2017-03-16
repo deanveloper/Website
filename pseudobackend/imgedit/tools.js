@@ -1,10 +1,17 @@
-import {$, image} from "./script";
+import {$, image, getCanvas, newBase} from "./script";
 
 let tools = [Pointer, Brush, Line, Censor];
 let color = "#000";
 let select = 0;
 
 export function init() {
+
+    if (!Function.prototype.getName) {
+        Function.prototype.getName = function () {
+
+        }
+    }
+
     const $tools = $("<ul>");
     for (const tool of tools) {
         const $tool = $("<li class='tool'>");
@@ -62,7 +69,7 @@ class Brush {
  */
 class Line {
     static get icon() {
-        return "paint-brush";
+        return "minus";
     }
 
     static mousedown(e, canvas) {
@@ -86,6 +93,77 @@ class Line {
 
     static mouseup(e, canvas) {
         Brush.mousedrag(e, canvas);
+    }
+}
+
+class Crop {
+    static get icon() {
+        return "crop";
+    }
+
+    static mousedown(e, canvas) {
+        const ctx = canvas.getContext('2d');
+
+        Crop.startX = e.clientX;
+        Crop.startY = e.clientY;
+
+        ctx.fillStyle = "black";
+        ctx.globalAlpha = "50%";
+
+        ctx.strokeStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.moveTo(e.clientX, e.clientY);
+    }
+
+    static mousedrag(e, canvas) {
+        const ctx = canvas.getContext('2d');
+
+        Crop.endX = e.clientX;
+        Crop.endY = e.clientY;
+
+        ctx.strokeStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = "red";
+        ctx.clearRect(Crop.startX, Crop.startY, e.clientX, e.clientY);
+        ctx.strokeRect(Crop.startX, Crop.startY, e.clientX, e.clientY);
+    }
+
+    static mouseup(e, canvas) {
+        Brush.mousedrag(e, canvas);
+
+        if (confirm("Are you sure? This operation cannot be undone!")) {
+            const flat = image(true);
+            for(const canvas of canvases) {
+                $(canvas).remove();
+            }
+
+            const $newCan = $("<canvas>");
+            const start = {
+                x: Math.min(Crop.startX, Crop.endX),
+                y: Math.min(Crop.startY, Crop.endY)
+            };
+            const end = {
+                x: Math.max(Crop.startX, Crop.endX),
+                y: Math.max(Crop.startY, Crop.endY)
+            };
+            $newCan.attr({
+                width: end.x - start.x,
+                height: end.y - start.y
+            });
+            $newCan[0].getContext('2d').drawImage(
+                flat,               // image
+                start.x,            // source x
+                start.y,            // source y
+                end.x - start.x,    // source/dest width
+                end.y - start.y,    // source/dest height
+                0,                  // dest x
+                0                   // dest y
+            );
+
+            newBase($newCan);
+        }
     }
 }
 

@@ -2,52 +2,69 @@ import {init} from "./tools"
 
 export const $ = require("jquery");
 
-let currentIndex = 0;
-let canvases = [];
-
-export let $base;
+let canvasStack = [];
+let redoStack = [];
+let $base;
 
 export function getCanvas() {
-    while (canvases.length > currentIndex) {
-        canvases.pop();
+
+    // remove anything that was undone permanently
+    while(redoStack.length > 0) {
+        $(redoStack.pop()).remove();
     }
 
+    // create a new canvas
     const $canvas = $("<canvas width='" + $base.width + "' height='" + $base.height + "'>");
     $canvas.css({position: "absolute"});
 
-    canvases.push($canvas[0]);
+    // add it to our canvas stack
+    canvasStack.push($canvas[0]);
 
-    currentIndex++;
-
+    // return it
     return $canvas[0];
 }
 
 export function undo() {
-    const $canvas = $(canvases[currentIndex]);
+    // pop from canvas stack -> "erase" it -> add to redo stack
+    const $canvas = $(canvasStack.pop());
     $canvas.css({display: "none"});
-    currentIndex--;
+    redoStack.push($canvas[0]);
 }
 
 export function redo() {
-    currentIndex++;
-    const $canvas = $(canvases[currentIndex]);
+    // pop from redo stack -> display it -> add to canvas stack
+    const $canvas = $(redoStack.pop());
     $canvas.css({display: ""});
+    canvasStack.push($canvas[0]);
 }
 
-export function image(keepCanvas) {
+export function image(asCanvas) {
     const flat = $("<canvas width='" + $base.width + "' height='" + $base.height + "'>")[0];
     const ctx = flat.getContext('2d');
 
-    for (const can of canvases) {
+    for (const can of canvasStack) {
         ctx.drawImage(can, 0, 0);
     }
 
-    if (keepCanvas) {
+    if (asCanvas) {
         return flat;
     }
     const image = new Image();
     image.src = canvas.toDataURL("image/png");
     return image;
+}
+
+export function newBase($canvas) {
+    $base = $canvas;
+
+    while(canvasStack.length > 0) {
+        $(canvasStack.pop()).remove();
+    }
+
+    canvasStack.push($base[0]);
+
+    // create a new canvas
+    getCanvas();
 }
 
 /**
