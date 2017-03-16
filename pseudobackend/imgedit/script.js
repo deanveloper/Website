@@ -34,12 +34,20 @@ export function redo() {
     $canvas.css({display: ""});
 }
 
-/**
- * Draws the data from the editable canvas to the main canvas.
- */
-export function draw() {
-    $base[0].getContext('2d').drawImage($canvas[0], 0, 0);
-    ctx.clearRect(0, 0, $canvas[0].width, $canvas[0].height);
+export function image(keepCanvas) {
+    const flat = $("<canvas width='" + $base.width + "' height='" + $base.height + "'>")[0];
+    const ctx = flat.getContext('2d');
+
+    for (const can of canvases) {
+        ctx.drawImage(can, 0, 0);
+    }
+
+    if (keepCanvas) {
+        return flat;
+    }
+    const image = new Image();
+    image.src = canvas.toDataURL("image/png");
+    return image;
 }
 
 /**
@@ -138,7 +146,6 @@ function showImage(link) {
         body.append(background);
         body.append($base);
 
-        draw();
         init();
     });
     img.src = link;

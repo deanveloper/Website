@@ -1,9 +1,16 @@
-export function init() {
+import {$, image} from "./script";
 
-}
-
+let tools = [Pointer, Brush, Line, Censor];
 let color = "#000";
-let Selected = Pointer;
+let select = 0;
+
+export function init() {
+    const $tools = $("<ul>");
+    for (const tool of tools) {
+        const $tool = $("<li class='tool'>");
+        $tool.attr({alt: tool.constructor.name});
+    }
+}
 
 /**
  * doesn't do anything
@@ -96,7 +103,7 @@ class Censor {
         Censor.startX = e.clientX;
         Censor.startY = e.clientY;
 
-        ctx.strokeStyle = color;
+        ctx.strokeStyle = "red";
         ctx.lineWidth = 1;
         ctx.moveTo(e.clientX, e.clientY);
     }
@@ -110,5 +117,65 @@ class Censor {
 
     static mouseup(e, canvas) {
         Brush.mousedrag(e, canvas);
+
+        const start = {x: Line.startX, y: Line.startY};
+        const change = {x: e.clientX - start.x, y: e.clientY - start.y};
+
+        if (change.x < 0) {
+            start.x += change.x;
+            change.x = -change.x;
+        }
+        if (change.y < 0) {
+            start.y += change.y;
+            change.y = -change.y;
+        }
+
+        const flat = image(true);
+        const ctx = flat.getContext('2d');
+
+        const data = ctx.getImageData(start.x, start.y, change.x, change.y);
+
+        // start(X|Y) represent the start of a pixellated part
+        for (let startX = start.x; startX < start.x + change.x; startX += 20) {
+            for (let startY = start.y; startY < start.y + change.y; startY += 20) {
+                let size = 0;
+                const avg = [0, 0, 0, 0]; // average r, g, b, a
+
+                // sums all pixels into array
+                for (let i = 0; i < 20; i++) {
+                    for (let j = 0; j < 20; j++) {
+                        if (startX + i > change.x || startY + j > change.y) {
+                            continue;
+                        }
+                        const index = 4 * (startY * change.x + startX);
+                        avg[0] += data.data[index];
+                        avg[1] += data.data[index + 1];
+                        avg[2] += data.data[index + 2];
+                        avg[3] += data.data[index + 3];
+
+                        size++;
+                    }
+                }
+
+                for(let i in [0, 1, 2, 3]) {
+                    avg[index] = avg[index] / size;
+                }
+
+                for (let i = 0; i < 20; i++) {
+                    for (let j = 0; j < 20; j++) {
+                        if (startX + i > change.x || startY + j > change.y) {
+                            continue;
+                        }
+                        const index = 4 * (startY * change.x + startX);
+                        data.data[index] = avg[0];
+                        data.data[index + 1] = avg[1];
+                        data.data[index + 2] = avg[2];
+                        data.data[index + 3] = avg[3];
+                    }
+                }
+            }
+        } // end loop
+
+        canvas.getContext('2d').putImageData(data, 0, 0);
     }
 }
