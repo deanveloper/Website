@@ -135,9 +135,6 @@ class Crop {
 
         if (confirm("Are you sure? This operation cannot be undone!")) {
             const flat = image(true);
-            for(const canvas of canvases) {
-                $(canvas).remove();
-            }
 
             const $newCan = $("<canvas>");
             const start = {

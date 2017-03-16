@@ -62,9 +62,6 @@ export function newBase($canvas) {
     }
 
     canvasStack.push($base[0]);
-
-    // create a new canvas
-    getCanvas();
 }
 
 /**
@@ -158,7 +155,7 @@ function showImage(link) {
         $base.css({position: "absolute"});
         $base[0].getContext('2d').drawImage(img, 0, 0);
 
-        getCanvas(); // create a base canvas
+        canvasStack.push($base);
 
         body.append(background);
         body.append($base);

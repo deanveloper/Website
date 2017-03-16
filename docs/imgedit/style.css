@@ -49,3 +49,9 @@ canvas {
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
 }
+
+.tool {
+    list-style-type: none;
+    margin: 1px;
+    padding: 0;
+}
