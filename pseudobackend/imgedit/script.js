@@ -7,20 +7,40 @@ $(document).ready(() => {
         $("#file-input").click()
     });
 
-    $(window).on("dragenter", (e) => {
+    upload.on("dragenter", (e) => {
         upload.css({backgroundColor: "#C5ECAB"});
+        e.stopPropagation();
+        e.preventDefault();
     });
 
-    $(window).on("dragexit", (e) => {
+    upload.on('dragover', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    upload.on("dragexit", (e) => {
         upload.css({backgroundColor: "#ECE7AB"});
+        e.stopPropagation();
+        e.preventDefault();
     });
 
-    $(window).on("drop", (e) => {
-        const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith("image/")) {
-            showImage(window.URL.createObjectURL(e.target.files[0]));
+    upload.on("drop", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        let files = e.originalEvent.dataTransfer.files;
+        if (!files) {
+            console.log("No files!");
+            upload.trigger("dragexit");
+        } else {
+            const file = files[0];
+            if (file && file.type.startsWith("image")) {
+                showImage(window.URL.createObjectURL(file));
+            } else {
+                console.log("Invalid MIME type: " + file.type);
+                upload.trigger("dragexit");
+            }
         }
-        e.preventDefault(true);
     });
 
     $("#file-input").change((e) => {
