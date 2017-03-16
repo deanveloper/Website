@@ -1,16 +1,44 @@
 import {init} from "./tools"
 
 export const $ = require("jquery");
-export let ctx;
-export let $canvas;
 
-let $mainCanvas;
+let currentIndex = 0;
+let canvases = [];
+
+export let $base;
+
+export function getCanvas() {
+    while (canvases.length > currentIndex) {
+        canvases.pop();
+    }
+
+    const $canvas = $("<canvas width='" + $base.width + "' height='" + $base.height + "'>");
+    $canvas.css({position: "absolute"});
+
+    canvases.push($canvas[0]);
+
+    currentIndex++;
+
+    return $canvas[0];
+}
+
+export function undo() {
+    const $canvas = $(canvases[currentIndex]);
+    $canvas.css({display: "none"});
+    currentIndex--;
+}
+
+export function redo() {
+    currentIndex++;
+    const $canvas = $(canvases[currentIndex]);
+    $canvas.css({display: ""});
+}
 
 /**
  * Draws the data from the editable canvas to the main canvas.
  */
 export function draw() {
-    $mainCanvas[0].getContext('2d').drawImage($canvas[0], 0, 0);
+    $base[0].getContext('2d').drawImage($canvas[0], 0, 0);
     ctx.clearRect(0, 0, $canvas[0].width, $canvas[0].height);
 }
 
@@ -91,7 +119,7 @@ function showImage(link) {
     body.empty();
     const background = $("<div class='no-select'>");
     background.css({
-        backgroundColor: "rgba(0, 0, 0, 50%)",
+        backgroundColor: "rgba(0, 0, 0, 75%)",
         width: "100%",
         height: "100%",
         position: "fixed",
@@ -101,21 +129,18 @@ function showImage(link) {
     const img = new Image();
     $(img).on("load", () => {
 
-        $canvas = $("<canvas id='edit' width='" + img.width + "' height='" + img.height + "'>");
-        $canvas.css({position: "absolute"});
+        $base = $("<canvas id='main' width='" + img.width + "' height='" + img.height + "'>");
+        $base.css({position: "absolute"});
+        $base[0].getContext('2d').drawImage(img, 0, 0);
 
-        $mainCanvas = $("<canvas id='main' width='" + img.width + "' height='" + img.height + "'>");
-        $mainCanvas.css({position: "absolute"});
-
-        ctx = $canvas[0].getContext('2d');
-        ctx.drawImage(img, 0, 0);
+        getCanvas(); // create a base canvas
 
         body.append(background);
-        body.append($mainCanvas);
-        body.append($canvas);
+        body.append($base);
 
         draw();
         init();
     });
     img.src = link;
 }
+
