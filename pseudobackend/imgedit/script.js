@@ -17,14 +17,15 @@ $(document).ready(() => {
 
     $(window).on("drop", (e) => {
         const file = e.dataTransfer.files[0];
-        if (file) {
+        if (file && file.type.startsWith("image/")) {
             showImage(window.URL.createObjectURL(e.target.files[0]));
         }
+        e.preventDefault(true);
     });
 
     $("#file-input").change((e) => {
         showImage(window.URL.createObjectURL(e.target.files[0]));
-    })
+    });
 });
 
 function showImage(link) {
