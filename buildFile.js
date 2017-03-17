@@ -29,7 +29,7 @@ function buildFile(absPath) {
         } else if (path.basename(absPath) === "script.js") {
             browserify(absPath)
                 .transform("babelify", {presets: ["es2015"]})
-                .transform("uglifyify", {global: true})
+                //.transform("uglifyify", {global: true})
                 .bundle()
                 .pipe(fs.createWriteStream(getOutputName(absPath)));
         } else if (isNeeded(absPath)) {

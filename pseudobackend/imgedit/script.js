@@ -1,4 +1,4 @@
-import {init} from "./tools"
+import {init, currentTool} from "./draw"
 
 export const $ = require("jquery");
 
@@ -6,22 +6,27 @@ let canvasStack = [];
 let redoStack = [];
 let $base;
 
-export function getCanvas() {
-
+export function pushNewCanvas() {
     // remove anything that was undone permanently
     while(redoStack.length > 0) {
         $(redoStack.pop()).remove();
     }
 
+    removeListener($(peekCanvas()));
+
     // create a new canvas
-    const $canvas = $("<canvas width='" + $base.width + "' height='" + $base.height + "'>");
+    const $canvas = $("<canvas width='" + $base.attr("width") + "' height='" + $base.attr("height") + "'>");
     $canvas.css({position: "absolute"});
 
     // add it to our canvas stack
     canvasStack.push($canvas[0]);
+    $("body").append($canvas);
 
-    // return it
-    return $canvas[0];
+    addListener($canvas);
+}
+
+export function peekCanvas() {
+    return canvasStack[canvasStack.length - 1];
 }
 
 export function undo() {
@@ -165,3 +170,30 @@ function showImage(link) {
     img.src = link;
 }
 
+function addListener($canvas) {
+    let clicking = false;
+
+    $canvas.mousedown((e) => {
+        if(!clicking) {
+            clicking = true;
+            currentTool().mousedown(e, $canvas[0]);
+        }
+    });
+
+    $canvas.mousemove((e) => {
+        if(clicking) {
+            currentTool().mousedrag(e, $canvas[0]);
+        }
+    });
+
+    $canvas.mouseup((e) => {
+        if(clicking) {
+            clicking = false;
+            currentTool().mouseup(e, $canvas[0]);
+        }
+    });
+}
+
+function removeListener($canvas) {
+    $canvas.off("mousedown mousemove mouseup");
+}

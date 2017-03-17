@@ -1,30 +1,24 @@
-import {$, image, getCanvas, newBase} from "./script";
-
-let tools = [Pointer, Brush, Line, Censor];
-let color = "#000";
-let select = 0;
-
-export function init() {
-
-    if (!Function.prototype.getName) {
-        Function.prototype.getName = function () {
-
-        }
-    }
-
-    const $tools = $("<ul>");
-    for (const tool of tools) {
-        const $tool = $("<li class='tool'>");
-        $tool.attr({alt: tool.constructor.name});
-    }
-}
+import {$, image, newBase} from "./script";
+import {color} from "./draw"
 
 /**
  * doesn't do anything
  */
-class Pointer {
+export class Cursor {
+    static get doNothing() {
+        return true;
+    }
+
+    static get name() {
+        return "Cursor"
+    }
+
     static get icon() {
         return "mouse-pointer";
+    }
+
+    static get cursor() {
+        return "default";
     }
 
     static mousedown(e, canvas) {
@@ -40,9 +34,17 @@ class Pointer {
 /**
  * brush that brushes
  */
-class Brush {
+export class Brush {
+    static get name() {
+        return "Brush"
+    }
+
     static get icon() {
         return "paint-brush";
+    }
+
+    static get cursor() {
+        return "pointer";
     }
 
     static mousedown(e, canvas) {
@@ -67,9 +69,17 @@ class Brush {
 /**
  * line tool makes nice straight lines
  */
-class Line {
+export class Line {
+    static get name() {
+        return "Line"
+    }
+
     static get icon() {
         return "minus";
+    }
+
+    static get cursor() {
+        return "crosshair";
     }
 
     static mousedown(e, canvas) {
@@ -96,9 +106,20 @@ class Line {
     }
 }
 
-class Crop {
+/**
+ * Crops an image (irreversable)
+ */
+export class Crop {
+    static get name() {
+        return "Crop"
+    }
+
     static get icon() {
         return "crop";
+    }
+
+    static get cursor() {
+        return "crosshair";
     }
 
     static mousedown(e, canvas) {
@@ -167,9 +188,17 @@ class Crop {
 /**
  * censor tool pixelates stuff behind it
  */
-class Censor {
+export class Censor {
+    static get name() {
+        return "Censor"
+    }
+
     static get icon() {
-        return "paint-brush";
+        return "times-rectangle";
+    }
+
+    static get cursor() {
+        return "crosshair";
     }
 
     static mousedown(e, canvas) {
@@ -232,7 +261,7 @@ class Censor {
                     }
                 }
 
-                for(let i in [0, 1, 2, 3]) {
+                for (let i in [0, 1, 2, 3]) {
                     avg[index] = avg[index] / size;
                 }
 
@@ -254,3 +283,5 @@ class Censor {
         canvas.getContext('2d').putImageData(data, 0, 0);
     }
 }
+
+export const tools = [Cursor, Brush, Line, Crop, Censor];

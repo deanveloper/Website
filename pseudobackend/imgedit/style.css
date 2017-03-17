@@ -51,7 +51,31 @@ canvas {
 }
 
 .tool {
-    list-style-type: none;
-    margin: 1px;
-    padding: 0;
+    margin: 10px;
+    padding: auto;
+    cursor: pointer;
+    float: left;
+    border-radius: 4px;
+    overflow: auto;
+    width: 170px;
+}
+
+.tool > .buttonspan {
+    background-color: #F7F7F7;
+    border: solid #404040 3px;
+    color: #404040;
+    text-align: center;
+    padding: 13px 0;
+    display: block;
+}
+
+.tool > input {
+    position: absolute;
+    top: -20px;
+}
+
+.tool > input:checked + .buttonspan {
+    background-color: #404040;
+    color: #F7F7F7;
+    border: solid #F7F7F7 3px;
 }
