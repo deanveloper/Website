@@ -259,8 +259,8 @@ export class Censor {
         const flatctx = flat.getContext('2d');
 
         // start(X|Y) represent the start of a pixellated part
-        for (let startX = start.x; startX < start.x + change.x; startX += 20) {
-            for (let startY = start.y; startY < start.y + change.y; startY += 20) {
+        for (let startX = start.x; startX < start.x + change.x; startX += 10) {
+            for (let startY = start.y; startY < start.y + change.y; startY += 10) {
                 const avg = [0, 0, 0]; // average r, g, b, a
 
                 const width = Math.min(10, start.x + change.x - startX);
@@ -269,7 +269,7 @@ export class Censor {
                 const data = flatctx.getImageData(startX, startY, width, height).data;
 
                 for (let x = 0; x < width; x++) {
-                    for (let y = 0; y < width; y++) {
+                    for (let y = 0; y < height; y++) {
                         const index = 4 * (y * width + x);
 
                         avg[0] += data[index];     // red

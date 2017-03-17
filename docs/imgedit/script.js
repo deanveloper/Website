@@ -10402,8 +10402,6 @@ function image(asCanvas) {
         }
     }
 
-    console.log(flat);
-
     if (asCanvas) {
         return flat;
     }
@@ -10910,8 +10908,8 @@ var Censor = exports.Censor = function () {
             var flatctx = flat.getContext('2d');
 
             // start(X|Y) represent the start of a pixellated part
-            for (var startX = start.x; startX < start.x + change.x; startX += 20) {
-                for (var startY = start.y; startY < start.y + change.y; startY += 20) {
+            for (var startX = start.x; startX < start.x + change.x; startX += 10) {
+                for (var startY = start.y; startY < start.y + change.y; startY += 10) {
                     var avg = [0, 0, 0]; // average r, g, b, a
 
                     var width = Math.min(10, start.x + change.x - startX);
@@ -10920,7 +10918,7 @@ var Censor = exports.Censor = function () {
                     var data = flatctx.getImageData(startX, startY, width, height).data;
 
                     for (var x = 0; x < width; x++) {
-                        for (var y = 0; y < width; y++) {
+                        for (var y = 0; y < height; y++) {
                             var index = 4 * (y * width + x);
 
                             avg[0] += data[index]; // red

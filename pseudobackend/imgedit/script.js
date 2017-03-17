@@ -47,8 +47,6 @@ export function image(asCanvas) {
         ctx.drawImage(can, 0, 0);
     }
 
-    console.log(flat);
-
     if (asCanvas) {
         return flat;
     }
