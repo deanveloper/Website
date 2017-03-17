@@ -1,10 +1,15 @@
 import {tools} from "./tools";
-import {$, peekCanvas, pushNewCanvas} from "./script";
+import {$, pushNewCanvas} from "./script";
 
-export let color = "#000";
+export let color = "#FFF";
 
 export function currentTool() {
-    return $("#tools").find("> label:has(input:checked)").attr("id");
+    const name = $("#tools").find("> label:has(input:checked)").attr("id");
+    for (const tool of tools) {
+        if (tool.name === name) {
+            return tool;
+        }
+    }
 }
 
 export function init() {
@@ -20,15 +25,15 @@ export function init() {
         const $span = $("<span class='buttonspan'>");
 
         /*const $tooltip = $("<span class='tooltip'>");
-        $tooltip.html(tool.name);
-        $label.append($tooltip);*/
+         $tooltip.html(tool.name);
+         $label.append($tooltip);*/
 
         $label.append($button);
         $label.append($span);
 
         $tools.append($label);
 
-        if(tool === tools[0]) {
+        if (tool === tools[0]) {
             $button.attr({checked: true})
         }
 

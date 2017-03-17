@@ -7,10 +7,6 @@ let redoStack = [];
 let $base;
 
 export function pushNewCanvas() {
-    // remove anything that was undone permanently
-    while(redoStack.length > 0) {
-        $(redoStack.pop()).remove();
-    }
 
     removeListener($(peekCanvas()));
 
@@ -44,18 +40,21 @@ export function redo() {
 }
 
 export function image(asCanvas) {
-    const flat = $("<canvas width='" + $base.width + "' height='" + $base.height + "'>")[0];
+    const flat = $("<canvas width='" + $base.attr("width") + "' height='" + $base.attr("height") + "'>")[0];
     const ctx = flat.getContext('2d');
 
     for (const can of canvasStack) {
         ctx.drawImage(can, 0, 0);
     }
 
+    console.log(flat);
+
     if (asCanvas) {
         return flat;
     }
+
     const image = new Image();
-    image.src = canvas.toDataURL("image/png");
+    image.src = flat.toDataURL("image/png");
     return image;
 }
 
@@ -160,7 +159,7 @@ function showImage(link) {
         $base.css({position: "absolute"});
         $base[0].getContext('2d').drawImage(img, 0, 0);
 
-        canvasStack.push($base);
+        canvasStack.push($base[0]);
 
         body.append(background);
         body.append($base);
@@ -191,6 +190,12 @@ function addListener($canvas) {
             clicking = false;
             currentTool().mouseup(e, $canvas[0]);
         }
+        // clear the undo/redo stack
+        while(redoStack.length > 0) {
+            $(redoStack.pop()).remove();
+        }
+        // push new canvas
+        pushNewCanvas();
     });
 }
 

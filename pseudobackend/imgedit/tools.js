@@ -49,16 +49,26 @@ export class Brush {
 
     static mousedown(e, canvas) {
         const ctx = canvas.getContext('2d');
+        const x = e.offsetX;
+        const y = e.offsetY;
 
+        ctx.beginPath();
         ctx.strokeStyle = color;
-        ctx.lineWidth = Brush.radius;
-        ctx.moveTo(e.clientX, e.clientY);
+        ctx.fillStyle = color;
+        ctx.lineWidth = 10;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.moveTo(x, y);
     }
 
     static mousedrag(e, canvas) {
         const ctx = canvas.getContext('2d');
-        ctx.moveTo(e.clientX - e.movementX, e.clientY - e.movementY);
-        ctx.lineTo(e.clientX, e.clientY);
+
+        const x = e.offsetX;
+        const y = e.offsetY;
+
+        ctx.lineTo(x, y);
+        ctx.stroke();
     }
 
     static mouseup(e, canvas) {
@@ -85,24 +95,31 @@ export class Line {
     static mousedown(e, canvas) {
         const ctx = canvas.getContext('2d');
 
-        Line.startX = e.clientX;
-        Line.startY = e.clientY;
+        const x = e.offsetX;
+        const y = e.offsetY;
+
+        Line.startX = x;
+        Line.startY = y;
 
         ctx.strokeStyle = color;
-        ctx.lineWidth = Line.radius;
-        ctx.moveTo(e.clientX, e.clientY);
+        ctx.lineWidth = 5;
     }
 
     static mousedrag(e, canvas) {
         const ctx = canvas.getContext('2d');
+        const x = e.offsetX;
+        const y = e.offsetY;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fill();
 
+        ctx.beginPath();
         ctx.moveTo(Line.startX, Line.startY);
-        ctx.lineTo(e.clientX, e.clientY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
     }
 
     static mouseup(e, canvas) {
-        Brush.mousedrag(e, canvas);
+        Line.mousedrag(e, canvas);
     }
 }
 
@@ -125,8 +142,8 @@ export class Crop {
     static mousedown(e, canvas) {
         const ctx = canvas.getContext('2d');
 
-        Crop.startX = e.clientX;
-        Crop.startY = e.clientY;
+        Crop.startX = e.offsetX;
+        Crop.startY = e.offsetY;
 
         ctx.fillStyle = "black";
         ctx.globalAlpha = "50%";
@@ -134,27 +151,28 @@ export class Crop {
         ctx.strokeStyle = "black";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.moveTo(e.clientX, e.clientY);
+        ctx.moveTo(e.offsetX, e.offsetY);
     }
 
     static mousedrag(e, canvas) {
         const ctx = canvas.getContext('2d');
 
-        Crop.endX = e.clientX;
-        Crop.endY = e.clientY;
+        Crop.endX = e.offsetX;
+        Crop.endY = e.offsetY;
 
         ctx.strokeStyle = "black";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.strokeStyle = "red";
-        ctx.clearRect(Crop.startX, Crop.startY, e.clientX, e.clientY);
-        ctx.strokeRect(Crop.startX, Crop.startY, e.clientX, e.clientY);
+        ctx.clearRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
+        ctx.strokeRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
     }
 
     static mouseup(e, canvas) {
-        Brush.mousedrag(e, canvas);
+        Crop.mousedrag(e, canvas);
 
         if (confirm("Are you sure? This operation cannot be undone!")) {
+            canvas.getContext('2d').clearRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
             const flat = image(true);
 
             const $newCan = $("<canvas>");
@@ -204,26 +222,27 @@ export class Censor {
     static mousedown(e, canvas) {
         const ctx = canvas.getContext('2d');
 
-        Censor.startX = e.clientX;
-        Censor.startY = e.clientY;
+        Censor.startX = e.offsetX;
+        Censor.startY = e.offsetY;
 
         ctx.strokeStyle = "red";
         ctx.lineWidth = 1;
-        ctx.moveTo(e.clientX, e.clientY);
+        ctx.moveTo(e.offsetX, e.offsetY);
     }
 
     static mousedrag(e, canvas) {
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.strokeRect(Censor.startX, Censor.startY, e.clientX - Censor.startX, e.clientY - Censor.startY)
+        ctx.strokeRect(Censor.startX, Censor.startY, e.offsetX - Censor.startX, e.offsetY - Censor.startY)
     }
 
     static mouseup(e, canvas) {
-        Brush.mousedrag(e, canvas);
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        const start = {x: Line.startX, y: Line.startY};
-        const change = {x: e.clientX - start.x, y: e.clientY - start.y};
+        const start = {x: Censor.startX, y: Censor.startY};
+        const change = {x: e.offsetX - start.x, y: e.offsetY - start.y};
 
         if (change.x < 0) {
             start.x += change.x;
@@ -233,54 +252,42 @@ export class Censor {
             start.y += change.y;
             change.y = -change.y;
         }
+        change.x = Math.min(change.x, canvas.width - start.x);
+        change.y = Math.min(change.y, canvas.height - start.y);
 
         const flat = image(true);
-        const ctx = flat.getContext('2d');
-
-        const data = ctx.getImageData(start.x, start.y, change.x, change.y);
+        const flatctx = flat.getContext('2d');
 
         // start(X|Y) represent the start of a pixellated part
         for (let startX = start.x; startX < start.x + change.x; startX += 20) {
             for (let startY = start.y; startY < start.y + change.y; startY += 20) {
-                let size = 0;
-                const avg = [0, 0, 0, 0]; // average r, g, b, a
+                const avg = [0, 0, 0]; // average r, g, b, a
 
-                // sums all pixels into array
-                for (let i = 0; i < 20; i++) {
-                    for (let j = 0; j < 20; j++) {
-                        if (startX + i > change.x || startY + j > change.y) {
-                            continue;
-                        }
-                        const index = 4 * (startY * change.x + startX);
-                        avg[0] += data.data[index];
-                        avg[1] += data.data[index + 1];
-                        avg[2] += data.data[index + 2];
-                        avg[3] += data.data[index + 3];
+                const width = Math.min(10, start.x + change.x - startX);
+                const height = Math.min(10, start.y + change.y - startY);
 
-                        size++;
+                const data = flatctx.getImageData(startX, startY, width, height).data;
+
+                for (let x = 0; x < width; x++) {
+                    for (let y = 0; y < width; y++) {
+                        const index = 4 * (y * width + x);
+
+                        avg[0] += data[index];     // red
+                        avg[1] += data[index + 1]; // green
+                        avg[2] += data[index + 2]; // blue
+                        // index + 3 is alpha. not needed.
                     }
                 }
 
-                for (let i in [0, 1, 2, 3]) {
-                    avg[index] = avg[index] / size;
+                for (let i = 0; i < avg.length; i++) {
+                    avg[i] /= (width * height);
+                    avg[i] = Math.round(avg[i]);
                 }
 
-                for (let i = 0; i < 20; i++) {
-                    for (let j = 0; j < 20; j++) {
-                        if (startX + i > change.x || startY + j > change.y) {
-                            continue;
-                        }
-                        const index = 4 * (startY * change.x + startX);
-                        data.data[index] = avg[0];
-                        data.data[index + 1] = avg[1];
-                        data.data[index + 2] = avg[2];
-                        data.data[index + 3] = avg[3];
-                    }
-                }
+                ctx.fillStyle = "#" + avg[0].toString(16) + avg[1].toString(16) + avg[2].toString(16);
+                ctx.fillRect(startX, startY, width, height);
             }
         } // end loop
-
-        canvas.getContext('2d').putImageData(data, 0, 0);
     }
 }
 

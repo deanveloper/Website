@@ -10224,7 +10224,7 @@ return jQuery;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-        value: true
+    value: true
 });
 exports.color = undefined;
 exports.currentTool = currentTool;
@@ -10234,62 +10234,88 @@ var _tools = require("./tools");
 
 var _script = require("./script");
 
-var color = exports.color = "#000";
+var color = exports.color = "#FFF";
 
 function currentTool() {
-        return (0, _script.$)("#tools").find("> label:has(input:checked)").attr("id");
+    var name = (0, _script.$)("#tools").find("> label:has(input:checked)").attr("id");
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = _tools.tools[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var tool = _step.value;
+
+            if (tool.name === name) {
+                return tool;
+            }
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
 }
 
 function init() {
-        (0, _script.pushNewCanvas)();
+    (0, _script.pushNewCanvas)();
 
-        var $tools = (0, _script.$)("<div id='tools'>");
-        $tools.css({ position: "fixed" });
+    var $tools = (0, _script.$)("<div id='tools'>");
+    $tools.css({ position: "fixed" });
 
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
 
-        try {
-                for (var _iterator = _tools.tools[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var tool = _step.value;
+    try {
+        for (var _iterator2 = _tools.tools[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var tool = _step2.value;
 
 
-                        var $label = (0, _script.$)("<label class='tool' id='" + tool.name + "'>");
-                        var $button = (0, _script.$)("<input type='radio' name='editortools'>");
-                        var $span = (0, _script.$)("<span class='buttonspan'>");
+            var $label = (0, _script.$)("<label class='tool' id='" + tool.name + "'>");
+            var $button = (0, _script.$)("<input type='radio' name='editortools'>");
+            var $span = (0, _script.$)("<span class='buttonspan'>");
 
-                        /*const $tooltip = $("<span class='tooltip'>");
-                        $tooltip.html(tool.name);
-                        $label.append($tooltip);*/
+            /*const $tooltip = $("<span class='tooltip'>");
+             $tooltip.html(tool.name);
+             $label.append($tooltip);*/
 
-                        $label.append($button);
-                        $label.append($span);
+            $label.append($button);
+            $label.append($span);
 
-                        $tools.append($label);
+            $tools.append($label);
 
-                        if (tool === _tools.tools[0]) {
-                                $button.attr({ checked: true });
-                        }
+            if (tool === _tools.tools[0]) {
+                $button.attr({ checked: true });
+            }
 
-                        $span.addClass("fa fa-2x fa-" + tool.icon);
+            $span.addClass("fa fa-2x fa-" + tool.icon);
 
-                        (0, _script.$)("body").append($tools);
-                }
-        } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-        } finally {
-                try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                                _iterator.return();
-                        }
-                } finally {
-                        if (_didIteratorError) {
-                                throw _iteratorError;
-                        }
-                }
+            (0, _script.$)("body").append($tools);
         }
+    } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+            }
+        } finally {
+            if (_didIteratorError2) {
+                throw _iteratorError2;
+            }
+        }
+    }
 }
 
 },{"./script":3,"./tools":4}],3:[function(require,module,exports){
@@ -10315,10 +10341,6 @@ var redoStack = [];
 var $base = void 0;
 
 function pushNewCanvas() {
-    // remove anything that was undone permanently
-    while (redoStack.length > 0) {
-        $(redoStack.pop()).remove();
-    }
 
     removeListener($(peekCanvas()));
 
@@ -10352,7 +10374,7 @@ function redo() {
 }
 
 function image(asCanvas) {
-    var flat = $("<canvas width='" + $base.width + "' height='" + $base.height + "'>")[0];
+    var flat = $("<canvas width='" + $base.attr("width") + "' height='" + $base.attr("height") + "'>")[0];
     var ctx = flat.getContext('2d');
 
     var _iteratorNormalCompletion = true;
@@ -10380,11 +10402,14 @@ function image(asCanvas) {
         }
     }
 
+    console.log(flat);
+
     if (asCanvas) {
         return flat;
     }
+
     var image = new Image();
-    image.src = canvas.toDataURL("image/png");
+    image.src = flat.toDataURL("image/png");
     return image;
 }
 
@@ -10510,7 +10535,7 @@ function showImage(link) {
         $base.css({ position: "absolute" });
         $base[0].getContext('2d').drawImage(img, 0, 0);
 
-        canvasStack.push($base);
+        canvasStack.push($base[0]);
 
         body.append(background);
         body.append($base);
@@ -10541,6 +10566,12 @@ function addListener($canvas) {
             clicking = false;
             (0, _draw.currentTool)().mouseup(e, $canvas[0]);
         }
+        // clear the undo/redo stack
+        while (redoStack.length > 0) {
+            $(redoStack.pop()).remove();
+        }
+        // push new canvas
+        pushNewCanvas();
     });
 }
 
@@ -10620,17 +10651,27 @@ var Brush = exports.Brush = function () {
         key: "mousedown",
         value: function mousedown(e, canvas) {
             var ctx = canvas.getContext('2d');
+            var x = e.offsetX;
+            var y = e.offsetY;
 
+            ctx.beginPath();
             ctx.strokeStyle = _draw.color;
-            ctx.lineWidth = Brush.radius;
-            ctx.moveTo(e.clientX, e.clientY);
+            ctx.fillStyle = _draw.color;
+            ctx.lineWidth = 10;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            ctx.moveTo(x, y);
         }
     }, {
         key: "mousedrag",
         value: function mousedrag(e, canvas) {
             var ctx = canvas.getContext('2d');
-            ctx.moveTo(e.clientX - e.movementX, e.clientY - e.movementY);
-            ctx.lineTo(e.clientX, e.clientY);
+
+            var x = e.offsetX;
+            var y = e.offsetY;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
         }
     }, {
         key: "mouseup",
@@ -10672,26 +10713,33 @@ var Line = exports.Line = function () {
         value: function mousedown(e, canvas) {
             var ctx = canvas.getContext('2d');
 
-            Line.startX = e.clientX;
-            Line.startY = e.clientY;
+            var x = e.offsetX;
+            var y = e.offsetY;
+
+            Line.startX = x;
+            Line.startY = y;
 
             ctx.strokeStyle = _draw.color;
-            ctx.lineWidth = Line.radius;
-            ctx.moveTo(e.clientX, e.clientY);
+            ctx.lineWidth = 5;
         }
     }, {
         key: "mousedrag",
         value: function mousedrag(e, canvas) {
             var ctx = canvas.getContext('2d');
+            var x = e.offsetX;
+            var y = e.offsetY;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fill();
 
+            ctx.beginPath();
             ctx.moveTo(Line.startX, Line.startY);
-            ctx.lineTo(e.clientX, e.clientY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
         }
     }, {
         key: "mouseup",
         value: function mouseup(e, canvas) {
-            Brush.mousedrag(e, canvas);
+            Line.mousedrag(e, canvas);
         }
     }, {
         key: "name",
@@ -10728,8 +10776,8 @@ var Crop = exports.Crop = function () {
         value: function mousedown(e, canvas) {
             var ctx = canvas.getContext('2d');
 
-            Crop.startX = e.clientX;
-            Crop.startY = e.clientY;
+            Crop.startX = e.offsetX;
+            Crop.startY = e.offsetY;
 
             ctx.fillStyle = "black";
             ctx.globalAlpha = "50%";
@@ -10737,29 +10785,30 @@ var Crop = exports.Crop = function () {
             ctx.strokeStyle = "black";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.moveTo(e.clientX, e.clientY);
+            ctx.moveTo(e.offsetX, e.offsetY);
         }
     }, {
         key: "mousedrag",
         value: function mousedrag(e, canvas) {
             var ctx = canvas.getContext('2d');
 
-            Crop.endX = e.clientX;
-            Crop.endY = e.clientY;
+            Crop.endX = e.offsetX;
+            Crop.endY = e.offsetY;
 
             ctx.strokeStyle = "black";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.strokeStyle = "red";
-            ctx.clearRect(Crop.startX, Crop.startY, e.clientX, e.clientY);
-            ctx.strokeRect(Crop.startX, Crop.startY, e.clientX, e.clientY);
+            ctx.clearRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
+            ctx.strokeRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
         }
     }, {
         key: "mouseup",
         value: function mouseup(e, canvas) {
-            Brush.mousedrag(e, canvas);
+            Crop.mousedrag(e, canvas);
 
             if (confirm("Are you sure? This operation cannot be undone!")) {
+                canvas.getContext('2d').clearRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
                 var flat = (0, _script.image)(true);
 
                 var $newCan = (0, _script.$)("<canvas>");
@@ -10822,12 +10871,12 @@ var Censor = exports.Censor = function () {
         value: function mousedown(e, canvas) {
             var ctx = canvas.getContext('2d');
 
-            Censor.startX = e.clientX;
-            Censor.startY = e.clientY;
+            Censor.startX = e.offsetX;
+            Censor.startY = e.offsetY;
 
             ctx.strokeStyle = "red";
             ctx.lineWidth = 1;
-            ctx.moveTo(e.clientX, e.clientY);
+            ctx.moveTo(e.offsetX, e.offsetY);
         }
     }, {
         key: "mousedrag",
@@ -10835,15 +10884,16 @@ var Censor = exports.Censor = function () {
             var ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            ctx.strokeRect(Censor.startX, Censor.startY, e.clientX - Censor.startX, e.clientY - Censor.startY);
+            ctx.strokeRect(Censor.startX, Censor.startY, e.offsetX - Censor.startX, e.offsetY - Censor.startY);
         }
     }, {
         key: "mouseup",
         value: function mouseup(e, canvas) {
-            Brush.mousedrag(e, canvas);
+            var ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            var start = { x: Line.startX, y: Line.startY };
-            var change = { x: e.clientX - start.x, y: e.clientY - start.y };
+            var start = { x: Censor.startX, y: Censor.startY };
+            var change = { x: e.offsetX - start.x, y: e.offsetY - start.y };
 
             if (change.x < 0) {
                 start.x += change.x;
@@ -10853,54 +10903,42 @@ var Censor = exports.Censor = function () {
                 start.y += change.y;
                 change.y = -change.y;
             }
+            change.x = Math.min(change.x, canvas.width - start.x);
+            change.y = Math.min(change.y, canvas.height - start.y);
 
             var flat = (0, _script.image)(true);
-            var ctx = flat.getContext('2d');
-
-            var data = ctx.getImageData(start.x, start.y, change.x, change.y);
+            var flatctx = flat.getContext('2d');
 
             // start(X|Y) represent the start of a pixellated part
             for (var startX = start.x; startX < start.x + change.x; startX += 20) {
                 for (var startY = start.y; startY < start.y + change.y; startY += 20) {
-                    var size = 0;
-                    var avg = [0, 0, 0, 0]; // average r, g, b, a
+                    var avg = [0, 0, 0]; // average r, g, b, a
 
-                    // sums all pixels into array
-                    for (var i = 0; i < 20; i++) {
-                        for (var j = 0; j < 20; j++) {
-                            if (startX + i > change.x || startY + j > change.y) {
-                                continue;
-                            }
-                            var _index = 4 * (startY * change.x + startX);
-                            avg[0] += data.data[_index];
-                            avg[1] += data.data[_index + 1];
-                            avg[2] += data.data[_index + 2];
-                            avg[3] += data.data[_index + 3];
+                    var width = Math.min(10, start.x + change.x - startX);
+                    var height = Math.min(10, start.y + change.y - startY);
 
-                            size++;
+                    var data = flatctx.getImageData(startX, startY, width, height).data;
+
+                    for (var x = 0; x < width; x++) {
+                        for (var y = 0; y < width; y++) {
+                            var index = 4 * (y * width + x);
+
+                            avg[0] += data[index]; // red
+                            avg[1] += data[index + 1]; // green
+                            avg[2] += data[index + 2]; // blue
+                            // index + 3 is alpha. not needed.
                         }
                     }
 
-                    for (var _i in [0, 1, 2, 3]) {
-                        avg[index] = avg[index] / size;
+                    for (var i = 0; i < avg.length; i++) {
+                        avg[i] /= width * height;
+                        avg[i] = Math.round(avg[i]);
                     }
 
-                    for (var _i2 = 0; _i2 < 20; _i2++) {
-                        for (var _j = 0; _j < 20; _j++) {
-                            if (startX + _i2 > change.x || startY + _j > change.y) {
-                                continue;
-                            }
-                            var _index2 = 4 * (startY * change.x + startX);
-                            data.data[_index2] = avg[0];
-                            data.data[_index2 + 1] = avg[1];
-                            data.data[_index2 + 2] = avg[2];
-                            data.data[_index2 + 3] = avg[3];
-                        }
-                    }
+                    ctx.fillStyle = "#" + avg[0].toString(16) + avg[1].toString(16) + avg[2].toString(16);
+                    ctx.fillRect(startX, startY, width, height);
                 }
             } // end loop
-
-            canvas.getContext('2d').putImageData(data, 0, 0);
         }
     }, {
         key: "name",
