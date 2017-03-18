@@ -10898,19 +10898,23 @@ var Censor = exports.Censor = function () {
             var flat = (0, _script.image)(true);
             var flatctx = flat.getContext('2d');
 
+            var data = flatctx.getImageData(start.x, start.y, change.x, change.y).data;
+
             // start(X|Y) represent the start of a pixellated part
             for (var startX = start.x; startX < start.x + change.x; startX += 10) {
                 for (var startY = start.y; startY < start.y + change.y; startY += 10) {
+
                     var avg = [0, 0, 0]; // average r, g, b, a
+
+                    var regionX = startX - start.x;
+                    var regionY = startY - start.y;
 
                     var width = Math.min(10, start.x + change.x - startX);
                     var height = Math.min(10, start.y + change.y - startY);
 
-                    var data = flatctx.getImageData(startX, startY, width, height).data;
-
                     for (var x = 0; x < width; x++) {
                         for (var y = 0; y < height; y++) {
-                            var index = 4 * (y * width + x);
+                            var index = 4 * ((regionY + y) * change.x + (regionX + x));
 
                             avg[0] += data[index]; // red
                             avg[1] += data[index + 1]; // green
@@ -10918,9 +10922,6 @@ var Censor = exports.Censor = function () {
                             // index + 3 is alpha. not needed.
                         }
                     }
-
-                    console.log(startX, startY);
-                    console.log(avg);
 
                     for (var i = 0; i < avg.length; i++) {
                         avg[i] /= width * height;
