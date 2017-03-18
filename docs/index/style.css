@@ -68,7 +68,7 @@ a, a:active, a:focus {
     transform: rotate(360deg);
 }
 
-.icon:active {
+a:active .icon {
     -webkit-transform: scale(.9, .9);
     -moz-transform: scale(.9, .9);
     -ms-transform: scale(.9, .9);
