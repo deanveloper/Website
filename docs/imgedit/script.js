@@ -10269,8 +10269,8 @@ function currentTool() {
 function init() {
     (0, _script.pushNewCanvas)();
 
+    var $toolsWrapper = (0, _script.$)("<div id='toolsWrapper' class='no-select'>");
     var $tools = (0, _script.$)("<div id='tools'>");
-    $tools.css({ position: "fixed" });
 
     var _iteratorNormalCompletion2 = true;
     var _didIteratorError2 = false;
@@ -10281,18 +10281,21 @@ function init() {
             var tool = _step2.value;
 
 
+            var $container = (0, _script.$)("<div class='container'>");
             var $label = (0, _script.$)("<label class='tool' id='" + tool.name + "'>");
             var $button = (0, _script.$)("<input type='radio' name='editortools'>");
             var $span = (0, _script.$)("<span class='buttonspan'>");
 
-            /*const $tooltip = $("<span class='tooltip'>");
-             $tooltip.html(tool.name);
-             $label.append($tooltip);*/
+            var $tooltip = (0, _script.$)("<span class='tooltip'>");
+            $tooltip.html(tool.name);
+            $container.append($tooltip);
 
             $label.append($button);
             $label.append($span);
 
-            $tools.append($label);
+            $container.append($label);
+
+            $tools.append($container);
 
             if (tool === _tools.tools[0]) {
                 $button.attr({ checked: true });
@@ -10300,7 +10303,8 @@ function init() {
 
             $span.addClass("fa fa-2x fa-" + tool.icon);
 
-            (0, _script.$)("body").append($tools);
+            $toolsWrapper.append($tools);
+            (0, _script.$)("main").append($toolsWrapper);
         }
     } catch (err) {
         _didIteratorError2 = true;
@@ -10350,7 +10354,7 @@ function pushNewCanvas() {
 
     // add it to our canvas stack
     canvasStack.push($canvas[0]);
-    $("body").append($canvas);
+    $("main").append($canvas);
 
     addListener($canvas);
 }
@@ -10505,8 +10509,8 @@ $(document).ready(function () {
  * @param link The link to the image, usually made with URL.createObjectUrl()
  */
 function showImage(link) {
-    var body = $("body");
-    body.empty();
+    var main = $("main");
+    main.empty();
     var background = $("<div class='no-select'>");
     background.css({
         backgroundColor: "rgba(0, 0, 0, 75%)",
@@ -10515,7 +10519,7 @@ function showImage(link) {
         position: "fixed",
         margin: 0
     });
-    body.append(background);
+    main.append(background);
     var img = new Image();
     $(img).on("load", function () {
 
@@ -10525,8 +10529,8 @@ function showImage(link) {
 
         canvasStack.push($base[0]);
 
-        body.append(background);
-        body.append($base);
+        main.append(background);
+        main.append($base);
 
         (0, _draw.init)();
     });

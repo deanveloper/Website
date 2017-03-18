@@ -16,7 +16,7 @@ export function pushNewCanvas() {
 
     // add it to our canvas stack
     canvasStack.push($canvas[0]);
-    $("body").append($canvas);
+    $("main").append($canvas);
 
     addListener($canvas);
 }
@@ -129,8 +129,8 @@ $(document).ready(() => {
  * @param link The link to the image, usually made with URL.createObjectUrl()
  */
 export function showImage(link) {
-    const body = $("body");
-    body.empty();
+    const main = $("main");
+    main.empty();
     const background = $("<div class='no-select'>");
     background.css({
         backgroundColor: "rgba(0, 0, 0, 75%)",
@@ -139,7 +139,7 @@ export function showImage(link) {
         position: "fixed",
         margin: 0
     });
-    body.append(background);
+    main.append(background);
     const img = new Image();
     $(img).on("load", () => {
 
@@ -149,8 +149,8 @@ export function showImage(link) {
 
         canvasStack.push($base[0]);
 
-        body.append(background);
-        body.append($base);
+        main.append(background);
+        main.append($base);
 
         init();
     });

@@ -15,23 +15,26 @@ export function currentTool() {
 export function init() {
     pushNewCanvas();
 
+    const $toolsWrapper = $("<div id='toolsWrapper' class='no-select'>");
     const $tools = $("<div id='tools'>");
-    $tools.css({position: "fixed"});
 
     for (const tool of tools) {
 
+        const $container = $("<div class='container'>");
         const $label = $("<label class='tool' id='" + tool.name + "'>");
         const $button = $("<input type='radio' name='editortools'>");
         const $span = $("<span class='buttonspan'>");
 
-        /*const $tooltip = $("<span class='tooltip'>");
-         $tooltip.html(tool.name);
-         $label.append($tooltip);*/
+        const $tooltip = $("<span class='tooltip'>");
+        $tooltip.html(tool.name);
+        $container.append($tooltip);
 
         $label.append($button);
         $label.append($span);
 
-        $tools.append($label);
+        $container.append($label);
+
+        $tools.append($container);
 
         if (tool === tools[0]) {
             $button.attr({checked: true})
@@ -39,6 +42,7 @@ export function init() {
 
         $span.addClass("fa fa-2x fa-" + tool.icon);
 
-        $("body").append($tools);
+        $toolsWrapper.append($tools);
+        $("main").append($toolsWrapper);
     }
 }

@@ -7,6 +7,18 @@ body {
     text-align: center;
 }
 
+footer {
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    text-align: center;
+}
+
+a {
+    color: black;
+    text-decoration-style: dashed;
+}
+
 .no-select {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -50,18 +62,51 @@ canvas {
     -webkit-transform: translateX(-50%);
 }
 
+#toolsWrapper {
+    width: 100%;
+    position: fixed;
+    text-align: center;
+}
+
 #tools {
     z-index: 1;
 }
 
 .tool {
     margin: 10px;
-    padding: auto;
     cursor: pointer;
     float: left;
     border-radius: 4px;
     overflow: auto;
-    width: 170px;
+    width: 120px;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: inline-block;
+}
+
+.container .tooltip {
+    visibility: hidden;
+    width: 80px;
+    margin-left: -40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 0;
+    border-radius: 6px;
+    top: 110%;
+    left: 50%;
+    font-size: 16px;
+
+    position: absolute;
+    z-index: 1;
+}
+
+.container:hover .tooltip {
+    visibility: visible;
 }
 
 .tool > .buttonspan {
