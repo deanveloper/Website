@@ -10928,13 +10928,19 @@ var Censor = exports.Censor = function () {
                         }
                     }
 
+                    console.log(startX, startY);
+                    console.log(avg);
+
                     for (var i = 0; i < avg.length; i++) {
                         avg[i] /= width * height;
                         avg[i] = Math.round(avg[i]);
                     }
 
-                    ctx.fillStyle = "#" + avg[0].toString(16) + avg[1].toString(16) + avg[2].toString(16);
+                    var rgb = avg[0] << 16 | avg[1] << 8 | avg[2];
+                    ctx.fillStyle = '#' + (0x1000000 + rgb).toString(16).slice(1);
                     ctx.fillRect(startX, startY, width, height);
+
+                    console.log(ctx.fillStyle);
                 }
             } // end loop
         }

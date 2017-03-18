@@ -279,12 +279,18 @@ export class Censor {
                     }
                 }
 
+                console.log(startX, startY);
+                console.log(avg);
+
                 for (let i = 0; i < avg.length; i++) {
                     avg[i] /= (width * height);
                     avg[i] = Math.round(avg[i]);
                 }
 
-                ctx.fillStyle = "#" + avg[0].toString(16) + avg[1].toString(16) + avg[2].toString(16);
+                // cant use a simple way as a hex code 0xFF00FF would print as 0xFF0FF.
+                // instead this is a good solution that takes up few lines
+                const rgb = (avg[0] << 16) | (avg[1] << 8) | avg[2];
+                ctx.fillStyle = '#' + (0x1000000 + rgb).toString(16).slice(1);
                 ctx.fillRect(startX, startY, width, height);
             }
         } // end loop
