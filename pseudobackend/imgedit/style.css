@@ -50,6 +50,10 @@ canvas {
     -webkit-transform: translateX(-50%);
 }
 
+#tools {
+    z-index: 1;
+}
+
 .tool {
     margin: 10px;
     padding: auto;

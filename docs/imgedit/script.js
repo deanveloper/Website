@@ -10330,7 +10330,7 @@ exports.peekCanvas = peekCanvas;
 exports.undo = undo;
 exports.redo = redo;
 exports.image = image;
-exports.newBase = newBase;
+exports.showImage = showImage;
 
 var _draw = require("./draw");
 
@@ -10409,16 +10409,6 @@ function image(asCanvas) {
     var image = new Image();
     image.src = flat.toDataURL("image/png");
     return image;
-}
-
-function newBase($canvas) {
-    $base = $canvas;
-
-    while (canvasStack.length > 0) {
-        $(canvasStack.pop()).remove();
-    }
-
-    canvasStack.push($base[0]);
 }
 
 /**
@@ -10778,12 +10768,10 @@ var Crop = exports.Crop = function () {
             Crop.startY = e.offsetY;
 
             ctx.fillStyle = "black";
-            ctx.globalAlpha = "50%";
+            ctx.globalAlpha = .5;
 
             ctx.strokeStyle = "black";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.moveTo(e.offsetX, e.offsetY);
         }
     }, {
         key: "mousedrag",
@@ -10797,19 +10785,20 @@ var Crop = exports.Crop = function () {
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.strokeStyle = "red";
-            ctx.clearRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
-            ctx.strokeRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
+            ctx.clearRect(Crop.startX, Crop.startY, e.offsetX - Crop.startX, e.offsetY - Crop.startY);
+            ctx.strokeRect(Crop.startX, Crop.startY, e.offsetX - Crop.startX, e.offsetY - Crop.startY);
         }
     }, {
         key: "mouseup",
         value: function mouseup(e, canvas) {
             Crop.mousedrag(e, canvas);
 
-            if (confirm("Are you sure? This operation cannot be undone!")) {
-                canvas.getContext('2d').clearRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
+            if (confirm("Are you sure? Cropping cannot be undone!")) {
+                canvas.getContext('2d').clearRect(Crop.startX, Crop.startY, e.offsetX - Crop.startX, e.offsetY - Crop.startY);
                 var flat = (0, _script.image)(true);
 
                 var $newCan = (0, _script.$)("<canvas>");
+
                 var start = {
                     x: Math.min(Crop.startX, Crop.endX),
                     y: Math.min(Crop.startY, Crop.endY)
@@ -10825,13 +10814,15 @@ var Crop = exports.Crop = function () {
                 $newCan[0].getContext('2d').drawImage(flat, // image
                 start.x, // source x
                 start.y, // source y
-                end.x - start.x, // source/dest width
-                end.y - start.y, // source/dest height
+                end.x - start.x, // source width
+                end.y - start.y, // source height
                 0, // dest x
-                0 // dest y
+                0, // dest y
+                end.x - start.x, // dest width
+                end.y - start.y // dest height
                 );
 
-                (0, _script.newBase)($newCan);
+                (0, _script.showImage)($newCan[0].toDataURL("image/png"));
             }
         }
     }, {
@@ -10936,11 +10927,11 @@ var Censor = exports.Censor = function () {
                         avg[i] = Math.round(avg[i]);
                     }
 
+                    // cant use a simple way as a hex code 0xFF00FF would print as 0xFF0FF.
+                    // instead this is a good solution that takes up few lines
                     var rgb = avg[0] << 16 | avg[1] << 8 | avg[2];
                     ctx.fillStyle = '#' + (0x1000000 + rgb).toString(16).slice(1);
                     ctx.fillRect(startX, startY, width, height);
-
-                    console.log(ctx.fillStyle);
                 }
             } // end loop
         }

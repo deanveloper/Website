@@ -1,4 +1,4 @@
-import {$, image, newBase} from "./script";
+import {$, image, showImage} from "./script";
 import {color} from "./draw"
 
 /**
@@ -146,12 +146,10 @@ export class Crop {
         Crop.startY = e.offsetY;
 
         ctx.fillStyle = "black";
-        ctx.globalAlpha = "50%";
+        ctx.globalAlpha = .5;
 
         ctx.strokeStyle = "black";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.moveTo(e.offsetX, e.offsetY);
     }
 
     static mousedrag(e, canvas) {
@@ -164,18 +162,19 @@ export class Crop {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.strokeStyle = "red";
-        ctx.clearRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
-        ctx.strokeRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
+        ctx.clearRect(Crop.startX, Crop.startY, e.offsetX - Crop.startX, e.offsetY - Crop.startY);
+        ctx.strokeRect(Crop.startX, Crop.startY, e.offsetX - Crop.startX, e.offsetY - Crop.startY);
     }
 
     static mouseup(e, canvas) {
         Crop.mousedrag(e, canvas);
 
-        if (confirm("Are you sure? This operation cannot be undone!")) {
-            canvas.getContext('2d').clearRect(Crop.startX, Crop.startY, e.offsetX, e.offsetY);
+        if (confirm("Are you sure? Cropping cannot be undone!")) {
+            canvas.getContext('2d').clearRect(Crop.startX, Crop.startY, e.offsetX - Crop.startX, e.offsetY - Crop.startY);
             const flat = image(true);
 
             const $newCan = $("<canvas>");
+
             const start = {
                 x: Math.min(Crop.startX, Crop.endX),
                 y: Math.min(Crop.startY, Crop.endY)
@@ -192,13 +191,15 @@ export class Crop {
                 flat,               // image
                 start.x,            // source x
                 start.y,            // source y
-                end.x - start.x,    // source/dest width
-                end.y - start.y,    // source/dest height
+                end.x - start.x,    // source width
+                end.y - start.y,    // source height
                 0,                  // dest x
-                0                   // dest y
+                0,                  // dest y
+                end.x - start.x,    // dest width
+                end.y - start.y     // dest height
             );
 
-            newBase($newCan);
+            showImage($newCan[0].toDataURL("image/png"));
         }
     }
 }

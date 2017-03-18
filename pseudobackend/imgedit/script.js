@@ -56,16 +56,6 @@ export function image(asCanvas) {
     return image;
 }
 
-export function newBase($canvas) {
-    $base = $canvas;
-
-    while(canvasStack.length > 0) {
-        $(canvasStack.pop()).remove();
-    }
-
-    canvasStack.push($base[0]);
-}
-
 /**
  * add listeners
  */
@@ -138,7 +128,7 @@ $(document).ready(() => {
  *
  * @param link The link to the image, usually made with URL.createObjectUrl()
  */
-function showImage(link) {
+export function showImage(link) {
     const body = $("body");
     body.empty();
     const background = $("<div class='no-select'>");
