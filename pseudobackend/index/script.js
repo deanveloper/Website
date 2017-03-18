@@ -15,17 +15,21 @@ class Icon {
     constructor(type, list, link, tooltip) {
         $("#items" + list)
             .append($("<li>")
-                .append($("<div>").attr("id", type).attr("class", "icon")
-                    .append($("<i>").attr("class", "fa fa-2x fa-" + type)))
-                .append($("<span>").attr("class", "tooltip")
-                    .append(tooltip))
+                .append($("<a>").attr({href: link})
+                    .append($("<span>").attr({id: type, class: "icon divSpan"})
+                        .append($("<i>").attr({class: "fa fa-2x fa-" + type})))
+                    .append($("<span>").attr("class", "tooltip")
+                        .append(tooltip)))
             );
 
         this.$elem = $("#" + type);
 
-        this.$elem.mouseup(() => {
+        this.$elem.click((e) => {
             if (!tooltip.endsWith("[Coming Soon]")) {
-                window.location.href = link
+                const a = $("<a>");
+                a.attr({href: link});
+                this.$elem.append(a);
+                a.trigger("click", e);
             }
         });
     }

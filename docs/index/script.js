@@ -10239,15 +10239,20 @@ $(document).ready(function () {
 });
 
 var Icon = function Icon(type, list, link, tooltip) {
+    var _this = this;
+
     _classCallCheck(this, Icon);
 
-    $("#items" + list).append($("<li>").append($("<div>").attr("id", type).attr("class", "icon").append($("<i>").attr("class", "fa fa-2x fa-" + type))).append($("<span>").attr("class", "tooltip").append(tooltip)));
+    $("#items" + list).append($("<li>").append($("<a>").attr({ href: link }).append($("<span>").attr({ id: type, class: "icon divSpan" }).append($("<i>").attr({ class: "fa fa-2x fa-" + type }))).append($("<span>").attr("class", "tooltip").append(tooltip))));
 
     this.$elem = $("#" + type);
 
-    this.$elem.mouseup(function () {
+    this.$elem.click(function (e) {
         if (!tooltip.endsWith("[Coming Soon]")) {
-            window.location.href = link;
+            var a = $("<a>");
+            a.attr({ href: link });
+            _this.$elem.append(a);
+            a.trigger("click", e);
         }
     });
 };
