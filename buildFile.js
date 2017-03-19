@@ -148,6 +148,32 @@ function dealWithHtml(absPath, fileData) {
                         addMeta(meta.card.twitterImageAlt, "twitter:image:alt", "Dean Bassett's Website");
                     }
 
+                    if (meta.footer) {
+                        const $footer = $("<footer>").css({
+                            bottom: 0,
+                            left: "10px",
+                            position: "fixed",
+                            color: "white",
+                            "text-stroke": "1px black",
+                            "-webkit-text-stroke": "1px black",
+                            "user-select": "none",
+                            "-webkit-touch-callout": "none"
+                        }).html("Made with 💖 by ");
+
+                        $footer.append(
+                            $("<a>").attr({
+                                href: "https://www.deanveloper.com",
+                                target: "_blank"
+                            }).css({
+                                color: "white",
+                                "text-decoration-style": "dashed",
+                                cursor: "default"
+                            }).html("Deanveloper")
+                        );
+
+                        $("body").append($footer);
+                    }
+
                     add("<meta>", {charset: "UTF-8"});
 
                     cb();

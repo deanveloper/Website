@@ -102,6 +102,7 @@ export class Line {
         Line.startY = y;
 
         ctx.strokeStyle = color;
+        ctx.lineCap = 'round';
         ctx.lineWidth = 5;
     }
 
@@ -200,6 +201,8 @@ export class Crop {
             );
 
             showImage($newCan[0].toDataURL("image/png"));
+        } else {
+            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
         }
     }
 }

@@ -1,6 +1,7 @@
 {
   "card": {
-    "title": "Image Uploader",
-    "description": "Paste images directly from your clipboard to upload to Imgur (more services coming)"
-  }
+    "title": "ImgEdit",
+    "description": "The easiest way to quickly edit images before posting them!"
+  },
+  "footer": true
 }

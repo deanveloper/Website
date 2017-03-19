@@ -10237,7 +10237,7 @@ var _script = require("./script");
 var color = exports.color = "#FFF";
 
 function currentTool() {
-    var name = (0, _script.$)("#tools").find("> label:has(input:checked)").attr("id");
+    var name = (0, _script.$)("#tools").find("label:has(input:checked)").attr("id");
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
     var _iteratorError = undefined;
@@ -10712,6 +10712,7 @@ var Line = exports.Line = function () {
             Line.startY = y;
 
             ctx.strokeStyle = _draw.color;
+            ctx.lineCap = 'round';
             ctx.lineWidth = 5;
         }
     }, {
@@ -10827,6 +10828,8 @@ var Crop = exports.Crop = function () {
                 );
 
                 (0, _script.showImage)($newCan[0].toDataURL("image/png"));
+            } else {
+                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
             }
         }
     }, {

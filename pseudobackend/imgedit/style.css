@@ -7,18 +7,6 @@ body {
     text-align: center;
 }
 
-footer {
-    bottom: 0;
-    width: 100%;
-    position: fixed;
-    text-align: center;
-}
-
-a {
-    color: black;
-    text-decoration-style: dashed;
-}
-
 .no-select {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

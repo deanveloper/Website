@@ -4,7 +4,7 @@ import {$, pushNewCanvas} from "./script";
 export let color = "#FFF";
 
 export function currentTool() {
-    const name = $("#tools").find("> label:has(input:checked)").attr("id");
+    const name = $("#tools").find("label:has(input:checked)").attr("id");
     for (const tool of tools) {
         if (tool.name === name) {
             return tool;
