@@ -1,5 +1,9 @@
 import {$, image, showImage} from "./script";
-import {color} from "./draw"
+
+let color = "#000000";
+
+const lightColor = "#F7F7F7";
+const darkColor = "#404040";
 
 /**
  * doesn't do anything
@@ -19,15 +23,6 @@ export class Cursor {
 
     static get cursor() {
         return "default";
-    }
-
-    static mousedown(e, canvas) {
-    }
-
-    static mousedrag(e, canvas) {
-    }
-
-    static mouseup(e, canvas) {
     }
 }
 
@@ -49,16 +44,14 @@ export class Brush {
 
     static mousedown(e, canvas) {
         const ctx = canvas.getContext('2d');
-        const x = e.offsetX;
-        const y = e.offsetY;
+        Brush.lastX = e.offsetX;
+        Brush.lastY = e.offsetY;
 
-        ctx.beginPath();
         ctx.strokeStyle = color;
         ctx.fillStyle = color;
-        ctx.lineWidth = 10;
+        ctx.lineWidth = 7;
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
-        ctx.moveTo(x, y);
     }
 
     static mousedrag(e, canvas) {
@@ -67,8 +60,14 @@ export class Brush {
         const x = e.offsetX;
         const y = e.offsetY;
 
+        ctx.beginPath();
+        ctx.moveTo(Brush.lastX, Brush.lastY);
         ctx.lineTo(x, y);
         ctx.stroke();
+        ctx.closePath();
+
+        Brush.lastX = x;
+        Brush.lastY = y;
     }
 
     static mouseup(e, canvas) {
@@ -103,7 +102,7 @@ export class Line {
 
         ctx.strokeStyle = color;
         ctx.lineCap = 'round';
-        ctx.lineWidth = 5;
+        ctx.lineWidth = 7;
     }
 
     static mousedrag(e, canvas) {
@@ -146,10 +145,7 @@ export class Crop {
         Crop.startX = e.offsetX;
         Crop.startY = e.offsetY;
 
-        ctx.fillStyle = "black";
-        ctx.globalAlpha = .5;
-
-        ctx.strokeStyle = "black";
+        ctx.fillStyle = "rgba(0, 0, 0, .5)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
@@ -159,7 +155,7 @@ export class Crop {
         Crop.endX = e.offsetX;
         Crop.endY = e.offsetY;
 
-        ctx.strokeStyle = "black";
+        ctx.fillStyle = "rgba(0, 0, 0, .5)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.strokeStyle = "red";
@@ -302,4 +298,68 @@ export class Censor {
     }
 }
 
-export const tools = [Cursor, Brush, Line, Crop, Censor];
+class Color {
+    static get name() {
+        return "Color";
+    }
+
+    static get cursor() {
+        return "default"
+    }
+
+    static get icon() {
+        return "circle";
+    }
+
+    /**
+     * Special property of Color - when clicked it doesn't
+     * stay selected.
+     *
+     * @returns {boolean}
+     */
+    static get noSticky() {
+        return true;
+    }
+
+    static init() {
+        $("#Color").find("> .buttonspan").css({
+            backgroundColor: color,
+            color: lightColor,
+            borderColor: lightColor
+        });
+    }
+
+    static onSelect() {
+        Color.showPicker();
+        $("#Color").click(() => {
+            Color.showPicker();
+        });
+    }
+
+    static showPicker() {
+        Color.$picker = $("<input type='color' id='picker' value='" + color + "'>");
+        const picker = Color.$picker;
+
+        picker.change((newColor) => {
+            color = newColor.target.value;
+            const intColor = parseInt(color.substring(1), 16);
+            const red = intColor & 0x0000FF;
+            const green = (intColor >> 8) & 0x0000FF;
+            const blue = (intColor >> 16) & 0x0000FF;
+            const avgColor = (red + green + blue) / 3;
+            const secondColor = avgColor < 128 ? lightColor : darkColor;
+
+            $("#Color").find("> .buttonspan").css({
+                backgroundColor: color,
+                color: secondColor,
+                borderColor: secondColor
+            });
+        });
+
+        $("Color").parent().append(picker);
+
+        picker.trigger("click");
+    }
+}
+
+export const tools = [Cursor, Brush, Line, Crop, Censor, Color];

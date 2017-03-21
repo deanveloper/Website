@@ -167,7 +167,7 @@ function dealWithHtml(absPath, fileData) {
                             }).css({
                                 color: "white",
                                 "text-decoration-style": "dashed",
-                                cursor: "default"
+                                cursor: "pointer"
                             }).html("Deanveloper")
                         );
 

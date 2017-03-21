@@ -2,21 +2,44 @@ import {init, currentTool} from "./draw"
 
 export const $ = require("jquery");
 
+export let drawCanvas;
 let canvasStack = [];
 let redoStack = [];
 let $base;
 
+$(window).keydown((e) => {
+    // Either on Undo operation, or ctrl+Z (no shift)
+    if (e.key === "Undo" || (e.key.toLowerCase() === "z" && e.ctrlKey && !e.shiftKey)) {
+        undo();
+    }
+    // Either on Redo operation, ctrl+Y, or ctrl+shift+Z
+    if (e.key === "Redo" || (e.ctrlKey && (e.key === "y" || (e.shiftKey && e.key.toLowerCase() === "z")))) {
+        redo();
+    }
+    console.log(e.key);
+});
+
+
 export function pushNewCanvas() {
 
-    removeListener($(peekCanvas()));
+    if (drawCanvas) {
+        removeListener($(drawCanvas));
+    }
 
     // create a new canvas
     const $canvas = $("<canvas width='" + $base.attr("width") + "' height='" + $base.attr("height") + "'>");
     $canvas.css({position: "absolute"});
+    $canvas.addClass("imageLayer");
 
     // add it to our canvas stack
-    canvasStack.push($canvas[0]);
-    $("main").append($canvas);
+    drawCanvas = $canvas[0];
+
+    const tools = $("#toolsWrapper");
+    if (tools.length > 0) {
+        tools.before($canvas);
+    } else {
+        $("main").append($canvas);
+    }
 
     addListener($canvas);
 }
@@ -26,6 +49,10 @@ export function peekCanvas() {
 }
 
 export function undo() {
+    if (peekCanvas().id === "main") {
+        return;
+    }
+
     // pop from canvas stack -> "erase" it -> add to redo stack
     const $canvas = $(canvasStack.pop());
     $canvas.css({display: "none"});
@@ -33,6 +60,10 @@ export function undo() {
 }
 
 export function redo() {
+    if (redoStack.length === 0) {
+        return;
+    }
+
     // pop from redo stack -> display it -> add to canvas stack
     const $canvas = $(redoStack.pop());
     $canvas.css({display: ""});
@@ -145,6 +176,7 @@ export function showImage(link) {
 
         $base = $("<canvas id='main' width='" + img.width + "' height='" + img.height + "'>");
         $base.css({position: "absolute"});
+        $base.addClass("imageLayer");
         $base[0].getContext('2d').drawImage(img, 0, 0);
 
         canvasStack.push($base[0]);
@@ -161,20 +193,20 @@ function addListener($canvas) {
     let clicking = false;
 
     $canvas.mousedown((e) => {
-        if(!clicking) {
+        if(!clicking && currentTool().mousedown) {
             clicking = true;
             currentTool().mousedown(e, $canvas[0]);
         }
     });
 
     $canvas.mousemove((e) => {
-        if(clicking) {
+        if(clicking && currentTool().mousedrag) {
             currentTool().mousedrag(e, $canvas[0]);
         }
     });
 
     $canvas.mouseup((e) => {
-        if(clicking) {
+        if(clicking && currentTool().mouseup) {
             clicking = false;
             currentTool().mouseup(e, $canvas[0]);
         }
@@ -182,8 +214,14 @@ function addListener($canvas) {
         while(redoStack.length > 0) {
             $(redoStack.pop()).remove();
         }
+
         // push new canvas
+        canvasStack.push($canvas[0]);
         pushNewCanvas();
+    });
+
+    $canvas.css({
+        cursor: currentTool().cursor
     });
 }
 

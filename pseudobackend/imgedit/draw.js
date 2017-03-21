@@ -1,15 +1,11 @@
 import {tools} from "./tools";
-import {$, pushNewCanvas} from "./script";
+import {$, pushNewCanvas, drawCanvas} from "./script";
 
-export let color = "#FFF";
+let previousSelection;
 
 export function currentTool() {
     const name = $("#tools").find("label:has(input:checked)").attr("id");
-    for (const tool of tools) {
-        if (tool.name === name) {
-            return tool;
-        }
-    }
+    return getTool(name);
 }
 
 export function init() {
@@ -44,5 +40,38 @@ export function init() {
 
         $toolsWrapper.append($tools);
         $("main").append($toolsWrapper);
+
+        if(tool.init) {
+            tool.init();
+        }
+
+        $button.change((e) => {
+
+            if (tool.cursor) {
+                $(drawCanvas).css({cursor: tool.cursor});
+            }
+
+            if (tool.onSelect) {
+                tool.onSelect();
+            }
+
+            if (tool.noSticky) {
+                previousSelection.trigger("click");
+                return;
+            }
+
+            previousSelection = $button;
+        });
+
     }
+}
+
+function getTool(name) {
+    for (const tool of tools) {
+        if (tool.name === name) {
+            return tool;
+        }
+    }
+
+    return tools[0];
 }
