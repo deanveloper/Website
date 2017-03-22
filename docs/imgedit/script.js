@@ -10409,7 +10409,6 @@ $(window).keydown(function (e) {
     if (e.key === "Redo" || e.ctrlKey && (e.key === "y" || e.shiftKey && e.key.toLowerCase() === "z")) {
         redo();
     }
-    console.log(e.key);
 });
 
 function pushNewCanvas() {
