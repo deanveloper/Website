@@ -1,6 +1,7 @@
 import {init, currentTool} from "./draw"
 
 export const $ = require("jquery");
+require("jquery-ui");
 
 export let drawCanvas;
 let canvasStack = [];
@@ -26,7 +27,7 @@ export function pushNewCanvas() {
     }
 
     // create a new canvas
-    const $canvas = $("<canvas width='" + $base.attr("width") + "' height='" + $base.attr("height") + "'>");
+    const $canvas = $(`<canvas width='${$base.attr("width")}' height='${$base.attr("height")}'>`);
     $canvas.css({position: "absolute"});
     $canvas.addClass("imageLayer");
 
@@ -70,7 +71,7 @@ export function redo() {
 }
 
 export function image(asCanvas) {
-    const flat = $("<canvas width='" + $base.attr("width") + "' height='" + $base.attr("height") + "'>")[0];
+    const flat = $(`<canvas width='${$base.attr("width")}' height='${$base.attr("height")}'>`)[0];
     const ctx = flat.getContext('2d');
 
     for (const can of canvasStack) {
@@ -173,7 +174,7 @@ export function showImage(link) {
     const img = new Image();
     $(img).on("load", () => {
 
-        $base = $("<canvas id='main' width='" + img.width + "' height='" + img.height + "'>");
+        $base = $(`<canvas id='main' width='${img.width}' height='${img.height}'>`);
         $base.css({position: "absolute"});
         $base.addClass("imageLayer");
         $base[0].getContext('2d').drawImage(img, 0, 0);

@@ -56,15 +56,13 @@ body {
     text-align: center;
 }
 
-#tools {
-    z-index: 1;
+#exportsWrapper {
+    width: 100%;
+    position: absolute;
+    text-align: center;
 }
 
-#tools * {
-    z-index: 1;
-}
-
-.tool {
+.item {
     margin: 10px;
     cursor: pointer;
     float: left;
@@ -89,19 +87,27 @@ body {
     text-align: center;
     padding: 0;
     border-radius: 6px;
-    top: 110%;
-    left: 50%;
     font-size: 16px;
 
     position: absolute;
     z-index: 1;
 }
 
+.container .below {
+    top: 110%;
+    left: 50%;
+}
+
+.container .above {
+    bottom: 110%;
+    left: 50%;
+}
+
 .container:hover .tooltip {
     visibility: visible;
 }
 
-.tool > .buttonspan {
+.buttonspan {
     background-color: #F7F7F7;
     border: solid #404040 3px;
     color: #404040;
@@ -110,13 +116,13 @@ body {
     display: block;
 }
 
-.tool > input {
+.item > input {
     position: absolute;
     top: -20px;
     display: none;
 }
 
-.tool > input:checked + .buttonspan {
+.item > input:checked + .buttonspan {
     background-color: #404040;
     color: #F7F7F7;
     border: solid #F7F7F7 3px;

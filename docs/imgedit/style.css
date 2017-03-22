@@ -64,7 +64,7 @@ body {
     z-index: 1;
 }
 
-.tool {
+.item {
     margin: 10px;
     cursor: pointer;
     float: left;
@@ -101,7 +101,7 @@ body {
     visibility: visible;
 }
 
-.tool > .buttonspan {
+.item > .buttonspan {
     background-color: #F7F7F7;
     border: solid #404040 3px;
     color: #404040;
@@ -110,13 +110,13 @@ body {
     display: block;
 }
 
-.tool > input {
+.item > input {
     position: absolute;
     top: -20px;
     display: none;
 }
 
-.tool > input:checked + .buttonspan {
+.item > input:checked + .buttonspan {
     background-color: #404040;
     color: #F7F7F7;
     border: solid #F7F7F7 3px;

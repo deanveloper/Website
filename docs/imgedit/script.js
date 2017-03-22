@@ -10280,7 +10280,7 @@ function init() {
 
 
             var $container = (0, _script.$)("<div class='container'>");
-            var $label = (0, _script.$)("<label class='tool' id='" + tool.name + "'>");
+            var $label = (0, _script.$)("<label class='item' id='" + tool.name + "'>");
             var $button = (0, _script.$)("<input type='radio' name='editortools'>");
             var $span = (0, _script.$)("<span class='buttonspan'>");
 
