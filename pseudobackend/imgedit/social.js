@@ -1,4 +1,4 @@
-import {$, image} from "./script";
+import {$, flattened} from "./script";
 
 export const networks = [
     class Facebook {
@@ -41,7 +41,7 @@ export const networks = [
         }
 
         static onClick() {
-            image().toBlob((blob) => {
+            flattened().toBlob((blob) => {
                 const data = new FormData();
                 data.append("file", blob, "image.png");
 

@@ -1,4 +1,4 @@
-import {$, image, showImage} from "./script";
+import {$, flattened, showImage} from "./script";
 
 let color = "#000000";
 
@@ -170,7 +170,7 @@ export const tools = [
 
             if (confirm("Are you sure? Cropping cannot be undone!")) {
                 canvas.getContext('2d').clearRect(Crop.startX, Crop.startY, e.offsetX - Crop.startX, e.offsetY - Crop.startY);
-                const flat = image(true);
+                const flat = flattened();
 
                 const $newCan = $("<canvas>");
 
@@ -257,7 +257,7 @@ export const tools = [
             change.x = Math.min(change.x, canvas.width - start.x);
             change.y = Math.min(change.y, canvas.height - start.y);
 
-            const flat = image(true);
+            const flat = flattened();
             const flatctx = flat.getContext('2d');
 
             const data = flatctx.getImageData(start.x, start.y, change.x, change.y).data;
@@ -324,7 +324,7 @@ export const tools = [
         }
 
         static init() {
-            $("#Color").find("> .buttonspan").css({
+            $("#Color").find("> .buttonSpan").css({
                 backgroundColor: color,
                 color: lightColor,
                 borderColor: lightColor
@@ -351,14 +351,14 @@ export const tools = [
                 const avgColor = (red + green + blue) / 3;
                 const secondColor = avgColor < 128 ? lightColor : darkColor;
 
-                $("#Color").find("> .buttonspan").css({
+                $("#Color").find("> .buttonSpan").css({
                     backgroundColor: color,
                     color: secondColor,
                     borderColor: secondColor
                 });
-            });
 
-            $("Color").parent().append(picker);
+                console.log("changing color");
+            });
 
             picker.trigger("click");
         }

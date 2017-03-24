@@ -7,7 +7,7 @@ body {
     text-align: center;
 }
 
-.no-select {
+.noSelect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -18,7 +18,7 @@ body {
     cursor: default;
 }
 
-#image-upload {
+#imageUpload {
     width: 75%;
     max-width: 500px;
     margin: 50px auto;
@@ -43,22 +43,33 @@ body {
     padding: 0;
 }
 
+#imageLayers {
+    position: relative;
+    margin: 84px auto 0;
+}
+
 .imageLayer {
-    margin: 100px 0;
-    left: 50%;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
+    margin: 0;
+    left: 0;
+    top: 0;
+    position: absolute;
+    float: left;
 }
 
 #toolsWrapper {
+    top: 0;
     width: 100%;
+    height: 84px;
     position: fixed;
     text-align: center;
 }
 
+#tools {
+    height: 84px;
+}
+
 #exportsWrapper {
     width: 100%;
-    position: absolute;
     text-align: center;
 }
 
@@ -107,7 +118,7 @@ body {
     visibility: visible;
 }
 
-.buttonspan {
+.buttonSpan {
     background-color: #F7F7F7;
     border: solid #404040 3px;
     color: #404040;
@@ -118,11 +129,10 @@ body {
 
 .item > input {
     position: absolute;
-    top: -20px;
     display: none;
 }
 
-.item > input:checked + .buttonspan {
+.item > input:checked + .buttonSpan {
     background-color: #404040;
     color: #F7F7F7;
     border: solid #F7F7F7 3px;

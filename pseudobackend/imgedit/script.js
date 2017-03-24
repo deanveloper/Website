@@ -1,7 +1,6 @@
 import {init, currentTool} from "./draw"
 
 export const $ = require("jquery");
-require("jquery-ui");
 
 export let drawCanvas;
 let canvasStack = [];
@@ -28,18 +27,12 @@ export function pushNewCanvas() {
 
     // create a new canvas
     const $canvas = $(`<canvas width='${$base.attr("width")}' height='${$base.attr("height")}'>`);
-    $canvas.css({position: "absolute"});
     $canvas.addClass("imageLayer");
 
     // add it to our canvas stack
     drawCanvas = $canvas[0];
 
-    const tools = $("#toolsWrapper");
-    if (tools.length > 0) {
-        tools.before($canvas);
-    } else {
-        $("main").append($canvas);
-    }
+    $("#imageLayers").append($canvas);
 
     addListener($canvas);
 }
@@ -70,28 +63,21 @@ export function redo() {
     canvasStack.push($canvas[0]);
 }
 
-export function image(asCanvas) {
+export function flattened() {
     const flat = $(`<canvas width='${$base.attr("width")}' height='${$base.attr("height")}'>`)[0];
     const ctx = flat.getContext('2d');
 
     for (const can of canvasStack) {
         ctx.drawImage(can, 0, 0);
     }
-
-    if (asCanvas) {
-        return flat;
-    }
-
-    const image = new Image();
-    image.src = flat.toDataURL("image/png");
-    return image;
+    return flat;
 }
 
 /**
  * add listeners
  */
 $(document).ready(() => {
-    const upload = $("#image-upload");
+    const upload = $("#imageUpload");
 
     $(window).on("paste", (e) => {
         const items = (e.clipboardData || e.originalEvent.clipboardData).items;
@@ -160,32 +146,33 @@ $(document).ready(() => {
  * @param link The link to the image, usually made with URL.createObjectUrl()
  */
 export function showImage(link) {
-    const main = $("main");
-    main.empty();
-    const background = $("<div class='no-select'>");
-    background.css({
-        backgroundColor: "rgba(0, 0, 0, 75%)",
-        width: "100%",
-        height: "100%",
-        position: "fixed",
-        margin: 0
-    });
-    main.append(background);
+    $("body").css({backgroundColor: "#685f43"});
+
+    const $main = $("main");
+    $main.empty();
+
+    const $imgDiv = $("<div id='imageLayers'>");
+
     const img = new Image();
     $(img).on("load", () => {
 
         $base = $(`<canvas id='main' width='${img.width}' height='${img.height}'>`);
-        $base.css({position: "absolute"});
         $base.addClass("imageLayer");
         $base[0].getContext('2d').drawImage(img, 0, 0);
 
+        $imgDiv.css({
+            width: img.width,
+            height: img.height
+        });
+
         canvasStack.push($base[0]);
 
-        main.append(background);
-        main.append($base);
+        $imgDiv.append($base);
+        $main.append($imgDiv);
 
         init();
     });
+
     img.src = link;
 }
 
