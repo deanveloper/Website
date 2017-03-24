@@ -154,10 +154,10 @@ function dealWithHtml(absPath, fileData) {
                             left: "10px",
                             position: "fixed",
                             color: "white",
-                            "text-stroke": "1px black",
-                            "-webkit-text-stroke": "1px black",
+                            "text-shadow": "0 0 3px black",
                             "user-select": "none",
-                            "-webkit-touch-callout": "none"
+                            "-webkit-touch-callout": "none",
+                            "font-family": "sans-serif"
                         }).html("Made with 💖 by ");
 
                         $footer.append(
