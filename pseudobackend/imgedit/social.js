@@ -7,7 +7,7 @@ export const networks = [
         }
 
         static get color() {
-            return "#3B5998";
+            return "#3B5998"
         }
 
         static onClick() {
@@ -32,6 +32,10 @@ export const networks = [
             return "circle";
         }
 
+        static get backgroundIcon() {
+            return "square"
+        }
+
         static get background() {
             return "#222222";
         }
@@ -44,6 +48,8 @@ export const networks = [
             flattened().toBlob((blob) => {
                 const data = new FormData();
                 data.append("file", blob, "image.png");
+
+                console.log(blob);
 
                 $.ajax("https://api.imgur.com/3/image", {
                     data: {

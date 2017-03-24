@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 //! moment.js
-//! version : 2.18.0
+//! version : 2.18.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -359,7 +359,7 @@ function set (config) {
     // number + (possibly) stuff coming from _dayOfMonthOrdinalParse.
     // TODO: Remove "ordinalParse" fallback in next major release.
     this._dayOfMonthOrdinalParseLenient = new RegExp(
-        (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
+        (this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) +
             '|' + (/\d{1,2}/).source);
 }
 
@@ -4427,7 +4427,7 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 
-hooks.version = '2.18.0';
+hooks.version = '2.18.1';
 
 setHookCallback(createLocal);
 

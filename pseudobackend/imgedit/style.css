@@ -3,7 +3,7 @@ body {
     height: 100%;
     background-color: #E3CF91;
     margin: 0;
-    font-family: 'Baloo Bhaina', sans-serif;
+    font-family: 'Lato', sans-serif;
     text-align: center;
 }
 
@@ -118,7 +118,7 @@ body {
     visibility: visible;
 }
 
-.buttonSpan {
+.icon {
     background-color: #F7F7F7;
     border: solid #404040 3px;
     color: #404040;
@@ -132,7 +132,7 @@ body {
     display: none;
 }
 
-.item > input:checked + .buttonSpan {
+.item > input:checked + .icon {
     background-color: #404040;
     color: #F7F7F7;
     border: solid #F7F7F7 3px;
@@ -140,4 +140,9 @@ body {
 
 #picker {
     display: none;
+}
+
+#menu {
+    display: none;
+    position: absolute;
 }

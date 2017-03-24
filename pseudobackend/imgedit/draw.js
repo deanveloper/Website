@@ -1,5 +1,5 @@
 import {tools} from "./tools";
-import {$, pushNewCanvas, drawCanvas, flattened} from "./script";
+import {$, pushNewCanvas, drawCanvas, flattened, modal} from "./script";
 import {networks} from "./social";
 
 let previousSelection;
@@ -26,14 +26,14 @@ function drawTools() {
         const $container = $("<div class='container'>");
         const $label = $(`<label class='item' id='${tool.name}'>`);
         const $button = $("<input type='radio' name='editortools'>");
-        const $span = $("<span class='buttonSpan'>");
+        const $icon = $("<i class='icon'>");
 
         const $tooltip = $("<span class='tooltip below'>");
         $tooltip.html(tool.name);
         $container.append($tooltip);
 
         $label.append($button);
-        $label.append($span);
+        $label.append($icon);
 
         $container.append($label);
 
@@ -43,7 +43,7 @@ function drawTools() {
             $button.attr({checked: true})
         }
 
-        $span.addClass("fa fa-2x fa-" + tool.icon);
+        $icon.addClass("fa fa-2x fa-" + tool.icon);
 
         $toolsWrapper.append($tools);
         $("main").append($toolsWrapper);
@@ -80,13 +80,13 @@ function drawExports() {
     const save = {
         container: $("<div class='container'>"),
         label: $(`<label class='item' id='savelbl'>`),
-        span: $("<span class='buttonSpan fa fa-2x fa-floppy-o'>"),
+        span: $("<span class='icon fa fa-2x fa-floppy-o'>"),
         tooltip: $("<span class='tooltip above'>").html("Save")
     };
     const share = {
         container: $("<div class='container'>"),
         label: $(`<label class='item' id='sharelbl'>`),
-        span: $("<span class='buttonSpan fa fa-2x fa-share-square-o'>"),
+        span: $("<span class='icon fa fa-2x fa-share-square-o'>"),
         tooltip: $("<span class='tooltip above'>").html("Share")
     };
     for (const method of [save, share]) {
@@ -116,38 +116,7 @@ function drawExports() {
     });
 
     share.container.click((e) => {
-        const $modal = $("<div>").attr({
-            id: "modal",
-            title: "Share to..."
-        });
-
-        $modal.dialog({
-            modal: true
-        });
-
-        const $shares = $("<div>");
-
-        for (const net of networks) {
-            const $share = $("<div>");
-            $share.css({
-                backgroundColor: net.background ? net.background : "transparent",
-                color: net.color,
-                width: "20px",
-                height: "20px",
-                cursor: "pointer",
-                margin: "10px",
-                border: "5px black",
-                borderRadius: "3px"
-            });
-
-            const $icon = $("<span>");
-            $icon.addClass("fa fa-2x fa-" + net.icon);
-
-            $share.append($icon);
-            $shares.append($share);
-        }
-
-        $modal.append($shares)
+        const $menu = $("<div id='menu'>");
     });
 
     $("main").append($exportsWrapper)
