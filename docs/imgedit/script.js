@@ -10266,8 +10266,6 @@ var _tools = require("./tools");
 
 var _script = require("./script");
 
-var _social = require("./social");
-
 var previousSelection = void 0;
 
 function currentTool() {
@@ -10409,7 +10407,26 @@ function drawExports() {
     });
 
     share.container.click(function (e) {
-        var $menu = (0, _script.$)("<div id='menu'>");
+        var base64 = (0, _script.flattened)().toDataURL("image/png").substring(22);
+
+        _script.$.ajax("https://api.imgur.com/3/upload", {
+            method: "POST",
+            data: {
+                image: base64,
+                type: "base64",
+                name: "image.png"
+            },
+            headers: {
+                Authorization: "Client-ID 224c4872112fea2"
+            },
+            contentType: "multipart/form-data",
+            dataType: "json",
+            processData: false
+        }).fail(function (e) {
+            return console.error(e.responseJSON.data);
+        }).done(function (data) {
+            window.open("https://imgur.com/" + data.data.id, "_blank");
+        });
     });
 
     (0, _script.$)("main").append($exportsWrapper);
@@ -10446,7 +10463,7 @@ function getTool(name) {
     return _tools.tools[0];
 }
 
-},{"./script":3,"./social":4,"./tools":5}],3:[function(require,module,exports){
+},{"./script":3,"./tools":4}],3:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10721,119 +10738,6 @@ function removeListener($canvas) {
 }
 
 },{"./draw":2,"jquery":1}],4:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.networks = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _script = require("./script");
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var networks = exports.networks = [function () {
-    function Facebook() {
-        _classCallCheck(this, Facebook);
-    }
-
-    _createClass(Facebook, null, [{
-        key: "onClick",
-        value: function onClick() {}
-    }, {
-        key: "icon",
-        get: function get() {
-            return "facebook-square";
-        }
-    }, {
-        key: "color",
-        get: function get() {
-            return "#3B5998";
-        }
-    }]);
-
-    return Facebook;
-}(), function () {
-    function Twitter() {
-        _classCallCheck(this, Twitter);
-    }
-
-    _createClass(Twitter, null, [{
-        key: "onClick",
-        value: function onClick() {}
-    }, {
-        key: "icon",
-        get: function get() {
-            return "twitter-square";
-        }
-    }, {
-        key: "color",
-        get: function get() {
-            return "#4099FF";
-        }
-    }]);
-
-    return Twitter;
-}(), function () {
-    function Imgur() {
-        _classCallCheck(this, Imgur);
-    }
-
-    _createClass(Imgur, null, [{
-        key: "onClick",
-        value: function onClick() {
-            (0, _script.flattened)().toBlob(function (blob) {
-                var data = new FormData();
-                data.append("file", blob, "image.png");
-
-                console.log(blob);
-
-                _script.$.ajax("https://api.imgur.com/3/image", {
-                    data: {
-                        image: data,
-                        type: "base64",
-                        name: "image.png"
-                    },
-                    headers: {
-                        Authorization: "224c4872112fea2"
-                    },
-                    dataType: "image/png",
-                    success: function success(data) {
-                        if (data.data) {
-                            location.href = "https://imgur.com/" + data.data.id;
-                        }
-                    }
-                });
-            }, "image/png");
-        }
-    }, {
-        key: "icon",
-        get: function get() {
-            return "circle";
-        }
-    }, {
-        key: "backgroundIcon",
-        get: function get() {
-            return "square";
-        }
-    }, {
-        key: "background",
-        get: function get() {
-            return "#222222";
-        }
-    }, {
-        key: "color",
-        get: function get() {
-            return "#009900";
-        }
-    }]);
-
-    return Imgur;
-}()];
-
-},{"./script":3}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

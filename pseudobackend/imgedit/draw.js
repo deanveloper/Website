@@ -1,6 +1,5 @@
 import {tools} from "./tools";
 import {$, pushNewCanvas, drawCanvas, flattened, modal} from "./script";
-import {networks} from "./social";
 
 let previousSelection;
 
@@ -116,7 +115,26 @@ function drawExports() {
     });
 
     share.container.click((e) => {
-        const $menu = $("<div id='menu'>");
+        const base64 = flattened().toDataURL("image/png").substring(22);
+
+        $.ajax("https://api.imgur.com/3/upload", {
+            method: "POST",
+            data: {
+                image: base64,
+                type: "base64",
+                name: "image.png"
+            },
+            headers: {
+                Authorization: "Client-ID 224c4872112fea2"
+            },
+            contentType: "multipart/form-data",
+            dataType: "json",
+            processData: false,
+        })
+            .fail(e => console.error(e.responseJSON.data))
+            .done(data => {
+                window.open("https://imgur.com/" + data.data.id, "_blank");
+            });
     });
 
     $("main").append($exportsWrapper)
