@@ -131,13 +131,16 @@ function drawExports() {
             headers: {
                 Authorization: "Client-ID 224c4872112fea2"
             },
-            contentType: "multipart/form-data",
-            dataType: "json",
-            processData: false,
+            dataType: "json"
         })
             .fail(e => console.error(e.responseJSON.data))
             .done(data => {
-                window.open("https://imgur.com/" + data.data.id, "_blank");
+                const win = window.open("https://imgur.com/" + data.data.id, "_blank");
+                if (win) {
+                    win.focus();
+                } else {
+                    alert("Please enable popups for this website!");
+                }
             });
     });
 

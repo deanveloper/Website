@@ -10423,13 +10423,16 @@ function drawExports() {
             headers: {
                 Authorization: "Client-ID 224c4872112fea2"
             },
-            contentType: "multipart/form-data",
-            dataType: "json",
-            processData: false
+            dataType: "json"
         }).fail(function (e) {
             return console.error(e.responseJSON.data);
         }).done(function (data) {
-            window.open("https://imgur.com/" + data.data.id, "_blank");
+            var win = window.open("https://imgur.com/" + data.data.id, "_blank");
+            if (win) {
+                win.focus();
+            } else {
+                alert("Please enable popups for this website!");
+            }
         });
     });
 
