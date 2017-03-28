@@ -11,6 +11,7 @@ export const tools = [
      * doesn't do anything
      */
     class Cursor {
+
         static get doNothing() {
             return true;
         }
@@ -351,7 +352,7 @@ export const tools = [
                 const avgColor = (red + green + blue) / 3;
                 const secondColor = avgColor < 128 ? lightColor : darkColor;
 
-                $("#Color").find("> .buttonSpan").css({
+                $("#Color").find("> .icon").css({
                     backgroundColor: color,
                     color: secondColor,
                     borderColor: secondColor

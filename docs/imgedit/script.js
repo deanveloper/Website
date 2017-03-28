@@ -10266,7 +10266,7 @@ var _tools = require("./tools");
 
 var _script = require("./script");
 
-var previousSelection = void 0;
+var previousButton = void 0;
 
 function currentTool() {
     var name = (0, _script.$)("#tools").find("label:has(input:checked)").attr("id");
@@ -10298,6 +10298,10 @@ function drawTools() {
             var $label = (0, _script.$)("<label class='item' id='" + tool.name + "'>");
             var $button = (0, _script.$)("<input type='radio' name='editortools'>");
             var $icon = (0, _script.$)("<i class='icon'>");
+
+            if (tool.name === "Cursor") {
+                previousButton = $button;
+            }
 
             var $tooltip = (0, _script.$)("<span class='tooltip below'>");
             $tooltip.html(tool.name);
@@ -10334,11 +10338,11 @@ function drawTools() {
                 }
 
                 if (tool.noSticky) {
-                    previousSelection.trigger("click");
+                    previousButton.trigger("click");
                     return;
                 }
 
-                previousSelection = $button;
+                previousButton = $button;
             });
         };
 
@@ -11152,7 +11156,7 @@ function () {
                 var avgColor = (red + green + blue) / 3;
                 var secondColor = avgColor < 128 ? lightColor : darkColor;
 
-                (0, _script.$)("#Color").find("> .buttonSpan").css({
+                (0, _script.$)("#Color").find("> .icon").css({
                     backgroundColor: color,
                     color: secondColor,
                     borderColor: secondColor

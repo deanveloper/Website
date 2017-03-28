@@ -1,7 +1,7 @@
 import {tools} from "./tools";
 import {$, pushNewCanvas, drawCanvas, flattened, modal} from "./script";
 
-let previousSelection;
+let previousButton;
 
 export function currentTool() {
     const name = $("#tools").find("label:has(input:checked)").attr("id");
@@ -26,6 +26,10 @@ function drawTools() {
         const $label = $(`<label class='item' id='${tool.name}'>`);
         const $button = $("<input type='radio' name='editortools'>");
         const $icon = $("<i class='icon'>");
+
+        if (tool.name === "Cursor") {
+            previousButton = $button;
+        }
 
         const $tooltip = $("<span class='tooltip below'>");
         $tooltip.html(tool.name);
@@ -62,11 +66,11 @@ function drawTools() {
             }
 
             if (tool.noSticky) {
-                previousSelection.trigger("click");
+                previousButton.trigger("click");
                 return;
             }
 
-            previousSelection = $button;
+            previousButton = $button;
         });
     }
 }
