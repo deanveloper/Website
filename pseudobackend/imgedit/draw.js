@@ -133,7 +133,7 @@ function drawExports() {
             },
             dataType: "json"
         })
-            .fail(e => console.error(e.responseJSON.data))
+            .fail(e => alert("Error: " + e.responseJSON.data))
             .done(data => {
                 const win = window.open("https://imgur.com/" + data.data.id, "_blank");
                 if (win) {
