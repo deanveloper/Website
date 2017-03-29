@@ -10425,7 +10425,7 @@ function drawExports() {
             },
             dataType: "json"
         }).fail(function (e) {
-            return console.error(e.responseJSON.data);
+            return alert("Error: " + e.responseJSON.data);
         }).done(function (data) {
             var win = window.open("https://imgur.com/" + data.data.id, "_blank");
             if (win) {

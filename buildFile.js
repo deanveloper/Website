@@ -58,6 +58,7 @@ function dealWithHtml(absPath, fileData) {
     const metaFile = path.join(path.dirname(absPath), "meta.json");
     const script = path.join(path.dirname(absPath), "script.js");
     const head = $("head");
+    const aliases = [];
 
     if (!$("html")) {
         console.log("No HTML tag for " + absPath);
@@ -86,6 +87,7 @@ function dealWithHtml(absPath, fileData) {
                     if (err) {
                         console.log(err);
                         cb(err);
+                        return;
                     }
 
                     const meta = JSON.parse(metadata);
@@ -148,6 +150,12 @@ function dealWithHtml(absPath, fileData) {
                         addMeta(meta.card.twitterImageAlt, "twitter:image:alt", "Dean Bassett's Website");
                     }
 
+                    if (meta.aliases) {
+                        for (const alias of meta.aliases) {
+                            aliases.push(alias);
+                        }
+                    }
+
                     if (meta.footer) {
                         const $footer = $("<footer>").css({
                             bottom: 0,
@@ -188,15 +196,50 @@ function dealWithHtml(absPath, fileData) {
             throw err;
         }
 
-        fs.writeFile(getOutputName(absPath), $.html(), (err) => {
+        const output = getOutputName(absPath);
+
+        for (const alias of aliases) {
+            const $alias = cheerio.load("<html></html>");
+            $alias("html").append(
+                $alias("<head>").append(
+                    $alias("<meta>").attr({
+                        "http-equiv": "refresh",
+                        content: `0; url=/${relName(output)}/`
+                    })
+                )
+            );
+
+            // Write to alias
+            const redir = getRedirectName(output, alias);
+            fs.writeFile(redir, $alias.html(), (err) => {
+                if (err) {
+                    console.log("Error writing alias " + redir + ": " + err);
+                    throw err;
+                } else {
+                    console.log("Wrote alias " + redir);
+                }
+            });
+        }
+
+        // Write the html
+        fs.writeFile(output, $.html(), (err) => {
             if (err) {
-                console.log("Error writing " + getOutputName(absPath) + ": " + err);
+                console.log("Error writing " + output + ": " + err);
                 throw err;
             } else {
-                console.log("Wrote to " + getOutputName(absPath));
+                console.log("Wrote to " + output);
             }
         });
     });
+}
+
+function relName(absName) {
+    const split = absName.split(path.sep).reverse();
+    while (split.pop() !== "docs") {
+        // keep popping
+    }
+
+    return path.join(... split.reverse());
 }
 
 function getOutputName(ourFilePath) {
@@ -207,6 +250,27 @@ function getOutputName(ourFilePath) {
             break;
         }
     }
+
+    const final = path.join(...split);
+
+    mkdirp.sync(path.dirname(final), (err) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+    });
+
+    return path.join(final);
+}
+
+function getRedirectName(output, redirName) {
+    const split = output.split(path.sep);
+    while (split.pop() !== "docs") {
+        // keep popping
+    }
+
+    split.push("docs");
+    split.push(redirName + ".html");
 
     const final = path.join(...split);
 
