@@ -204,7 +204,7 @@ function dealWithHtml(absPath, fileData) {
                 $alias("<head>").append(
                     $alias("<meta>").attr({
                         "http-equiv": "refresh",
-                        content: `0; url=/${relName(output)}/`
+                        content: `0; url=/${path.dirname(relName(output))}`
                     })
                 )
             );
