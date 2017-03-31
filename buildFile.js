@@ -75,8 +75,7 @@ function dealWithHtml(absPath, fileData) {
                 });
 
                 if (children.length === 0) {
-                    head.append("<script>");
-                    head.children().last().attr("src", "script.js", "type", "text/javascript");
+                    head.append($("<script>").attr("src", "script.js", "type", "text/javascript"));
                 }
             }
             cb();
