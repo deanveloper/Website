@@ -43,7 +43,7 @@ function isNeeded(absPath) {
 
     const neededFileExts = [
         ".css", ".png", ".ogg", ".svg", ".jpg", ".jpeg", ".mp4", ".otf", ".oet", ".ttf", ".woff", ".woff2", ".less",
-        ".scss"
+        ".scss", ".txt"
     ];
 
     const neededFiles = [
