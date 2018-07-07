@@ -4511,7 +4511,7 @@
 
 var moment = require("moment");
 
-var targetDate = moment("12-30-2016", "MM-DD-YYYY");
+var targetDate = moment("08-11-2018 17:20", "MM-DD-YYYY hh:mm");
 
 function update() {
     var now = moment();

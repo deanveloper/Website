@@ -1,6 +1,6 @@
 const moment = require("moment");
 
-const targetDate = moment("12-30-2016", "MM-DD-YYYY");
+const targetDate = moment("08-11-2018 17:20", "MM-DD-YYYY hh:mm");
 
 function update() {
     const now = moment();
