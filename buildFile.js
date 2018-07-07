@@ -250,7 +250,7 @@ function getOutputName(ourFilePath) {
         }
     }
 
-    const final = path.join(...split);
+    const final = "/" + path.join(...split);
 
     mkdirp.sync(path.dirname(final), (err) => {
         if (err) {
@@ -259,7 +259,7 @@ function getOutputName(ourFilePath) {
         }
     });
 
-    return path.join(final);
+    return final;
 }
 
 function getRedirectName(output, redirName) {
@@ -271,7 +271,7 @@ function getRedirectName(output, redirName) {
     split.push("docs");
     split.push(redirName + ".html");
 
-    const final = path.join(...split);
+    const final = "/" + path.join(...split);
 
     mkdirp.sync(path.dirname(final), (err) => {
         if (err) {
@@ -280,5 +280,5 @@ function getRedirectName(output, redirName) {
         }
     });
 
-    return path.join(final);
+    return final;
 }

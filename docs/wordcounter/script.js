@@ -1,6 +1,6 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 /*!
-	Autosize 3.0.20
+	Autosize 3.0.21
 	license: MIT
 	http://www.jacklmoore.com/autosize
 */
@@ -157,22 +157,24 @@
 
 			var styleHeight = Math.round(parseFloat(ta.style.height));
 			var computed = window.getComputedStyle(ta, null);
-			var actualHeight = Math.round(parseFloat(computed.height));
+
+			// Using offsetHeight as a replacement for computed.height in IE, because IE does not account use of border-box
+			var actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(computed.height)) : ta.offsetHeight;
 
 			// The actual height not matching the style height (set via the resize method) indicates that
-			// the max-height has been exceeded, in which case the overflow should be set to visible.
+			// the max-height has been exceeded, in which case the overflow should be allowed.
 			if (actualHeight !== styleHeight) {
-				if (computed.overflowY !== 'visible') {
-					changeOverflow('visible');
+				if (computed.overflowY === 'hidden') {
+					changeOverflow('scroll');
 					resize();
-					actualHeight = Math.round(parseFloat(window.getComputedStyle(ta, null).height));
+					actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
 				}
 			} else {
 				// Normally keep overflow set to hidden, to avoid flash of scrollbar as the textarea expands.
 				if (computed.overflowY !== 'hidden') {
 					changeOverflow('hidden');
 					resize();
-					actualHeight = Math.round(parseFloat(window.getComputedStyle(ta, null).height));
+					actualHeight = computed.boxSizing === 'content-box' ? Math.round(parseFloat(window.getComputedStyle(ta, null).height)) : ta.offsetHeight;
 				}
 			}
 
