@@ -92,7 +92,7 @@ function dealWithHtml(absPath, fileData) {
             function addLink(toAdd, rel, defHref, size) {
                 return add("<link>", {
                     rel: rel,
-                    href: toAdd ? defHref : size,
+                    href: toAdd ? toAdd : defHref,
                     size: size
                 });
             }
@@ -114,8 +114,8 @@ function dealWithHtml(absPath, fileData) {
 
             if (!meta.favicon.noFavicon) {
                 addLink(meta.favicon.apple, "apple-touch-icon", "/favicon/apple-touch-icon.png", "180x180");
-                addLink(meta.favicon.favlarge, "icon", "/favicon/favicon-32x32.png", "32x32");
-                addLink(meta.favicon.favsmall, "icon", "/favicon/favicon-16x16.png", "16x16");
+                addLink(meta.favicon.favLarge, "icon", "/favicon/favicon-32x32.png", "32x32");
+                addLink(meta.favicon.favSmall, "icon", "/favicon/favicon-16x16.png", "16x16");
                 addLink(meta.favicon.manifest, "manifest", "/favicon/manifest.json");
                 addLink(meta.favicon.ico, "rel", "shortcut icon", "href", "/favicon/favicon.ico");
                 addMeta(meta.favicon.ms, "msapplication-config", "/favicon/browserconfig.xml");
