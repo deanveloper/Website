@@ -7,8 +7,6 @@ function update() {
     const now = moment();
     let totalSeconds = targetTime.unix() - now.unix();
 
-    console.log(totalSeconds)
-
     const hours = Math.floor(totalSeconds / 60 / 60);
     totalSeconds %= 60 * 60;
     const minutes = Math.floor(totalSeconds / 60);
