@@ -25,6 +25,8 @@ window.addEventListener("DOMContentLoaded", () => {
     input.addEventListener("change", () => {
         target = input.value;
         targetTime = moment(target, "hh:mm");
+
+        localStorage.setItem("time", target);
         update();
     });
 
