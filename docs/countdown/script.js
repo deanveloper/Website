@@ -4523,8 +4523,6 @@ function update() {
     var now = moment();
     var totalSeconds = targetTime.unix() - now.unix();
 
-    console.log(totalSeconds);
-
     var hours = Math.floor(totalSeconds / 60 / 60);
     totalSeconds %= 60 * 60;
     var minutes = Math.floor(totalSeconds / 60);
