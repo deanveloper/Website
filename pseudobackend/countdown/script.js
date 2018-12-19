@@ -1,41 +1,35 @@
 const moment = require("moment");
 
-const targetDate = moment("08-11-2018 17:20", "MM-DD-YYYY hh:mm");
+let target = localStorage.getItem("time") || "17:00";
+let targetTime = moment(target, "hh:mm");
 
 function update() {
     const now = moment();
+    let totalSeconds = targetTime.unix() - now.unix();
 
-    const months = now.diff(targetDate, 'months');
-    now.subtract(months, 'months');
-    const weeks = now.diff(targetDate, 'weeks');
-    now.subtract(weeks, 'weeks');
-    const days = now.diff(targetDate, 'days');
-    now.subtract(days, 'days');
-    const hours = now.diff(targetDate, 'hours');
-    now.subtract(hours, 'hours');
-    const minutes = now.diff(targetDate, 'minutes');
-    now.subtract(minutes, 'minutes');
-    const seconds = now.diff(targetDate, 'seconds');
-    now.subtract(seconds, 'seconds');
+    console.log(totalSeconds)
 
-    document.getElementById("months").innerHTML = Math.abs(months).toString();
-    document.getElementById("weeks").innerHTML = Math.abs(weeks).toString();
-    document.getElementById("days").innerHTML = Math.abs(days).toString();
-    document.getElementById("hours").innerHTML = Math.abs(hours).toString();
-    document.getElementById("minutes").innerHTML = Math.abs(minutes).toString();
-    document.getElementById("seconds").innerHTML = Math.abs(seconds).toString();
+    const hours = Math.floor(totalSeconds / 60 / 60);
+    totalSeconds %= 60 * 60;
+    const minutes = Math.floor(totalSeconds / 60);
+    totalSeconds %= 60;
+    const seconds = totalSeconds;
+
+    document.getElementById("hours").innerText = hours.toString();
+    document.getElementById("minutes").innerText = minutes.toString();
+    document.getElementById("seconds").innerText = seconds.toString();
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("timeInput").value = target;
+
+    let input = document.getElementById("timeInput");
+    input.addEventListener("change", () => {
+        target = input.value;
+        targetTime = moment(target, "hh:mm");
+        update();
+    });
+
     update();
     setInterval(update, 100);
-    document.querySelector("#date").innerHTML = targetDate.format("dddd, MMMM Do YYYY")
 });
-
-document.ontouchstart = function (e) {
-    e.preventDefault();
-};
-
-document.ontouchmove = function (e) {
-    e.preventDefault();
-};
