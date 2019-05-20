@@ -31,7 +31,6 @@
 <!-- Stylesheet -->
 <link rel="stylesheet" href="index/style.css" type="text/css">
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 <noscript>
     This website uses Vue, so JavaScript must be enabled in order for it to work
     properly. Sorry for any inconvenience!
@@ -48,7 +47,9 @@
     </ul>
 </main>
 
-<script>
+<script type="module">
+    import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.esm.browser.js'
+
     Vue.component("item", {
         props: ["icon", "link", "title"],
         template: `

@@ -29,7 +29,6 @@
 
 <title>Word Utils</title>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
 <noscript>
     This website uses Vue, so JavaScript must be enabled in order for it to work
@@ -55,7 +54,13 @@
     </table>
 </main>
 
-<script>
+<footer style="bottom: 0; left: 10px; position: fixed; color: white; text-shadow: 0 0 3px black; user-select: none; -webkit-touch-callout: none; font-family: sans-serif;">
+    Made with &#x1F496; by <a href="https://www.dbassett.dev" target="_blank" style="color: white; text-decoration-style: dashed; cursor: pointer;">Deanveloper</a>
+</footer>
+
+<script type="module">
+    import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.esm.browser.js'
+
     const vc = new Vue({
         el: "#content",
         data: {
