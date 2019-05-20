@@ -1,9 +1,11 @@
-body {
+html {
     text-align: center;
     background-color: #6FD2C3 /*F0D1F7*/;
+
+    font-family: 'Lato', sans-serif
 }
 
-#wrapper {
+#app {
     position: fixed;
     display: flex;
     flex-direction: column;
