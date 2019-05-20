@@ -1,5 +1,5 @@
-import {pokeMessage, redirToMain, mainMenu} from "../../script";
-import {PokemonEnum} from "../Pokemon";
+import {pokeMessage, redirToMain, mainMenu} from "../../script.js";
+import {PokemonEnum} from "../Pokemon.js";
 
 class Move {
     constructor(name) {

@@ -1,4 +1,4 @@
-import {Moves} from "./move/Move"
+import {Moves} from "./move/Move.js"
 
 class Pokemon {
     constructor(name, moves) {

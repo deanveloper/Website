@@ -1,4 +1,4 @@
-import {PokemonEnum} from "./pokemon/Pokemon";
+import {PokemonEnum} from "./pokemon/Pokemon.js";
 
 export let tl;
 export let tr;
