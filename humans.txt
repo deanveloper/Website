@@ -14,4 +14,4 @@
 # SITE
 
     Standards: HTML5, CSS3, ES6
-    Tools: Babelify (via Browserify), GitHub Pages
+    Tools: Vue, GitHub Pages

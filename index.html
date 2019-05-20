@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dean Bassett</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700|Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="icons/fa/css/font-awesome.min.css">
+    <link rel="stylesheet" href="index/style.css" type="text/css">
+    <link rel="author" href="/humans.txt">
+</head>
+<body>
+    <noscript>
+        This website uses Vue, so JavaScript must be inabled in order for it to work
+        properly. Sorry for any inconvenience!
+    </noscript>
+
+    <main id="app">
+        <img id="me" src="index/images/me.jpg">
+
+        <h1 class="text">Dean Bassett</h1>
+        <p class="text">CS Major at Michigan Tech</p>
+    
+        <ul class="item-row">
+            <item icon="github-alt" title="GitHub" link="https://github.com/Deanveloper"></item>
+            <item icon="twitter" title="Twitter" link="https://twitter.com/Deanveloper"></item>
+            <item icon="dollar" title="Donate" link="https://paypal.me/Dean98"></item>
+        </ul>
+        <ul class="item-row">
+            <item icon="address-card-o" title="GitHub" link="mailto:dean@deanveloper.com"></item>
+            <item icon="file-text-o" title="Blog" link="https://blog.deanveloper.com"></item>
+            <item icon="wrench" title="Tools [Coming Soon]" link="coming soon"></item>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        Vue.component("item", {
+            props: ["icon", "link", "title"],
+            template: `
+                <li class="item">
+                    <a v-if="link === 'coming soon'" :href="link">
+                        <span :id="'db-icon-'+icon" class="icon divSpan">
+                            <i :class="'fa fa-2x fa-'+icon"></i>
+                        </span>
+                        <span class="tooltip">{{ title }}</span>
+                    </a>
+                </li>`
+        });
+
+        const vc = new Vue({
+            el: "#app",
+        })
+    </script>
+</body>
+</html>
