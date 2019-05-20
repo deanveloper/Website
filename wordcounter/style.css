@@ -14,6 +14,7 @@ body {
 }
 
 #text {
+    resize: none;
     padding: 15px;
     width: 85%; /* fallback for browsers which do not support calc */
     width: calc(100% - 30px);
