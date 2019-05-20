@@ -13,9 +13,7 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-#paperlookinthing {
-    resize: vertical;
-    min-height: 100px;
+#text {
     padding: 15px;
     width: 85%; /* fallback for browsers which do not support calc */
     width: calc(100% - 30px);
@@ -31,8 +29,9 @@ body {
 #data {
     margin-top: 25px;
     width: 100%;
+    text-align: center;
 }
 
 #data th {
-    width: 33.33333333333333%;
+    width: 25%;
 }

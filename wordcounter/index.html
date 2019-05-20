@@ -1,29 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Word Utils</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Word Utils</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-    <link href="style.css" rel="stylesheet">
-    <script src="script.js" type="text/javascript"></script>
-</head>
-<body>
-<div id="content">
+<link href="style.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
+<noscript>
+    This website uses Vue, so JavaScript must be enabled in order for it to work
+    properly. Sorry for any inconvenience!
+</noscript>
+
+<main id="content">
     <h1>Word Count Utility</h1>
-    <textarea id="paperlookinthing" title="Enter text here"></textarea>
+    <textarea id="text" title="Enter text here" v-model="text" rows="5"></textarea>
     <table id="data">
         <tr>
+            <th>Lines</th>
             <th>Words</th>
             <th>Letters</th>
             <th>Characters</th>
         </tr>
         <tr>
-            <td id="words">0</td>
-            <td id="letters">0</td>
-            <td id="characters">0</td>
+            <td>{{ lines }}</td>
+            <td>{{ words }}</td>
+            <td>{{ letters }}</td>
+            <td>{{ characters }}</td>
         </tr>
     </table>
-</div>
-</body>
-</html>
+</main>
+
+<script>
+    const vc = new Vue({
+        el: "#content",
+        data: {
+            text: ""
+        },
+        computed: {
+            lines() {
+                return this.text.split(/\r\n|\r|\n/).length;
+            },
+            words() {
+                return this.text.split(/\s+/g).filter((word) => word.replace(/\W/g, "").toString()).length;
+            },
+            letters() {
+                return Array.from(this.text.replace(/\W/g, "")).length
+            },
+            characters() {
+                return this.text.length
+            }
+        },
+        watch: {
+            lines: function (val) {
+                document.querySelector("#text").rows = Math.max(5, val + 1).toString()
+            }
+        },
+    });
+</script>
