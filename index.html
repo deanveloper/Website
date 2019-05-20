@@ -1,55 +1,86 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dean Bassett</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700|Lato' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="icons/fa/css/font-awesome.min.css">
-    <link rel="stylesheet" href="index/style.css" type="text/css">
-    <link rel="author" href="/humans.txt">
-</head>
-<body>
-    <noscript>
-        This website uses Vue, so JavaScript must be inabled in order for it to work
-        properly. Sorry for any inconvenience!
-    </noscript>
+<title>Dean Bassett</title>
+<meta charset="UTF-8">
 
-    <main id="app">
-        <img id="me" src="index/images/me.jpg">
+<!-- OpenGraph Tags -->
+<meta name="og:title" content="Dean Bassett&apos;s Website">
+<meta name="og:image" content="https://www.deanveloper.com/favicon/android-chrome-512x512.png">
+<meta name="og:description" content="A hub of my information">
+<meta name="og:type" content="website">
 
-        <h1 class="text">Dean Bassett</h1>
-        <p class="text">CS Major at Michigan Tech</p>
-    
-        <ul class="item-row">
-            <item icon="github-alt" title="GitHub" link="https://github.com/Deanveloper"></item>
-            <item icon="twitter" title="Twitter" link="https://twitter.com/Deanveloper"></item>
-            <item icon="dollar" title="Donate" link="https://paypal.me/Dean98"></item>
-        </ul>
-        <ul class="item-row">
-            <item icon="address-card-o" title="GitHub" link="mailto:dean@deanveloper.com"></item>
-            <item icon="file-text-o" title="Blog" link="https://blog.deanveloper.com"></item>
-            <item icon="wrench" title="Tools [Coming Soon]" link="coming soon"></item>
-        </ul>
-    </div>
+<!-- Twitter Tags -->
+<meta name="twitter:title" content="Dean Bassett&apos;s Website">
+<meta name="twitter:image:alt" content="Dean Bassett&apos;s Website">
+<meta name="twitter:image" content="https://www.deanveloper.com/favicon/android-chrome-512x512.png">
+<meta name="twitter:description" content="A hub of my information">
+<meta name="twitter:site" content="@Deanveloper">
+<meta name="twitter:card" content="summary">
 
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script>
-        Vue.component("item", {
-            props: ["icon", "link", "title"],
-            template: `
-                <li class="item">
-                    <a v-if="link === 'coming soon'" :href="link">
-                        <span :id="'db-icon-'+icon" class="icon divSpan">
-                            <i :class="'fa fa-2x fa-'+icon"></i>
-                        </span>
-                        <span class="tooltip">{{ title }}</span>
-                    </a>
-                </li>`
-        });
+<!-- "Save To Homescreen" icons and Favicon -->
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-config" content="/favicon/browserconfig.xml">
+<link rel="rel" href="shortcut icon" size="href">
+<link rel="manifest" href="/favicon/manifest.json">
+<link rel="icon" href="/favicon/favicon-16x16.png" size="16x16">
+<link rel="icon" href="/favicon/favicon-32x32.png" size="32x32">
+<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" size="180x180">
 
-        const vc = new Vue({
-            el: "#app",
-        })
-    </script>
-</body>
-</html>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700|Lato' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="icons/fa/css/font-awesome.min.css">
+<link rel="stylesheet" href="index/style.css" type="text/css">
+<link rel="author" href="/humans.txt">
+
+<noscript>
+    This website uses Vue, so JavaScript must be inabled in order for it to work
+    properly. Sorry for any inconvenience!
+</noscript>
+
+<main id="app">
+    <img id="me" src="index/images/me.jpg">
+
+    <h1 class="text">Dean Bassett</h1>
+    <p class="text">CS Major at Michigan Tech</p>
+
+    <ul v-for="row of itemRows" class="item-row">
+        <item v-for="item in row" :title="item.title" :icon="item.icon" :link="item.link"></item>
+    </ul>
+</main>
+
+<script src="https://vuejs.org/js/vue.js"></script>
+<script>
+    Vue.component("item", {
+        props: ["icon", "link", "title"],
+        template: `
+        <li class="item">
+            <a :href="link !== '' ? link : undefined">
+                <span :id="'db-icon-'+icon" class="icon divSpan">
+                    <i :class="'fa fa-2x fa-'+icon"></i>
+                </span>
+                <span class="tooltip">{{ title }}</span>
+            </a>
+
+        </li>`
+    });
+    const vc = new Vue({
+        el: "#app",
+        data: {
+            itemRows: [
+                {
+                    key: 1,
+                    items: [
+                        { title: "GitHub", icon: "github-alt", link: "https://github.com/Deanveloper" },
+                        { title: "Twitter", icon: "twitter", link: "https://twitter.com/Deanveloper" },
+                        { title: "Donate", icon: "dollar", link: "https://paypal.me/Dean98" },
+                    ]
+                },
+                {
+                    key: 1,
+                    items: [
+                        { title: "GitHub", icon: "address-card-o", link: "mailto:dean@deanveloper.com" },
+                        { title: "Blog", icon: "file-text-o", link: "https://blog.deanveloper.com" },
+                        { title: "Tools [Coming Soon]", icon: "wrench", link: "" },
+                    ]
+                }
+            ]
+        }
+    })
+</script>
