@@ -1,6 +1,4 @@
-import {init, currentTool} from "./draw"
-
-export const $ = require("jquery");
+import {init, currentTool} from "./draw.js"
 
 export let drawCanvas;
 let canvasStack = [];

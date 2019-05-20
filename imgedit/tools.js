@@ -1,4 +1,4 @@
-import {$, flattened, showImage} from "./script";
+import {flattened, showImage} from "./script.js";
 
 let color = "#000000";
 

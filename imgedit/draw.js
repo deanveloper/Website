@@ -1,5 +1,5 @@
-import {tools} from "./tools";
-import {$, pushNewCanvas, drawCanvas, flattened, modal} from "./script";
+import {tools} from "./tools.js";
+import {pushNewCanvas, drawCanvas, flattened} from "./script.js";
 
 let previousButton;
 
@@ -133,7 +133,7 @@ function drawExports() {
             },
             dataType: "json"
         })
-            .fail(e => alert("Error: " + e.responseJSON.data))
+            .fail(e => alert("Error: " + e))
             .done(data => {
                 const win = window.open("https://imgur.com/" + data.data.id, "_blank");
                 if (win) {

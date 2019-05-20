@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Image Uploader</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link rel="stylesheet" href="../icons/fa/css/font-awesome.min.css">
+<meta charset="UTF-8">
 
-    <link href="style.css" rel="stylesheet">
+<title>Image Uploader</title>
 
-    <script src="script.js" type="text/javascript"></script>
-</head>
-<body>
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link rel="stylesheet" href="../icons/fa/css/font-awesome.min.css">
+
+<link href="style.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" type="text/javascript"></script>
+<script>
+window.$ = $;
+</script>
+<script src="script.js" type="module"></script>
+
 <main>
     <div id="imageUpload" class="noSelect">
         <p id="title">Paste or drag an image here!</p>
@@ -18,5 +20,7 @@
     </div>
     <input type="file" id="file-input" style="display: none" accept="image/*">
 </main>
-</body>
-</html>
+
+<footer style="bottom: 0; left: 10px; position: fixed; color: white; text-shadow: 0 0 3px black; user-select: none; -webkit-touch-callout: none; font-family: sans-serif;">
+    Made with &#x1F496; by <a href="https://www.dbassett.dev" target="_blank" style="color: white; text-decoration-style: dashed; cursor: pointer;">Deanveloper</a>
+</footer>
