@@ -1,0 +1,35 @@
+html {
+    background-color: lightgray;
+}
+
+#content {
+    width: 500px;
+    margin: 50px auto;
+    padding: 0;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#text {
+    resize: none;
+    padding: 15px;
+    width: 85%; /* fallback for browsers which do not support calc */
+    width: calc(100% - 30px);
+    border: 0;
+    -webkit-box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
+    font-family: 'Open Sans', sans-serif;
+
+    overflow: hidden;
+}
+
+#data {
+    margin-top: 25px;
+    width: 100%;
+    text-align: center;
+}
+
+#data th {
+    width: 25%;
+}

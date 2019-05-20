@@ -1,0 +1,89 @@
+<meta charset="UTF-8">
+
+<!-- OpenGraph tags -->
+<meta name="og:title" content="Word Counting Utility">
+<meta name="og:description" content="A Word Counting Utility by Deanveloper">
+<meta name="og:image" content="https://www.deanveloper.com/favicon/android-chrome-512x512.png">
+<meta name="og:type" content="website">
+
+<!-- Twitter tags -->
+<meta name="twitter:title" content="Word Counting Utility">
+<meta name="twitter:description" content="A Word Counting Utility by Deanveloper">
+<meta name="twitter:image" content="https://www.deanveloper.com/favicon/android-chrome-512x512.png">
+<meta name="twitter:image:alt" content="Dean Bassett&apos;s Website">
+<meta name="twitter:site" content="@Deanveloper">
+<meta name="twitter:card" content="summary">
+
+<!-- "Save To Homescreen" icons and Favicon -->
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-config" content="/favicon/browserconfig.xml">
+<link rel="rel" href="shortcut icon" size="href">
+<link rel="manifest" href="/favicon/manifest.json">
+<link rel="icon" href="/favicon/favicon-16x16.png" size="16x16">
+<link rel="icon" href="/favicon/favicon-32x32.png" size="32x32">
+<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" size="180x180">
+
+<!-- Style -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+
+<title>Word Utils</title>
+
+<script src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
+<noscript>
+    This website uses Vue, so JavaScript must be enabled in order for it to work
+    properly. Sorry for any inconvenience!
+</noscript>
+
+<main id="content">
+    <h1>Word Count Utility</h1>
+    <textarea id="text" title="Enter text here" v-model="text" rows="5"></textarea>
+    <table id="data">
+        <tr>
+            <th>Lines</th>
+            <th>Words</th>
+            <th>Letters</th>
+            <th>Characters</th>
+        </tr>
+        <tr>
+            <td>{{ lines }}</td>
+            <td>{{ words }}</td>
+            <td>{{ letters }}</td>
+            <td>{{ characters }}</td>
+        </tr>
+    </table>
+</main>
+
+<footer style="bottom: 0; left: 10px; position: fixed; color: white; text-shadow: 0 0 3px black; user-select: none; -webkit-touch-callout: none; font-family: sans-serif;">
+    Made with &#x1F496; by <a href="https://www.dbassett.dev" target="_blank" style="color: white; text-decoration-style: dashed; cursor: pointer;">Deanveloper</a>
+</footer>
+
+<script type="module">
+    import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.esm.browser.js'
+
+    const vc = new Vue({
+        el: "#content",
+        data: {
+            text: ""
+        },
+        computed: {
+            lines() {
+                return this.text.split(/\r\n|\r|\n/).length;
+            },
+            words() {
+                return this.text.split(/\s+/g).filter((word) => word.replace(/\W/g, "").toString()).length;
+            },
+            letters() {
+                return Array.from(this.text.replace(/\W/g, "")).length
+            },
+            characters() {
+                return this.text.length
+            }
+        },
+        watch: {
+            lines: function (val) {
+                document.querySelector("#text").rows = Math.max(5, val + 1).toString()
+            }
+        },
+    });
+</script>

@@ -1,0 +1,22 @@
+# humanstxt.org
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Me: Dean Bassett
+    Site: window.location.hostname
+    Twitter: @Deanveloper
+    Location: Constantly changing
+
+# THANKS
+
+    Paul Esch-Laurent
+        For the PR that added this humans.txt
+        Website: paulisaweso.me
+        Twitter: @Pinjasaur
+        Location: Michigan, US
+
+# SITE
+
+    Standards: HTML5, CSS3, ES6
+    Tools: Vue, GitHub Pages

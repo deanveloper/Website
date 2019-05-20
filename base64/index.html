@@ -1,0 +1,84 @@
+<meta charset="UTF-8">
+
+<!-- OpenGraph tags -->
+<meta name="og:title" content="Instant Base64 Converter">
+<meta name="og:description" content="The easiest to use Base64 converter out there!">
+<meta name="og:image" content="https://www.deanveloper.com/favicon/android-chrome-512x512.png">
+<meta name="og:type" content="website">
+
+<!-- Twitter tags -->
+<meta name="twitter:title" content="Instant Base64 Converter">
+<meta name="twitter:description" content="The easiest to use Base64 converter out there!">
+<meta name="twitter:image" content="https://www.deanveloper.com/favicon/android-chrome-512x512.png">
+<meta name="twitter:image:alt" content="Dean Bassett&apos;s Website">
+<meta name="twitter:site" content="@Deanveloper">
+<meta name="twitter:card" content="summary">
+
+<!-- Favicon and Save to Homescreen -->
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-config" content="/favicon/browserconfig.xml">
+<link rel="rel" href="shortcut icon" size="href">
+<link rel="manifest" href="/favicon/manifest.json">
+<link rel="icon" href="/favicon/favicon-16x16.png" size="16x16">
+<link rel="icon" href="/favicon/favicon-32x32.png" size="32x32">
+<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" size="180x180">
+
+<title>Base 64 Util</title>
+
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<main id="app">
+    <div id="title">
+        <h1>Instant Base64 Encoder</h1>
+        <p>Goes both directions!</p>
+    </div>
+    <div id="converter">
+        <div class="textbox">
+            <h2>Text</h2>
+            <textarea id="text" title="Text" v-model="text"></textarea>
+        </div>
+        <div class="textbox">
+            <h2>Base64</h2>
+            <textarea id="base64" title="Base64" v-model="base64"></textarea>
+        </div>
+    </div>
+</main>
+
+<script type="module">
+    import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.esm.browser.js'
+
+    const vc = new Vue({
+        el: "#app",
+        data: {
+            base64: ""
+        },
+        computed: {
+            text: {
+                get() {
+                    try {
+                        return b64DecodeUnicode(this.base64)
+                    } catch (err) {
+                        return "invalid base64 " + String.fromCodePoint(0x1F61E) // disappointed emoji
+                    }
+                },
+                set(val) {
+                    this.base64 = b64EncodeUnicode(val)
+                }
+            }
+        }
+
+    })
+
+    function b64EncodeUnicode(str) {
+        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
+    }
+
+    function b64DecodeUnicode(str) {
+        return decodeURIComponent(Array.prototype.map.call(atob(str), function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
+</script>

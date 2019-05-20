@@ -1,0 +1,105 @@
+<meta charset="UTF-8">
+
+<!-- OpenGraph tags -->
+<meta name="og:title" content="Countdown">
+<meta name="og:description" content="A countdown until whatever time you want for today.">
+<meta name="og:image" content="https://www.deanveloper.com/favicon/android-chrome-512x512.png">
+<meta name="og:type" content="website">
+
+<!-- Twitter tags -->
+<meta name="twitter:title" content="Countdown">
+<meta name="twitter:description" content="A countdown until whatever time you want for today.">
+<meta name="twitter:image" content="https://www.deanveloper.com/favicon/android-chrome-512x512.png">
+<meta name="twitter:image:alt" content="Dean Bassett&apos;s Website">
+<meta name="twitter:site" content="@Deanveloper">
+<meta name="twitter:card" content="summary">
+
+<!-- Favicon and "Save to Home Screen" icon -->
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-config" content="/favicon/browserconfig.xml">
+<link rel="rel" href="shortcut icon" size="href">
+<link rel="manifest" href="/favicon/manifest.json">
+<link rel="icon" href="/favicon/favicon-16x16.png" size="16x16">
+<link rel="icon" href="/favicon/favicon-32x32.png" size="32x32">
+<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" size="180x180">
+
+<title>Countdown</title>
+
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato" />
+<link rel="stylesheet" href="style.css" type="text/css">
+
+<main id="app">
+    <div id="dateWrapper">
+        <p>Time until <input id="timeInput" type="time" v-model="targetTime"></p>
+    </div>
+
+    <ul>
+        <li>
+            <p class="num">{{ hours }}</p>
+            <p class="unit">hours</p>
+        </li>
+        <li>
+            <p class="num">{{ minutes }}</p>
+            <p class="unit">minutes</p>
+        </li>
+        <li>
+            <p class="num">{{ seconds }}</p>
+            <p class="unit">seconds</p>
+        </li>
+    </ul>
+</main>
+
+<script type="module">
+    import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.esm.browser.js'
+
+    const vc = new Vue({
+        el: "#app",
+        data: {
+            targetTime: localStorage.getItem("time") || "17:00",
+            currentTime: new Date().getTime()
+        },
+        watch: {
+            target: function (val) {
+                localStorage.setItem("time", val)
+            }
+        },
+        created: function () {
+            setInterval(() => {
+                this.currentTime = new Date().getTime()
+            }, 100)
+        },
+        computed: {
+            totalSeconds: function () {
+                return Math.floor((todayAt(this.targetTime) - this.currentTime) / 1000);
+            },
+            hours: function () {
+                return Math.floor(this.totalSeconds / 60 / 60)
+            },
+            minutes: function () {
+                return Math.floor(this.totalSeconds / 60 % 60)
+            },
+            seconds: function () {
+                return Math.floor(this.totalSeconds % 60)
+            }
+        }
+    })
+
+    // parses time formatted in HH:MM (24hr) into a number of seconds
+    function todayAt(time) {
+        if (typeof time !== "string") {
+            throw new TypeError("time must be string")
+        }
+        let split = time.split(":")
+        if (split.length < 2) {
+            throw new TypeError("time must be formatted HH:MM")
+        }
+        const hours = parseInt(split[0]);
+        const minutes = parseInt(split[1]);
+
+        const d = new Date();
+        d.setHours(0, 0, 0, 0);
+        d.setSeconds(hours * 60 * 60 + minutes * 60)
+
+        return d.getTime()
+    }
+</script>
