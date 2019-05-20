@@ -6,10 +6,15 @@
     Me: Dean Bassett
     Site: window.location.hostname
     Twitter: @Deanveloper
+    Location: Constantly changing
 
 # THANKS
 
-    ¯\_(ツ)_/¯
+    Paul Esch-Laurent
+        For the PR that added this humans.txt
+        Website: paulisaweso.me
+        Twitter: @Pinjasaur
+        Location: Michigan, US
 
 # SITE
 
