@@ -42,8 +42,8 @@
     <h1 class="text">Dean Bassett</h1>
     <p class="text">CS Major at Michigan Tech</p>
 
-    <ul v-for="row of itemRows" class="item-row">
-        <item v-for="item in row" :title="item.title" :icon="item.icon" :link="item.link"></item>
+    <ul v-for="row of itemRows" class="item-row" :key="row.key">
+        <item v-for="item in row.items" :title="item.title" :icon="item.icon" :link="item.link"></item>
     </ul>
 </main>
 
@@ -75,7 +75,7 @@
                     ]
                 },
                 {
-                    key: 1,
+                    key: 2,
                     items: [
                         { title: "GitHub", icon: "address-card-o", link: "mailto:dean@deanveloper.com" },
                         { title: "Blog", icon: "file-text-o", link: "https://blog.deanveloper.com" },
