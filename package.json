@@ -1,56 +1,22 @@
 {
-  "name": "website",
-  "version": "0.1.0",
-  "private": true,
+  "name": "website-next",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "solid-start dev",
+    "build": "solid-start build",
+    "start": "solid-start start"
   },
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "reflect-metadata": "^0.1.13",
-    "vue": "^2.6.11",
-    "vue-class-component": "^7.2.5",
-    "vue-property-decorator": "^9.0.0",
-    "vue-router": "^3.2.0",
-    "vue-switches": "^2.0.1"
-  },
+  "type": "module",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
-    "@typescript-eslint/parser": "^2.33.0",
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-plugin-router": "^4.4.6",
-    "@vue/cli-plugin-typescript": "^4.4.6",
-    "@vue/cli-service": "~4.4.0",
-    "@vue/eslint-config-typescript": "^5.0.2",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.3",
-    "typescript": "~3.9.3",
-    "vue-template-compiler": "^2.6.11"
+    "solid-app-router": "^0.4.1",
+    "solid-js": "^1.4.0",
+    "solid-meta": "^0.27.3",
+    "solid-start": "next",
+    "solid-start-node": "next",
+    "typescript": "^4.4.3",
+    "undici": "^4.12.2",
+    "vite": "^2.8.6"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended",
-      "@vue/typescript"
-    ],
-    "parserOptions": {
-      "parser": "@typescript-eslint/parser"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  "engines": {
+    "node": ">=14"
+  }
 }

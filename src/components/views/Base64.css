@@ -1,0 +1,21 @@
+.text-box-container {
+	display: inline-block;
+	color: var(--default-text-color);
+}
+
+.text-box-input {
+	box-sizing: border-box;
+
+	box-shadow: 3px 3px var(--trim-color);
+	outline: 0;
+
+	color: var(--default-text-color);
+	background-color: var(--large-edit-component-bg);
+
+	padding: 10px;
+
+	border-radius: 10px;
+	resize: none;
+
+	width: 100%;
+}
