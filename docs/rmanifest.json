@@ -1,0 +1,46 @@
+{
+  "/[...404]": [
+    {
+      "type": "script",
+      "href": "/assets/_...404_.7010be12.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index.965a37e1.js"
+    }
+  ],
+  "/base64": [
+    {
+      "type": "script",
+      "href": "/assets/base64.5fc196ae.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/Template.2df8a18c.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index.965a37e1.js"
+    }
+  ],
+  "/": [
+    {
+      "type": "script",
+      "href": "/assets/index.d8d7c5c5.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/Template.2df8a18c.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/index.965a37e1.js"
+    }
+  ],
+  "*": [
+    {
+      "type": "script",
+      "href": "/assets/index.965a37e1.js"
+    }
+  ]
+}

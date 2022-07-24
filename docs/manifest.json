@@ -1,0 +1,57 @@
+{
+  "index.html": {
+    "file": "assets/index.965a37e1.js",
+    "src": "index.html",
+    "isEntry": true,
+    "dynamicImports": [
+      "src/routes/[...404].tsx",
+      "src/routes/base64.tsx",
+      "src/routes/index.tsx"
+    ]
+  },
+  "src/routes/[...404].tsx": {
+    "file": "assets/_...404_.7010be12.js",
+    "src": "src/routes/[...404].tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  },
+  "src/routes/base64.tsx": {
+    "file": "assets/base64.5fc196ae.js",
+    "src": "src/routes/base64.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Template.2df8a18c.js",
+      "index.html"
+    ]
+  },
+  "_Template.2df8a18c.js": {
+    "file": "assets/Template.2df8a18c.js",
+    "imports": [
+      "index.html"
+    ],
+    "css": [
+      "assets/Template.2b4b78e7.css"
+    ],
+    "assets": [
+      "assets/mazeletter-path.8290938f.eot",
+      "assets/mazeletter-path.29167459.woff",
+      "assets/mazeletter-path.eb555922.woff2",
+      "assets/mazeletter-path.a521de62.ttf",
+      "assets/mazeletter-path.8b6df1fe.svg"
+    ]
+  },
+  "src/routes/index.tsx": {
+    "file": "assets/index.d8d7c5c5.js",
+    "src": "src/routes/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_Template.2df8a18c.js",
+      "index.html"
+    ],
+    "css": [
+      "assets/index.289867b6.css"
+    ]
+  }
+}
