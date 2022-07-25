@@ -1,0 +1,1 @@
+import{t as o}from"./index.7f6bfc3c.js";const t=o('<main><h1>Page Not Found</h1><p>Visit <a href="https://solidjs.com" target="_blank">solidjs.com</a> to learn how to build Solid apps.</p></main>');function a(){return t.cloneNode(!0)}export{a as default};
