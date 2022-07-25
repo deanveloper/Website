@@ -1,6 +1,5 @@
 import Navbar from './Navbar';
 import './Template.css';
-import About from './views/About';
 
 export default function Template({ path, Page }) {
 	const bgText = "727WYSI".repeat(2000);
