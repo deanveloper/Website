@@ -5,9 +5,9 @@ export default function Template({ path, Page }) {
 	const bgText = "727WYSI".repeat(2000);
 
 	return (
-		< div >
+		<div>
 			<Navbar path={path} />
-			<div class="background">
+			<div aria-hidden="true" class="background">
 				<div class="bg-text">{bgText}</div>
 			</div>
 			<main class="page-container">
