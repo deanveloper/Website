@@ -1,11 +1,11 @@
 import { createSignal } from 'solid-js';
 
 
-function TextBox({ children, value, onInput }) {
+function TextBox(props) {
 	return (
 		<div class="text-box-container">
-			<div>{children}</div>
-			<textarea onInput={onInput}>{value()}</textarea>
+			<div>{props.children}</div>
+			<textarea onInput={props.onInput} value={props.value} />
 		</div>
 	);
 }
@@ -32,7 +32,6 @@ export default function Base64() {
 	const [base64, setBase64] = createSignal("");
 	const [error, setError] = createSignal("");
 
-
 	function text() {
 		let bin: string;
 		try {
@@ -52,7 +51,7 @@ export default function Base64() {
 		setError("");
 		return text;
 	}
-	function setText(val) {
+	function setText(val: string) {
 		try {
 			setBase64(btoa(utf16toBytes(val)));
 		} catch (err) {
@@ -72,10 +71,10 @@ export default function Base64() {
 		<div class="page page-base64">
 			<h1 class="header">base64 converter</h1>
 			<div class="boxes">
-				<TextBox value={text} onInput={ev => setText(ev.target.value)}>
+				<TextBox value={text()} onInput={ev => setText(ev.target.value)}>
 					<h2 class="subheader lowmargin">text</h2>
 				</TextBox>
-				<TextBox value={base64} onInput={ev => setBase64(ev.target.value)}>
+				<TextBox value={base64()} onInput={ev => setBase64(ev.target.value)}>
 					<h2 class="subheader lowmargin">base64</h2>
 				</TextBox>
 			</div>

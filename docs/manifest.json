@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "file": "assets/index.7aab8e78.js",
+    "file": "assets/index.e768e5aa.js",
     "src": "index.html",
     "isEntry": true,
     "dynamicImports": [
@@ -10,7 +10,7 @@
     ]
   },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_.86985452.js",
+    "file": "assets/_...404_.968c266c.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
@@ -18,21 +18,21 @@
     ]
   },
   "src/routes/base64.tsx": {
-    "file": "assets/base64.eda99b6f.js",
+    "file": "assets/base64.0b928046.js",
     "src": "src/routes/base64.tsx",
     "isDynamicEntry": true,
     "imports": [
-      "_Template.407b558b.js",
+      "_Template.668fca0b.js",
       "index.html"
     ]
   },
-  "_Template.407b558b.js": {
-    "file": "assets/Template.407b558b.js",
+  "_Template.668fca0b.js": {
+    "file": "assets/Template.668fca0b.js",
     "imports": [
       "index.html"
     ],
     "css": [
-      "assets/Template.2b4b78e7.css"
+      "assets/Template.c10d7458.css"
     ],
     "assets": [
       "assets/mazeletter-path.8290938f.eot",
@@ -43,11 +43,11 @@
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index.832d0674.js",
+    "file": "assets/index.29e8ca78.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
-      "_Template.407b558b.js",
+      "_Template.668fca0b.js",
       "index.html"
     ],
     "css": [
