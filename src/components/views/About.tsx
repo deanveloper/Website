@@ -15,7 +15,7 @@ export default function About() {
 			</section>
 			<section class="i-do social">
 				i also hang out on{' '}
-				<a class="social-link" target="_blank" href="https://twitter.com/deanveloper">twitter</a>,{' '}
+				<a class="social-link" target="_blank" href="https://twitter.com/deanveloper" rel="me">mastodon</a>,{' '}
 				<a class="social-link" target="_blank" href="https://www.tiktok.com/@deanveloper">tiktok</a>,{' '}
 				<a class="social-link" target="_blank" href="https://instagram.com/deanveloper">instagram</a>,{' '}
 				<a class="social-link" target="_blank" href="https://discord.gg/a9p7Jpm">discord</a>, and{' '}
