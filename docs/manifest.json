@@ -1,6 +1,6 @@
 {
   "index.html": {
-    "file": "assets/index.e768e5aa.js",
+    "file": "assets/index.1ad21241.js",
     "src": "index.html",
     "isEntry": true,
     "dynamicImports": [
@@ -10,7 +10,7 @@
     ]
   },
   "src/routes/[...404].tsx": {
-    "file": "assets/_...404_.968c266c.js",
+    "file": "assets/_...404_.ab902f46.js",
     "src": "src/routes/[...404].tsx",
     "isDynamicEntry": true,
     "imports": [
@@ -18,16 +18,16 @@
     ]
   },
   "src/routes/base64.tsx": {
-    "file": "assets/base64.0b928046.js",
+    "file": "assets/base64.5ce742c8.js",
     "src": "src/routes/base64.tsx",
     "isDynamicEntry": true,
     "imports": [
-      "_Template.668fca0b.js",
+      "_Template.b9678db7.js",
       "index.html"
     ]
   },
-  "_Template.668fca0b.js": {
-    "file": "assets/Template.668fca0b.js",
+  "_Template.b9678db7.js": {
+    "file": "assets/Template.b9678db7.js",
     "imports": [
       "index.html"
     ],
@@ -43,11 +43,11 @@
     ]
   },
   "src/routes/index.tsx": {
-    "file": "assets/index.29e8ca78.js",
+    "file": "assets/index.99a0d078.js",
     "src": "src/routes/index.tsx",
     "isDynamicEntry": true,
     "imports": [
-      "_Template.668fca0b.js",
+      "_Template.b9678db7.js",
       "index.html"
     ],
     "css": [
