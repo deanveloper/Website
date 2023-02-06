@@ -1,6 +1,17 @@
 import { listen } from '../nav.js';
 import { LitElement, css, html } from '/lit.js';
 
+const pages = {
+	'/': {
+		label: "About",
+		elem: html`<home-page />`,
+	},
+	'/base64': {
+		label: "Base 64",
+		elem: html`<base64-page />`,
+	},
+}
+
 export class Page extends LitElement {
 	static properties = {
 		_path: { state: true, type: String,  }
@@ -105,19 +116,14 @@ export class Page extends LitElement {
 
 	render() {
 		const bgText = "727WYSI".repeat(2000);
-		const pages = {
-			'': html`<home-page />`,
-			'/': html`<home-page />`,
-			'/base64': html`<base64-page />`,
-		}
 		return html`
 			<div>
-				<nav-bar current-path="${this._path}" paths="${pages}"></nav-bar>
+				<nav-bar .currentPath="${this._path}" .paths="${pages}"></nav-bar>
 				<div aria-hidden="true" class="background">
 					<div class="bg-text">${bgText}</div>
 				</div>
 				<main class="page-container">
-					${pages[this._path] ?? html`<page-not-found />`}
+					${pages[this._path].elem ?? html`<page-not-found />`}
 				</main>
 			</div>
 		`

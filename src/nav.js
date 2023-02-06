@@ -1,4 +1,12 @@
 
+document.addEventListener('click', (ev) => {
+	for (const elem of ev.composedPath()) {
+		if (elem.tagName === 'a' && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !ev.shiftKey && ev.button === 0) {
+			ev.preventDefault();
+			pushState(undefined, elem.getAttribute('href'));
+		}
+	}
+});
 
 export function pushState(state, url) {
 	window.history.pushState(state, undefined, url);

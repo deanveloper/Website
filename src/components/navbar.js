@@ -1,23 +1,13 @@
 import { LitElement, css, html } from '/lit.js';
 
-const links = [
-	{
-		name: "about",
-		path: "/",
-	},
-	{
-		name: "base64",
-		path: "/base64",
-	}
-];
-
 export class Navbar extends LitElement {
 	static properties = {
-		path: {},
+		currentPath: {},
+		paths: { type: Object },
 	}
 
 	static styles = css`
-		:host {
+		nav {
 			position: sticky;
 			top: 0px;
 			height: 50px;
@@ -27,14 +17,13 @@ export class Navbar extends LitElement {
 			background: var(--page-bg);
 		}
 		
-		:host > ul,
-		:host > ul > li {
+		ul, li {
 			list-style-type: none;
 			margin: 0;
 			padding: 0;
 		}
 		
-		:host > ul {
+		ul {
 			display: flex;
 			align-items: center;
 			flex-direction: row;
@@ -44,7 +33,7 @@ export class Navbar extends LitElement {
 			height: 100%;
 		}
 		
-		:host > ul > li {
+		li {
 			box-sizing: border-box;
 		
 			display: flex;
@@ -68,7 +57,7 @@ export class Navbar extends LitElement {
 			border-bottom: 3px solid var(--base-color-inactive);
 		}
 		
-		:host > ul > li > a {
+		a {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -80,27 +69,27 @@ export class Navbar extends LitElement {
 			text-decoration: none;
 		}
 		
-		:host > ul > li:hover,
-		:host > ul > li:focus {
+		li:hover,
+		li:focus {
 			outline: 0;
 			border-bottom: 3px solid var(--base-color-almost);
 		}
 		
-		:host > ul > li.navbar-item-exact {
+		li.navbar-item-exact {
 			border-bottom: 3px solid var(--base-color-active);
 		}
 	`;
 
-	anchors() {
-		return links.map(link => {
-			if (this.path === link.path) {
+	anchors(paths) {
+		return Object.entries(paths).map(([path, data]) => {
+			if (this.currentPath === path) {
 				return html`
 					<li class="navbar-item-exact">
-						${link.name}
+						<a href="${path}">${data.label}</a>
 					</li>
 				`;
 			} else {
-				return html`<li>${link.name}</li>`;
+				return html`<li><a href="${path}">${data.label}</a></li>`;
 			}
 		});
 	}
@@ -109,7 +98,7 @@ export class Navbar extends LitElement {
 		return html`
 			<nav>
 				<ul>
-					${this.anchors()}
+					${this.anchors(this.paths)}
 				</ul>
 			</nav>
 		`
